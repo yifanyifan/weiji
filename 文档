@@ -1,0 +1,20 @@
+weiji-base
+	# spring cloud基础服务模块（eureka、Gateway等）
+weiji-customer
+	# 总入口
+	# 实体类DB????
+weiji-interface
+	# 接口
+	# 展示实体DTO????
+weiji-service
+    # 逻辑实现
+weiji-utils
+	# 工具
+weiji-common
+	# 能够公共出来的服务配置（例如redis、MQ、Mysql等）
+weiji-logs
+	# 日志服务
+
+server工程依赖interface工程和service工程。
+客户端如何调用服务端，在Spring Cloud里，可以借助feign
+

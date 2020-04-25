@@ -1,0 +1,33 @@
+server:
+  port: 5060
+  servlet:
+    context-path: /base
+spring:
+  application:
+    name: weiji-base
+eureka:
+  client:
+    #客户端是否从 Eureka Server 获取实例注册信息。
+    fetch-registry: false
+    #此实例是否注册到 Eureka Server 以供其他实例发现
+    register-with-eureka: false
+    service-url:
+      #客户端需要注册的 Eureka Server 的地址。
+      defaultZone:  http://localhost:5060/base/eureka
+  instance:
+    hostname: localhost
+    #实例在注册中心注册的唯一ID
+    #instance-id: eureka01
+    #true：IP形式注册 / false：HOSTNAME 形式注册
+    #prefer-ip-address: true
+    # Eureka Server 接收到上一个心跳之后等待下一个心跳的秒数，若收不到，则移除此实例（至少高于 lease-renewal-interval-in-seconds 的值）
+    #lease-expiration-duration-in-seconds
+    #Eureka Client 向 Eureka Server 发送心跳的频率
+    #lease-renewal-interval-in-seconds
+  server:
+    #注册中心是否开启服务的自我保护能力
+    enable-self-preservation: false
+    #Eureka Server开启自我保护系数
+    #renewal-percent-threshold: 0.85
+    #Eureka Server清理无效节点的频率
+    eviction-interval-timer-in-ms: 10000
