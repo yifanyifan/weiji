@@ -3,36 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.fujiang</groupId>
         <artifactId>weiji</artifactId>
+        <groupId>com.fujiang</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.fujiang</groupId>
-    <artifactId>weiji-customer</artifactId>
+    <artifactId>weiji-eureka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>weiji-customer</name>
+    <name>weiji-eureka</name>
     <packaging>war</packaging>
 
     <dependencies>
-        <dependency>
-            <artifactId>weiji-interface</artifactId>
-            <groupId>com.fujiang</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!-- 添加eureka依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <!-- 添加feign依赖 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 添加web依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
 
@@ -44,5 +29,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

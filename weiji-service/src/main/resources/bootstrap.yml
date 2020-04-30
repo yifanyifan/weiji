@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: weiji-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      #uri: http://192.168.8.13:6002/config
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true # 通过服务发现的方式去找配置中心
+        service-id: weiji-config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.13:6001/eureka/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true     #访问路径可以显示IP地址

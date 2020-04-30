@@ -1,12 +1,12 @@
-weiji-base
-	# spring cloud基础服务模块（eureka、Gateway等）
 weiji-customer
-	# 总入口
-	# 实体类DB????
+	# 总入口controller
+weiji-eureka
+    # spring cloud基础服务模块（eureka、Gateway等）
 weiji-interface
 	# 接口
-	# 展示实体DTO????
+	# 实体类
 weiji-service
+    # controller
     # 逻辑实现
 weiji-utils
 	# 工具

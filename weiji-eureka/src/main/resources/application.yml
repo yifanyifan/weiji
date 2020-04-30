@@ -1,0 +1,23 @@
+server:
+  port: 6001
+  servlet:
+    context-path: /eureka
+spring:
+  application:
+    name: weiji-eureka
+eureka:
+  instance:
+    hostname: 192.168.8.13
+    #instance-id: eureka01
+    #prefer-ip-address: true
+    #lease-expiration-duration-in-seconds
+    #lease-renewal-interval-in-seconds
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/eureka
+  server:
+    enable-self-preservation: false
+    #renewal-percent-threshold: 0.85
+    eviction-interval-timer-in-ms: 10000
