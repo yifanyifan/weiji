@@ -11,7 +11,6 @@
     <artifactId>weiji-eureka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>weiji-eureka</name>
-    <packaging>war</packaging>
 
     <dependencies>
         <!-- 添加eureka依赖 -->
