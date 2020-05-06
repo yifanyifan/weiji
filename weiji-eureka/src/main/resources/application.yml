@@ -7,7 +7,7 @@ spring:
     name: weiji-eureka
 eureka:
   instance:
-    hostname: 192.168.8.13
+    hostname: eureka6001.com
     #instance-id: eureka01
     #prefer-ip-address: true
     #lease-expiration-duration-in-seconds

@@ -1,5 +1,5 @@
 server:
-  port: 6002
+  port: 6501
 #  servlet:
 #    context-path: /config
 spring:
@@ -15,10 +15,9 @@ spring:
 eureka:
   client:
     service-url: 
-       defaultZone: http://192.168.8.13:6001/eureka/eureka
+       defaultZone: http://eureka6001.com:6001/eureka/eureka
        #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/      
   instance:
-    hostname: 192.168.8.13
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
 

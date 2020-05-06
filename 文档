@@ -1,13 +1,13 @@
-weiji-config
+weiji-config ##6501
     # 公共配置
-weiji-customer
+weiji-customer ##7001
 	# 消费者总入口controller
-weiji-eureka
+weiji-eureka ##6001
     # 注册中心
 weiji-interface
 	# feign接口
 	# 实体类
-weiji-service
+weiji-service ##7002
     # 生产者controller
     # 逻辑实现
 weiji-utils
@@ -19,6 +19,9 @@ weiji-logs
 --- spring cloud基础服务模块（eureka、Gateway等）
 
 项目启动顺序
+1. SwtichHost配置
+192.168.8.24 eureka6001.com
+2. 项目Run启动
 weiji-eureka -> weiji-config -> weiji-service -> weiji-customer -> 浏览器访问http://192.168.8.13:7001/consumer/getConsumer
 
 代码调用顺序
