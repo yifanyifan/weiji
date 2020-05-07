@@ -5,7 +5,7 @@ weiji-customer ##7001
 weiji-eureka ##6001
     # 注册中心
 weiji-interface
-	# feign：远程调用+负载均衡（Rabbin_@LoadBalanced的升级版）
+	# OpenFeign：远程调用 + 熔断（Hystrix：@EnableCircuitBreaker + @HystrixCommand） + 负载均衡（Rabbin的升级版，Rabbin：@RibbonClient + IRule + @LoadBalanced + RestTemplate）
 	# 实体类
 weiji-service ##8002
     # 生产者controller
