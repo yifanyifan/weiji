@@ -5,9 +5,9 @@ weiji-customer ##7001
 weiji-eureka ##6001
     # 注册中心
 weiji-interface
-	# feign接口
+	# feign：远程调用+负载均衡（Rabbin_@LoadBalanced的升级版）
 	# 实体类
-weiji-service ##7002
+weiji-service ##8002
     # 生产者controller
     # 逻辑实现
 weiji-utils
@@ -28,3 +28,6 @@ weiji-eureka -> weiji-config -> weiji-service -> weiji-customer -> 浏览器访�
 消费者controller -> feign接口 -> 生产者controller -> 逻辑实现
 
 
+打包：
+在idea命令行输入：mvn clean package  -DskipTests -Pproduct/dev/test(根据打包需要选择不同环境)
+java -jar eunke-sg56-mpweb-1.0.0.jar --spring.profiles.active=prd

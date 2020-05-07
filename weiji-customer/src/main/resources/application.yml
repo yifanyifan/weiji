@@ -15,3 +15,19 @@ eureka:
 feign:
   hystrix:
     enabled: true
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 50000
+weiji-service:
+  ribbon:
+    #BestAvailableRule #最空闲连接策略 RandomRule #随机 / RoundRobinRule #轮询 / RetryRule #重试 / WeightedResponseTimeRule #响应时间权重
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    ConnectTimeout: 500 #请求连接超时时间
+    ReadTimeout: 1000 #请求处理的超时时间
+    OkToRetryOnAllOperations: true #对所有请求都进行重试
+    MaxAutoRetries: 1 #对当前实例的重试次数
+    MaxAutoRetriesNextServer: 2 #切换实例的重试次数
