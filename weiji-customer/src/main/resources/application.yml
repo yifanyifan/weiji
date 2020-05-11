@@ -29,7 +29,7 @@ hystrix:
           strategy: THREAD
           thread:
             #设置超时熔断时间 默认为1000毫秒
-            timeoutInMilliseconds: 4100
+            timeoutInMilliseconds: 5000
             #发生超时时是否中断方法的执行，默认值为true。不要改。
             interruptOnTimeout: true
             #是否在方法执行被取消时中断方法，默认值为false。没有实际意义，默认就好！
@@ -49,7 +49,7 @@ weiji-service:
     #BestAvailableRule #最空闲连接策略 RandomRule #随机 / RoundRobinRule #轮询 / RetryRule #重试 / WeightedResponseTimeRule #响应时间权重
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
     ConnectTimeout: 1000 #请求连接超时时间 默认1000毫秒
-    ReadTimeout: 1000 #请求处理的超时时间 默认1000毫秒
+    ReadTimeout: 4000 #请求处理的超时时间 默认1000毫秒
     OkToRetryOnAllOperations: true #对所有请求都进行重试
     MaxAutoRetries: 1 #对当前实例的重试次数
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数

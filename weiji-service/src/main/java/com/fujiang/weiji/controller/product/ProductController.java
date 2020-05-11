@@ -25,7 +25,7 @@ public class ProductController {
     public String getProduct() throws InterruptedException {
         //实现
         Product product = new Product();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         return port + ":" + value + product.toString();
     }
 }
