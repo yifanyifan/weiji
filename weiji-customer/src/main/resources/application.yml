@@ -19,6 +19,7 @@ feign:
 hystrix:
   command:
     default:
+      #熔断器启用
       execution:
         timeout:
           #是否开始超时熔断，如果为false，则熔断机制只在服务不可用时开启，默认为true
@@ -33,7 +34,7 @@ hystrix:
             interruptOnTimeout: true
             #是否在方法执行被取消时中断方法，默认值为false。没有实际意义，默认就好！
             interruptOnCancel: false
-      #熔断器相关配置
+      #断路器相关配置
       circuitBreaker:
         #说明：是否启动熔断器，默认为true。我们使用Hystrix的目的就是为了熔断器，不要改，否则就不要引入Hystrix。
         enabled: true
