@@ -2,16 +2,6 @@ server:
   port: 7001
   servlet:
     context-path: /consumer
-spring:
-  application:
-    name: weiji-consumer
-eureka:
-  client:
-    service-url:
-       defaultZone: http://eureka6001.com:6001/eureka/eureka
-  instance:
-    instance-id: ${spring.application.name}:${server.port}
-    prefer-ip-address: true     #访问路径可以显示IP地址
 feign:
   hystrix:
     #开启熔断
