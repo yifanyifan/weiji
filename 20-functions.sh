@@ -12,8 +12,10 @@ function setRemoteDebugInTestStartup()
     project=$1
     if [[ $project == 'weiji-service' ]];then
             #sed -i 's/-Dspring.profiles.active=prod/-Dspring.profiles.active=test -Djava.rmi.server.hostname=192.168.8.167 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=6022 #-Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=7022,suspend=n/g' `grep "java -jar" -rl #--include=test-startup.sh */`
+            echo 'aaaaa'
     elif [[ $project == 'weiji-customer' ]];then
             #sed -i 's/-Dspring.profiles.active=prod/-Dspring.profiles.active=test -Djava.rmi.server.hostname=192.168.8.167 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=6028 #-Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=7028,suspend=n/g' `grep "java -jar" -rl #--include=test-startup.sh */`
+            echo 'bbbbbbbbb'
     fi
 }
 
