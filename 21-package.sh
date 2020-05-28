@@ -13,9 +13,6 @@ if [[ $isPull == 'y' ]];then
     git pull
 fi
 
-
-
-:<<MULTILINECOMMENT
 echo -e "\n\n============================================================编译\n"
 read -p "是否再编译[y/n]?" isCompile
 
@@ -39,7 +36,7 @@ fi
 
 
 
-
+:<<MULTILINECOMMENT
 echo -e "\n\n============================================================压缩拷贝打好的包, LJ@2019-12-9\n"
 read -p "是否包含三方包[y/n]?" isFat
 read -p "是否包含conf[y/n]?" isConf
