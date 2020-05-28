@@ -43,6 +43,8 @@ mkdir -p $targetPath # 默认将压缩包保存到D盘 parcels 或 linux的 /d/p
 projects=("weiji-config" "weiji-customer" "weiji-eureka" "weiji-service")
 for project in ${projects[@]};
 do
+    pwd
+    echo $project
     cd $project/target
     rm -fr $project/*
     mkdir $project $project/lib $project/conf
