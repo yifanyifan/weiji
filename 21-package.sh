@@ -13,15 +13,13 @@ if [[ $isPull == 'y' ]];then
     git pull
 fi
 
-:<<MULTILINECOMMENT
+
 echo -e "\n\n============================================================编译\n"
 read -p "是否再编译[y/n]?" isCompile
-
 if [ $isCompile == 'y' ]; then
-
-    cd ./eship-common
-    echo -e "\n\n package eship-common"
-    mvn install -Dmaven.test.skip=true
+    #cd ./eship-common
+    #echo -e "\n\n package eship-common"
+    #mvn install -Dmaven.test.skip=true
 
     cd ../
     echo -e "\n\n 打包全部工程"
@@ -32,12 +30,11 @@ if [ $isCompile == 'y' ]; then
         echo "执行mvn clean package 出错, 退出执行.........."
         exit 1
     fi
-
 fi
 
 
 
-
+:<<MULTILINECOMMENT
 echo -e "\n\n============================================================压缩拷贝打好的包, LJ@2019-12-9\n"
 read -p "是否包含三方包[y/n]?" isFat
 read -p "是否包含conf[y/n]?" isConf
