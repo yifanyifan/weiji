@@ -40,15 +40,15 @@ current_date=`date +%Y%m%d%H%M%S`
 targetPath=/d/weiji/
 mkdir -p $targetPath # 默认将压缩包保存到D盘 parcels 或 linux的 /d/parcels/目录
 
-
 projects=("weiji-config" "weiji-customer" "weiji-eureka" "weiji-service")
 for project in ${projects[@]};
 do
     cd $project/target
-    rm -fr $project/*   # 提前清空下
-
+    rm -fr $project/*
     mkdir $project $project/lib $project/conf
+
     cp -r *.jar $project/
+
 
 
 done
