@@ -15,13 +15,16 @@ echo "Modifing rabbit vhost 与 xxl 为: ${vhost}"
 sed -i 's#vhost: /.*$#vhost: /'${vhost}'#'   `grep "vhost: /" -rl --include="application-test.yml" */`
 sed -i 's#ip:.*xxl-client-ip$#ip: '${vhost}' \#xxl-client-ip#'   `grep "xxl-client-ip" -rl --include="application-test.yml" */`
 
-cd eship-customer-center/
+cd weiji-eureka/
 sh test-startup.sh
 
-cd ../eship-label-ex/
+cd weiji-config/
 sh test-startup.sh
 
-cd ../eship-export-data/
+cd weiji-service/
+sh test-startup.sh
+
+cd weiji-customer/
 sh test-startup.sh
 
 
