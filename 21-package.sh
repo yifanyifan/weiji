@@ -31,19 +31,16 @@ if [ $isCompile == 'y' ]; then
     fi
 fi
 
-
-
-:<<MULTILINECOMMENT
-echo -e "\n\n============================================================压缩拷贝打好的包, LJ@2019-12-9\n"
+echo -e "\n\n========================================压缩拷贝打好的包\n"
 read -p "是否包含三方包[y/n]?" isFat
 read -p "是否包含conf[y/n]?" isConf
 
 current_date=`date +%Y%m%d%H%M%S`
-targetPath=/d/parcels/
 
+targetPath=/d/weiji/
 mkdir -p $targetPath # 默认将压缩包保存到D盘 parcels 或 linux的 /d/parcels/目录
 
-
+:<<MULTILINECOMMENT
 projects=("eship-export-data" "eship-label-ex" "eship-customer-center")
 for project in ${projects[@]};
 do
