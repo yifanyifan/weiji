@@ -21,7 +21,7 @@ if [ $isCompile == 'y' ]; then
     #echo -e "\n\n package eship-common"
     #mvn install -Dmaven.test.skip=true
 
-    cd ../
+    #cd ../
     echo -e "\n\n 打包全部工程"
     mvn clean install -Dmaven.test.skip=true
 
