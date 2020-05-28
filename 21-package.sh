@@ -17,11 +17,11 @@ fi
 echo -e "\n\n============================================================编译\n"
 read -p "是否再编译[y/n]?" isCompile
 if [ $isCompile == 'y' ]; then
-    #cd ./eship-common
-    #echo -e "\n\n package eship-common"
-    #mvn install -Dmaven.test.skip=true
+    cd ./weiji-interface
+    echo -e "\n\n package weiji-interface"
+    mvn install -Dmaven.test.skip=true
 
-    #cd ../
+    cd ../
     echo -e "\n\n 打包全部工程"
     mvn clean install -Dmaven.test.skip=true
 
