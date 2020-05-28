@@ -40,8 +40,6 @@ current_date=`date +%Y%m%d%H%M%S`
 targetPath=/d/weiji/
 mkdir -p $targetPath # 默认将压缩包保存到D盘 parcels 或 linux的 /d/parcels/目录
 
-echo pwd
-
 projects=("weiji-config" "weiji-customer" "weiji-eureka" "weiji-service")
 for project in ${projects[@]};
 do
@@ -51,26 +49,7 @@ do
 
     cp -r *.jar $project/
 
-    if [ $isFat == 'y' ]; then #包含三方包
-        cp -r lib/* $project/lib/
-    else
-        cp -r lib/weiji* $project/lib/
-    fi
 
-    if [ $isConf == 'y' ]; then #包含conf
-        cp -r conf/* $project/conf/
-    fi
-
-    cat ../../22-startup.sh > $project/startup.sh
-    cat ../../22-startup.sh > $project/test-startup.sh
-    cat ../../20-functions.sh > $project/20-functions.sh
-    setRemoteDebugInTestStartup $project #为测试startup设置调试端口
-
-    zipFile=$project.tar.gz
-
-    echo -e "\n\n 压缩和复制 ......"
-    tar -cvf $zipFile $project
-    cp -v $zipFile $targetPath
 
     cd ../../
 
