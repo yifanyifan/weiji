@@ -20,8 +20,8 @@ echo "logback文件名称：$logbackFile"
 
 
 echo -e "\n\n==========================================================复制application-prod-local"
-rm -rf conf/application-prod.yaml
-cp conf/application-prod-local.yaml conf/application-prod.yaml
+rm -rf conf/application-prod.yml
+cp conf/application-prod-local.yml conf/application-prod.yml
 
 
 echo -e "\n\n==========================================================复制applicationContext-rabbit.xml.local"

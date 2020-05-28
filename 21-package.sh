@@ -66,17 +66,12 @@ do
     zipFile=$project.tar.gz
 
     echo -e "\n\n 压缩和复制 ......"
-    echo $zipFile
     tar -cvf $zipFile $project
     cp -v $zipFile $targetPath
 
     cd ../../
 done
 
-
-
-
-:<<MULTILINECOMMENT
 echo -e "\n\n============================================================重新启动测试环境, LJ@2019-12-9\n"
 read -p "是否重新启动测试环境[y/n]?" isTestStartup
 
@@ -86,4 +81,3 @@ if [[ $isTestStartup == 'y' ]];then
     cd $targetPath
     sh 23-unpress-startup-test-evn.sh
 fi
-MULTILINECOMMENT

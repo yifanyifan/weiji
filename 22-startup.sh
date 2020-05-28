@@ -34,17 +34,7 @@ echo -e "最新的jar：$targetFile"
 
 source /etc/profile # 先source一下，不然会找不到环境变量java
 
-if [[ "$targetFile" =~ "eship-label-ex" ]];then
-    db=$1
-    if [[ "$db" == "h2" ]];then
-        echo "使用H2内嵌数据库启动，并且不启动xxl-job"
-        nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp -Dspring.h2.console.enabled=true -Dspring.datasource.url=jdbc:h2:mem:cib -Dspring.datasource.username=root -Dspring.datasource.password=root -Dspring.datasource.driver-class-name=org.h2.Driver -Dspring.jpa.database-platform=org.hibernate.dialect.H2Dialect -Dxxl.job.disabled=true  $targetFile  >/dev/null 2>&1 &
-    else
-        nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp $targetFile  >/dev/null 2>&1 &
-    fi
-else
-        nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp $targetFile  >/dev/null 2>&1 &
-fi
+nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp $targetFile  >/dev/null 2>&1 &
 
 sleep 2s
 newProcess=`ps -ef |grep $targetFile |grep -v grep |cut -c 9-15`

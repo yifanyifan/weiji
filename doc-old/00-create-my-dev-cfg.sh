@@ -24,15 +24,15 @@ do
 
     echo "进入到 `pwd`"
 
-    if [ -e application-test.yaml ]; then
-        cp -fv application-test.yaml application-dev.yaml
+    if [ -e application-test.yml ]; then
+        cp -fv application-test.yml application-dev.yml
     fi
 
     cd ${currentDir}
 done
 
-sed -i 's#profiles: test$#profiles: dev#' `grep "profiles:" -rl --include="application-dev.yaml" */`
-sed -i 's#upload: /eship/nfsFiles/$#upload: X:/#' `grep "upload: /eship/nfsFiles/" -rl --include="application-dev.yaml" */`
+sed -i 's#profiles: test$#profiles: dev#' `grep "profiles:" -rl --include="application-dev.yml" */`
+sed -i 's#upload: /eship/nfsFiles/$#upload: X:/#' `grep "upload: /eship/nfsFiles/" -rl --include="application-dev.yml" */`
 
 
 echo -e '\n\n=========================================================== ======='
@@ -41,7 +41,7 @@ echo 'Author:tsd, Date:2019-6-21'
 echo '=================================================================='
 
 # 修改开发环境的rabbit服务器, 测试在docker:6672, 开发在docker:5672
-sed -i 's#addresses: 192.168.8.169:6672.*$#addresses: 192.168.8.169:5672#' `grep "addresses: 192.168.8.169:6672" -rl --include="application-dev.yaml" */`
+sed -i 's#addresses: 192.168.8.169:6672.*$#addresses: 192.168.8.169:5672#' `grep "addresses: 192.168.8.169:6672" -rl --include="application-dev.yml" */`
 
 
 read -p "请输入rabbit vhost:" vhost
@@ -52,8 +52,8 @@ done
 echo "Begin modifing rabbit vhost: ${vhost}"
 
 sed -i 's#^rabbitmq.vhost=/.*$#rabbitmq.vhost=/'${vhost}'#' `grep "rabbitmq.vhost=/" -rl --include="application.properties" */`
-sed -i 's#vhost: /.*$#vhost: /'${vhost}'#' `grep "vhost: /" -rl --include="application-dev.yaml" */`
-sed -i 's#vhost_md:.*$#vhost_md: /'$vhost'#' `grep "vhost" -rl --include="application-dev.yaml" */`
+sed -i 's#vhost: /.*$#vhost: /'${vhost}'#' `grep "vhost: /" -rl --include="application-dev.yml" */`
+sed -i 's#vhost_md:.*$#vhost_md: /'$vhost'#' `grep "vhost" -rl --include="application-dev.yml" */`
 
 
 
@@ -69,7 +69,7 @@ while [ -z "$host" ]; do
 done
 
 echo "Begin modifing xxl and dubbo: ${host}"
-sed -i 's#ip:.*xxl-client-ip$#ip: '$host' \#xxl-client-ip#' `grep "xxl-client-ip" -rl --include="application-dev.yaml" */`
+sed -i 's#ip:.*xxl-client-ip$#ip: '$host' \#xxl-client-ip#' `grep "xxl-client-ip" -rl --include="application-dev.yml" */`
 
 
 
@@ -88,7 +88,7 @@ sed -i 's#ip:.*xxl-client-ip$#ip: '$host' \#xxl-client-ip#' `grep "xxl-client-ip
 #echo "modify db to $dbPrefix"
 
 # 不改数据库（label-ex是独立的数据库）
-# sed -i 's#url: jdbc:mysql.*$#url: jdbc:mysql://192.168.8.168/parcels_2_'$dbPrefix'?useUnicode=true\&characterEncoding=utf-8#' `grep "jdbc" -rl --include="application-dev.yaml" */`
+# sed -i 's#url: jdbc:mysql.*$#url: jdbc:mysql://192.168.8.168/parcels_2_'$dbPrefix'?useUnicode=true\&characterEncoding=utf-8#' `grep "jdbc" -rl --include="application-dev.yml" */`
 
 
 
