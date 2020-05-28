@@ -40,27 +40,23 @@ current_date=`date +%Y%m%d%H%M%S`
 targetPath=/d/weiji/
 mkdir -p $targetPath # 默认将压缩包保存到D盘 parcels 或 linux的 /d/parcels/目录
 
-:<<MULTILINECOMMENT
-projects=("eship-export-data" "eship-label-ex" "eship-customer-center")
+projects=("weiji-config" "weiji-customer" "weiji-eureka" "weiji-service")
 for project in ${projects[@]};
 do
-
     cd $project/target
     rm -fr $project/*
     mkdir $project $project/lib $project/conf
 
+    :<<MULTILINECOMMENT
     cp -r *.jar $project/
 
     if [ $isFat == 'y' ]; then #包含三方包
-
         cp -r lib/* $project/lib/
     else
-        cp -r lib/eship* $project/lib/
+        cp -r lib/weiji* $project/lib/
     fi
 
-
     if [ $isConf == 'y' ]; then #包含conf
-
         cp -r conf/* $project/conf/
     fi
 
@@ -76,13 +72,13 @@ do
     cp -v $zipFile $targetPath
 
     cd ../../
-
+    MULTILINECOMMENT
 done
 
 
 
 
-
+:<<MULTILINECOMMENT
 echo -e "\n\n============================================================重新启动测试环境, LJ@2019-12-9\n"
 read -p "是否重新启动测试环境[y/n]?" isTestStartup
 
