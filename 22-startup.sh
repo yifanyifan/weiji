@@ -3,13 +3,9 @@ source ./20-functions.sh
 
 echo '=================================================================='
 echo '获取最新的jar来运行, 对日志 和 xxl设置当前机器的局域网IP'
-echo '2019-12-9 by Kee'
 echo '=================================================================='
 
-
-
 targetIp=$(getIP)
-
 
 echo -e "\n\n==========================================================复制logback"
 
@@ -17,10 +13,6 @@ logbackFile="logback-$targetIp.xml"
 cp conf/logback-prod.xml conf/$logbackFile
 sed -i 's/.log</-'$targetIp'.log</g' `grep "<file>" -rl --include="$logbackFile" */`
 echo "logback文件名称：$logbackFile"
-
-
-
-
 
 echo -e "\n\n==========================================================杀死进程"
 dir=$PWD
@@ -34,9 +26,6 @@ else
     echo -e "\e[31m已杀死进程：$runingFile $preStopProcess \e[0m"
     sleep 5s
 fi
-
-
-
 
 echo -e "\n\n==========================================================启动最新的jar"
 targetFile=`ls -lt | grep -E '\.jar' | head -n 1 | awk '{print $9}'`
@@ -52,13 +41,9 @@ if [[ "$targetFile" =~ "eship-label-ex" ]];then
     else
         nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp $targetFile  >/dev/null 2>&1 &
     fi
-
 else
-
         nohup java -jar -Dspring.profiles.active=prod -Dlogging.config=classpath:$logbackFile  -Dxxl.job.executor.ip=$targetIp $targetFile  >/dev/null 2>&1 &
 fi
-
-
 
 sleep 2s
 newProcess=`ps -ef |grep $targetFile |grep -v grep |cut -c 9-15`
