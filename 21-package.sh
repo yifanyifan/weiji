@@ -70,9 +70,10 @@ do
     echo -e "\n\n 压缩和复制 ......"
     tar -cvf $zipFile $project
     cp -v $zipFile $targetPath
+    MULTILINECOMMENT
 
     cd ../../
-    MULTILINECOMMENT
+
 done
 
 
