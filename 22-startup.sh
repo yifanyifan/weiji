@@ -7,16 +7,17 @@ echo '=================================================================='
 
 targetIp=$(getIP)
 
-echo -e "\n\n==========================================================复制logback"
-
-logbackFile="logback-$targetIp.xml"
-cp conf/logback-prod.xml conf/$logbackFile
-sed -i 's/.log</-'$targetIp'.log</g' `grep "<file>" -rl --include="$logbackFile" */`
-echo "logback文件名称：$logbackFile"
+# echo -e "\n\n==========================================================复制logback"
+# logbackFile="logback-$targetIp.xml"
+# cp conf/logback-prod.xml conf/$logbackFile
+# sed -i 's/.log</-'$targetIp'.log</g' `grep "<file>" -rl --include="$logbackFile" */`
+# echo "logback文件名称：$logbackFile"
 
 echo -e "\n\n==========================================================杀死进程"
 dir=$PWD
+echo 'dir' + $dir
 runingFile=${dir##*/}
+echo 'runingFile' + $runingFile
 preStopProcess=`ps -ef |grep "$runingFile.*.jar" |grep -v grep |cut -c 9-15`
 
 if [ -z "$preStopProcess" ];then

@@ -63,14 +63,14 @@ do
     cat ../../20-functions.sh > $project/20-functions.sh
     # setRemoteDebugInTestStartup $project #为测试startup设置调试端口
 
-    # zipFile=$project.tar.gz
+    zipFile=$project.tar.gz
 
-    # echo -e "\n\n 压缩和复制 ......"
-    # tar -cvf $zipFile $project
-    # cp -v $zipFile $targetPath
+    echo -e "\n\n 压缩和复制 ......"
+    echo $zipFile
+    tar -cvf $zipFile $project
+    cp -v $zipFile $targetPath
 
     cd ../../
-
 done
 
 
