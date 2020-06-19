@@ -5,11 +5,11 @@
 	<parent>
 		<artifactId>weiji</artifactId>
 		<groupId>com.fujiang</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<groupId>com.fujiang</groupId>
 	<artifactId>weiji-config</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>weiji-config</name>
 	<description>Demo project for Spring Boot</description>
 

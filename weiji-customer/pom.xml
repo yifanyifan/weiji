@@ -5,18 +5,18 @@
     <parent>
         <groupId>com.fujiang</groupId>
         <artifactId>weiji</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
     <groupId>com.fujiang</groupId>
     <artifactId>weiji-customer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>weiji-customer</name>
 
     <dependencies>
         <dependency>
             <artifactId>weiji-interface</artifactId>
             <groupId>com.fujiang</groupId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
         <!-- 添加eureka依赖 -->
         <dependency>
