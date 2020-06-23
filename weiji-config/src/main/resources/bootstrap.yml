@@ -14,9 +14,9 @@ spring:
           search-locations: classpath:/config
 eureka:
   client:
-    service-url: 
+    service-url:
        defaultZone: http://eureka6001.com:6001/eureka/eureka
-       #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/      
+       #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   instance:
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
