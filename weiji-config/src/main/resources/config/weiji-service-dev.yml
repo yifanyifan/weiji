@@ -1,1 +1,11 @@
-from: serivce-dev123
+server:
+  port: 8002
+  servlet:
+    context-path: /service
+spring:
+  application:
+    name: weiji-service
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}

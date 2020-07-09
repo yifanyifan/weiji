@@ -1,1 +1,55 @@
-from: customer-dev123
+server:
+  port: 7001
+  servlet:
+    context-path: /consumer
+spring:
+  application:
+    name: weiji-consumer
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+feign:
+  hystrix:
+    #开启熔断
+    enabled: true
+hystrix:
+  command:
+    default:
+      #熔断器启用
+      execution:
+        timeout:
+          #是否开始超时熔断，如果为false，则熔断机制只在服务不可用时开启，默认为true
+          enabled: true
+        isolation:
+          #配置请求隔离的方式，这里是默认的线程池方式。还有一种信号量的方式SEMAPHORE，使用比较少。
+          strategy: THREAD
+          thread:
+            #设置超时熔断时间 默认为1000毫秒
+            timeoutInMilliseconds: 5000
+            #发生超时时是否中断方法的执行，默认值为true。不要改。
+            interruptOnTimeout: true
+            #是否在方法执行被取消时中断方法，默认值为false。没有实际意义，默认就好！
+            interruptOnCancel: false
+      #断路器相关配置
+      circuitBreaker:
+        #说明：是否启动熔断器，默认为true。我们使用Hystrix的目的就是为了熔断器，不要改，否则就不要引入Hystrix。
+        enabled: true
+        #当在配置时间（timeoutInMilliseconds）窗口内达到此数量的失败后，进行短路（直接降级掉）。默认20个。建议：QPS*窗口描述*60%
+        requestVolumeThreshold: 5
+        #短路多久以后开始尝试是否恢复（正常请求，正常等待），默认5s
+        sleepWindowInMilliseconds: 5000
+        #出错百分比阈值，当达到此阈值后，开始短路。默认50%
+        errorThresholdPercentage: 50
+weiji-service:
+  ribbon:
+    #BestAvailableRule #最空闲连接策略 RandomRule #随机 / RoundRobinRule #轮询 / RetryRule #重试 / WeightedResponseTimeRule #响应时间权重
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    ConnectTimeout: 1000 #请求连接超时时间 默认1000毫秒
+    ReadTimeout: 4000 #请求处理的超时时间 默认1000毫秒
+    OkToRetryOnAllOperations: true #对所有请求都进行重试
+    MaxAutoRetries: 1 #对当前实例的重试次数
+    MaxAutoRetriesNextServer: 2 #切换实例的重试次数
+# Hystrix和Ribbon超时配置注意：
+# 1. 因为Feign的请求是Hystrix+Ribbon。Hystrix在最外层，然后再到Ribbon，最后里面的是http请求。所以说。Hystrix的熔断时间必须大于Ribbon的 ( ConnectTimeout + ReadTimeout )
+# 2. 如果Ribbon开启了重试机制，还需要乘以对应的重试次数，保证在Ribbon里的请求还没结束时，Hystrix的熔断时间不会超时。

@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    @Value("${from}")
-    private String value;
-
     @Value("${server.port}")
     private String port;
 
@@ -26,6 +23,6 @@ public class ProductController {
         //实现
         Product product = new Product();
         Thread.sleep(3000);
-        return port + ":" + value + product.toString();
+        return port + ":" + product.toString();
     }
 }

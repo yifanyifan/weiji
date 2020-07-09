@@ -1,0 +1,19 @@
+server:
+  port: 6001
+  servlet:
+    context-path: /eureka
+spring:
+  application:
+    name: weiji-eureka
+eureka:
+  instance:
+    hostname: eureka6001.com
+    #lease-expiration-duration-in-seconds # eureka server等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance。90秒
+    #lease-renewal-interval-in-seconds # eureka client发送心跳给server端的频率 30秒
+  client:
+    # registry-fetch-interval-seconds # eureka client间隔多久去拉取服务注册信息 30秒
+    fetch-registry: false #是否在本地缓存注册表信息`
+    register-with-eureka: false #是否注册到eureka Server
+#  server:
+#    enable-self-preservation: true # 开启自我保护
+#    eviction-interval-timer-in-ms: 10000 # eureka server清理无效节点的时间间隔
