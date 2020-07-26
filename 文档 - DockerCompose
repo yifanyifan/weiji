@@ -62,9 +62,12 @@ services:
       eureka-net:     #网络模式
         aliases:
           - eureka6001.com
+    # volumes: - "./entrypoint.sh:/entrypoint.sh"
+    # environment: SLEEP_SECOND: 4
     tty: true
+    # http://config6501.com:6501/config/weiji-eureka-dev.yml 试着判断config是否可以访问
     entrypoint: /entrypoint.sh -d config6501.com:6501 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    # command: ./wait-for-it.sh config6501.com:6501/config/weiji-eureka-dev.yml -t 10 -- java -jar /app.jar
+    # command: ["./wait-for-it.sh", "-t", "10", "config6501.com:6501/config/weiji-eureka-dev.yml", "--", "java", "-jar", "/app.jar"]
     #restart: always
     # environment:       #环境变量
     #   SERVER_PORT: "8761"    #自定义参数用于给服务的配置文件传递参数
@@ -81,6 +84,7 @@ services:
 networks:
   eureka-net:
 #     driver: bridge
+
 
 2. 执行docker-compose.yml
 docker-compose -f docker-compose.yml up -d
