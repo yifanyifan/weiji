@@ -31,3 +31,6 @@ weiji-eureka -> weiji-config -> weiji-service -> weiji-customer -> 浏览器访�
 打包：
 在idea命令行输入：mvn clean package  -DskipTests -Pproduct/dev/test(根据打包需要选择不同环境)
 java -jar eunke-sg56-mpweb-1.0.0.jar --spring.profiles.active=prd
+
+Docker：
+1. 构建centos-java镜像
