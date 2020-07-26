@@ -1,5 +1,5 @@
 # 基础镜像
-FROM java:8
+FROM centos-jdk
 # 挂载点
 VOLUME /tmp
 # 复制文件
