@@ -1,0 +1,100 @@
+Docker部署步骤：
+一、构建centos-java镜像
+1. Dockerfile
+FROM centos
+
+# 安装 nc
+RUN yum install -y nmap-ncat.x86_64
+
+# 安装 jdk1.8
+RUN mkdir /usr/local/java
+ADD jdk-8u261-linux-x64.tar.gz /usr/local/java/
+RUN ln -s /usr/local/java/jdk1.8.0_261 /usr/local/java/jdk
+ENV JAVA_HOME /usr/local/java/jdk
+ENV JRE_HOME ${JAVA_HOME}/jre
+ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
+ENV PATH ${JAVA_HOME}/bin:$PATH
+2. jdk1.8
+下载jdk1.8文件放到Dockerfile同级目录下
+3. 构建镜像
+docker build -t="centos-jdk" .
+
+二、构建项目镜像
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+docker rmi weiji-eureka-0.0.1
+docker rmi weiji-config-0.0.1
+docker rmi centos-nc
+
+cd ../weiji-eureka
+mvn clean package docker:build -Dmaven.test.skip
+cd ../weiji-config
+mvn clean package docker:build -Dmaven.test.skip
+（其他模块一样）
+
+三、编写docker-compose.yml
+version: '3.0'
+services:
+  config:        #自定义服务名
+    image: weiji-config-0.0.1    #镜像名称
+    ports:
+      - "6501:6501"    #映射的端口
+    # links:
+    #   - eureka-server1:eureka6001.com
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - config6501.com
+    #extra_hosts:
+    #   - eureka6001.com:47.103.28.119
+    # environment:       #环境变量配置
+    #   REGISTER_URL: "http://114.115.185.152:8761/eureka/"
+    #   SERVER_PORT: "8091"
+  eureka-server1:      #自定义服务名
+    image: weiji-eureka-0.0.1   #镜像名称
+    ports:
+      - "6001:6001"    #映射的端口
+    #depends_on:
+    #  - config
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - eureka6001.com
+    tty: true
+    entrypoint: /entrypoint.sh -d config6501.com:6501 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+    # command: ./wait-for-it.sh config6501.com:6501/config/weiji-eureka-dev.yml -t 10 -- java -jar /app.jar
+    #restart: always
+    # environment:       #环境变量
+    #   SERVER_PORT: "8761"    #自定义参数用于给服务的配置文件传递参数
+  nginx-server1:
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - nnnnnnnnnnnnnnnn
+    volumes:
+      - /etc/yum.repos.d/:/etc/yum.repos.d/
+networks:
+  eureka-net:
+#     driver: bridge
+
+四、执行docker-compose.yml
+docker-compose -f docker-compose.yml up -d
+
+五、查看eureka日志（eureka要等待config启动结束处于监听状态时，端口是通的，再启动，如果eureka没报错，则config和eureka均启动成功）
+docker ps
+docker logs --since 2020-07-26T21:51:00 0c4acd9c207a
+
+
+
+
+
+
+
+
+
+
+
