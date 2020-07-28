@@ -4,6 +4,12 @@ FROM centos-jdk
 VOLUME /tmp
 # 复制文件
 ADD weiji-service-0.0.1.jar app.jar
+
+# ADD ./wait-for-it.sh ./
+# RUN chmod +x ./wait-for-it.sh
+ADD ./entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+
 RUN sh -c 'touch /app.jar'
 # 配置容器启动后执行的命令
 ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

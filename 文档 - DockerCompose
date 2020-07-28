@@ -52,7 +52,7 @@ services:
     # environment:       #环境变量配置
     #   REGISTER_URL: "http://114.115.185.152:8761/eureka/"
     #   SERVER_PORT: "8091"
-  eureka-server1:      #自定义服务名
+  eureka-server:      #自定义服务名
     image: weiji-eureka-0.0.1   #镜像名称
     ports:
       - "6001:6001"    #映射的端口
@@ -71,6 +71,26 @@ services:
     #restart: always
     # environment:       #环境变量
     #   SERVER_PORT: "8761"    #自定义参数用于给服务的配置文件传递参数
+  weiji-customer:      #自定义服务名
+    image: weiji-customer-0.0.1   #镜像名称
+    ports:
+      - "7001:7001"    #映射的端口
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - weiji-customer
+    tty: true
+    entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+  weiji-service:      #自定义服务名
+    image: weiji-service-0.0.1   #镜像名称
+    ports:
+      - "8002:8002"    #映射的端口
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - weiji-service
+    tty: true
+    entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
   nginx-server1:
     image: nginx
     ports:
@@ -84,7 +104,6 @@ services:
 networks:
   eureka-net:
 #     driver: bridge
-
 
 2. 执行docker-compose.yml
 docker-compose -f docker-compose.yml up -d

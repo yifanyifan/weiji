@@ -5,8 +5,8 @@ VOLUME /tmp
 # 复制文件
 ADD weiji-eureka-0.0.1.jar app.jar
 
-ADD ./wait-for-it.sh ./
-RUN chmod +x ./wait-for-it.sh
+# ADD ./wait-for-it.sh ./
+# RUN chmod +x ./wait-for-it.sh
 ADD ./entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 
