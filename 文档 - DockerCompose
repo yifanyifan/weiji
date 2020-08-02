@@ -17,7 +17,7 @@ ENV PATH ${JAVA_HOME}/bin:$PATH
 2. jdk1.8
 下载jdk1.8文件放到Dockerfile同级目录下
 3. 构建镜像
-docker build -t="centos-jdk" .
+docker build -t "centos-jdk" .
 
 二、构建项目镜像
 docker stop $(docker ps -a -q)
