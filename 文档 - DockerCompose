@@ -33,6 +33,9 @@ cd ../weiji-config
 mvn clean package docker:build -Dmaven.test.skip
 （其他模块一样）
 
+三、构建MySql镜像
+见文档 - Mysql
+
 三、docker-compose（启动方式一）
 1. 编写docker-compose.yml
 version: '3.0'
@@ -91,6 +94,18 @@ services:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+  mysql:
+    container_name: mysql-java
+    image: mysql-java
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Yifan123.
+    volumes:
+      # - ./conf:/etc/mysql/conf.d
+      - ./logs:/logs
+      - ./data:/var/lib/mysql
   nginx-server1:
     image: nginx
     ports:
