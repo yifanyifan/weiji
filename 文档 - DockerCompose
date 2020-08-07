@@ -1,40 +1,7 @@
 Docker部署步骤：
 一、构建centos-java镜像
-1. Dockerfile
-FROM centos
 
-# 安装 nc
-RUN yum install -y nmap-ncat.x86_64
-
-# 安装 jdk1.8
-RUN mkdir /usr/local/java
-ADD jdk-8u261-linux-x64.tar.gz /usr/local/java/
-RUN ln -s /usr/local/java/jdk1.8.0_261 /usr/local/java/jdk
-ENV JAVA_HOME /usr/local/java/jdk
-ENV JRE_HOME ${JAVA_HOME}/jre
-ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
-ENV PATH ${JAVA_HOME}/bin:$PATH
-2. jdk1.8
-下载jdk1.8文件放到Dockerfile同级目录下
-3. 构建镜像
-docker build -t "centos-jdk" .
-
-二、构建项目镜像
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-
-docker rmi weiji-eureka-0.0.1
-docker rmi weiji-config-0.0.1
-docker rmi centos-nc
-
-cd ../weiji-eureka
-mvn clean package docker:build -Dmaven.test.skip
-cd ../weiji-config
-mvn clean package docker:build -Dmaven.test.skip
-（其他模块一样）
-
-三、构建MySql镜像
-见文档 - Mysql
+二、构建mysql-java镜像
 
 三、docker-compose（启动方式一）
 1. 编写docker-compose.yml
@@ -123,7 +90,7 @@ networks:
 2. 执行docker-compose.yml
 docker-compose -f docker-compose.yml up -d
 
-四、 手动逐一启动
+四、 手动逐一启动（启动方式二）
 1. 创建网桥
 docker network create default_network
 docker network  ls
@@ -136,7 +103,9 @@ docker logs --since 2020-07-17T11:06 7c
 五、查看eureka日志（eureka要等待config启动结束处于监听状态时，端口是通的，再启动，如果eureka没报错，则config和eureka均启动成功）
 docker ps
 docker logs --since 2020-07-26T21:51:00 0c4acd9c207a
-
+或
+docker inspect --format '{{.LogPath}}' mysql-java
+cat ...
 
 
 
