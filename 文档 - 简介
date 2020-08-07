@@ -14,6 +14,8 @@ weiji-utils
 	# 工具
 weiji-common
 	# 能够公共出来的服务配置（例如redis、MQ、Mysql等）
+weiji-zuul ## 5001
+    # 网关 (类似nginx)
 weiji-logs
 	# 日志服务
 --- spring cloud基础服务模块（eureka、Gateway等）

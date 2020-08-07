@@ -113,10 +113,10 @@ cat ...
 
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
-docker rmi 4c9682625926
-docker rmi 9c89a42922c7
-docker rmi 685294333c0a
-docker rmi 03f631adbc74
+docker rmi weiji-customer-0.0.1
+docker rmi weiji-service-0.0.1
+docker rmi weiji-config-0.0.1
+docker rmi weiji-eureka-0.0.1
 
 
 
