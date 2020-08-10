@@ -61,6 +61,16 @@ services:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+  weiji-service2:      #自定义服务名
+    image: weiji-service-0.0.1   #镜像名称
+    ports:
+      - "8003:8002"    #映射的端口
+    networks:
+      eureka-net:     #网络模式
+        aliases:
+          - weiji-service
+    tty: true
+    entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
   mysql:
     container_name: mysql-java
     image: mysql-java
