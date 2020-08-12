@@ -10,3 +10,9 @@ RUN echo 'sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DI
 
 3. 构建镜像
 docker build -t mysql-java .
+
+4. Mysql
+(1) Docker-compost
+
+(2) 单独启动-带挂载
+docker run -d --name mysql-java -p 3306:3306 -v /dockerFile/dfMysql/logs:/logs -v /dockerFile/dfMysql/data:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=Yifan123. mysql-java
