@@ -5,7 +5,18 @@ server:
 spring:
   application:
     name: weiji-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.103.28.119/weiji_env?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: Yifan123.
 eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#Mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.fujiang.weiji.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*.xml
