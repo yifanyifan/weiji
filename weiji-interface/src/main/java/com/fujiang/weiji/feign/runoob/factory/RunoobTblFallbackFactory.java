@@ -1,7 +1,6 @@
 package com.fujiang.weiji.feign.runoob.factory;
 
-import com.fujiang.weiji.entity.runoob.RunoobTbl;
-import com.fujiang.weiji.feign.runoob.RunoobTblService;
+import com.fujiang.weiji.feign.runoob.RunoobTblServiceFeign;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +11,18 @@ import org.springframework.stereotype.Component;
  * Modified By:
  */
 @Component
-public class RunoobTblFallbackFactory implements FallbackFactory<RunoobTblService> {
+public class RunoobTblFallbackFactory implements FallbackFactory<RunoobTblServiceFeign> {
     @Override
-    public RunoobTblService create(Throwable throwable) {
-        return new RunoobTblService() {
+    public RunoobTblServiceFeign create(Throwable throwable) {
+        return new RunoobTblServiceFeign() {
             @Override
-            public void insert(RunoobTbl runoobTbl) {
+            public String getProduct() {
+                return "getProduct失败";
+            }
 
+            @Override
+            public String insert() {
+                return "insert失败";
             }
         };
     }

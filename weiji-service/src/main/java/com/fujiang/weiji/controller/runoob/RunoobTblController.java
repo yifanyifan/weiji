@@ -23,12 +23,12 @@ public class RunoobTblController {
     @Autowired
     private RunoobTblService runoobTblService;
 
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert() {
         RunoobTbl runoobTbl = new RunoobTbl();
         runoobTbl.setRunoobId(1);
         runoobTblService.insert(runoobTbl);
 
-        return "qweqweqwe";
+        return "success";
     }
 }

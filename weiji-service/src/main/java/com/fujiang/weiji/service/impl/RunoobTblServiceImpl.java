@@ -4,6 +4,7 @@ import com.fujiang.weiji.entity.runoob.RunoobTbl;
 import com.fujiang.weiji.mapper.runoob.RunoobTblMapper;
 import com.fujiang.weiji.service.RunoobTblService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author: Yifan
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date: 2020/8/15
  * Modified By:
  */
+@Service
 public class RunoobTblServiceImpl implements RunoobTblService {
     @Autowired
     private RunoobTblMapper runoobTblMapper;

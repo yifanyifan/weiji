@@ -1,10 +1,10 @@
 package com.fujiang.weiji.feign.runoob;
 
-import com.fujiang.weiji.entity.runoob.RunoobTbl;
 import com.fujiang.weiji.feign.runoob.factory.RunoobTblFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author: Yifan
@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @FeignClient(name = "weiji-service", path = "service", fallbackFactory = RunoobTblFallbackFactory.class)
 @Component
-public interface RunoobTblService {
-    @RequestMapping(value = "/insert")
-    void insert(RunoobTbl runoobTbl);
+public interface RunoobTblServiceFeign {
+    @RequestMapping(value = "/product/getProduct")
+    String getProduct();
+
+    @RequestMapping(value = "/runoobTbl/insert", method = RequestMethod.POST)
+    String insert();
 }
