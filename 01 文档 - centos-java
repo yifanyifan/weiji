@@ -1,5 +1,5 @@
 一、构建centos-java镜像
-1. 创建dfMysql
+1. 创建dfMysql文件夹
 
 2. 创建Dockerfile
 FROM centos

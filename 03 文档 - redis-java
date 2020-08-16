@@ -1,0 +1,16 @@
+二、构建redis镜像
+1. 创建dfRedis文件夹
+
+2. 创建./dfRedis/conf/ 将
+
+2. docker pull redis:5.0
+
+2. 创建Dockerfile
+
+3. 构建镜像
+
+4. Redis
+启动方式一 Docker-compost
+
+启动方式二 单独启动-带挂载
+docker run -d --name redis-java -p 6379:6379 -v /dockerFile/dfRedis/conf/redis.conf:/redis.conf -v /dockerFile/dfRedis/data:/data redis:5.0 redis-server /redis.conf --appendonly yes --bind 0.0.0.0 --protected-mode no

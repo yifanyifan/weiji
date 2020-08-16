@@ -71,18 +71,18 @@ services:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-  mysql:
-    container_name: mysql-java
-    image: mysql-java
-    restart: always
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=Yifan123.
-    volumes:
-      # - ./dfMysql/conf:/etc/mysql/conf.d
-      - ./dfMysql/logs:/logs
-      - ./dfMysql/data:/var/lib/mysql
+  # mysql:
+    # container_name: mysql-java
+    # image: mysql-java
+    # restart: always
+    # ports:
+      # - "3306:3306"
+    # environment:
+      # - MYSQL_ROOT_PASSWORD=Yifan123.
+    # volumes:
+      # # - ./dfMysql/conf:/etc/mysql/conf.d
+      # - ./dfMysql/logs:/logs
+      # - ./dfMysql/data:/var/lib/mysql
   nginx-server1:
     image: nginx
     ports:
