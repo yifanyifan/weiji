@@ -13,11 +13,19 @@
     <name>weiji-customer</name>
 
     <dependencies>
+        <!-- 项目接口模块-->
         <dependency>
             <artifactId>weiji-interface</artifactId>
             <groupId>com.fujiang</groupId>
             <version>0.0.1</version>
         </dependency>
+
+        <!-- 添加web依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- 添加eureka依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -27,11 +35,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 添加web依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!-- 从Config配置中心获取配置需要 -->
         <dependency>
