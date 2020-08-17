@@ -13,4 +13,13 @@
 启动方式一 Docker-compost
 
 启动方式二 单独启动-带挂载
-docker run -d --name redis-java -p 6379:6379 -v /dockerFile/dfRedis/conf/redis.conf:/redis.conf -v /dockerFile/dfRedis/data:/data redis:5.0 redis-server /redis.conf --appendonly yes --bind 0.0.0.0 --protected-mode no
+docker run -d --name redis-java -p 6379:6379 -v /dockerFile/dfRedis/conf/redis.conf:/etc/redis/redis.conf -v /dockerFile/dfRedis/data:/data redis:5.0
+docker run -d --name redis-java -p 6379:6379 -v /dockerFile/dfRedis/conf/redis.conf:/etc/redis/redis.conf -v /dockerFile/dfRedis/data:/data redis:5.0 redis-server /etc/redis/redis.conf --appendonly yes
+
+
+注意，配置文件挂载需要修改的配置
+daemonize yes
+protected-mode no
+bind 0.0.0.0
+appendonly yes
+requirepass Yifan123.
