@@ -1,13 +1,9 @@
 二、构建redis镜像
 1. 创建dfRedis文件夹
 
-2. 创建./dfRedis/conf/ 将
+2. 创建./dfRedis/conf/ 将 挂载的redis.cnf 复制进去
 
-2. docker pull redis:5.0
-
-2. 创建Dockerfile
-
-3. 构建镜像
+3. docker pull redis:5.0
 
 4. Redis
 启动方式一 Docker-compost
