@@ -19,9 +19,8 @@ services:
           - config6501.com
     #extra_hosts:
     #   - eureka6001.com:47.103.28.119
-    # environment:       #环境变量配置
-    #   REGISTER_URL: "http://114.115.185.152:8761/eureka/"
-    #   SERVER_PORT: "8091"
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
   eureka-server:      #自定义服务名
     image: weiji-eureka-0.0.1   #镜像名称
     ports:
@@ -39,8 +38,8 @@ services:
     entrypoint: /entrypoint.sh -d config6501.com:6501 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
     # command: ["./wait-for-it.sh", "-t", "10", "config6501.com:6501/config/weiji-eureka-dev.yml", "--", "java", "-jar", "/app.jar"]
     #restart: always
-    # environment:       #环境变量
-    #   SERVER_PORT: "8761"    #自定义参数用于给服务的配置文件传递参数
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
   weiji-customer:      #自定义服务名
     image: weiji-customer-0.0.1   #镜像名称
     ports:
@@ -51,6 +50,8 @@ services:
           - weiji-customer
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
   weiji-service:      #自定义服务名
     image: weiji-service-0.0.1   #镜像名称
     ports:
@@ -61,6 +62,8 @@ services:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
   weiji-service2:      #自定义服务名
     image: weiji-service-0.0.1   #镜像名称
     ports:
@@ -71,18 +74,8 @@ services:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-  # mysql:
-    # container_name: mysql-java
-    # image: mysql-java
-    # restart: always
-    # ports:
-      # - "3306:3306"
-    # environment:
-      # - MYSQL_ROOT_PASSWORD=Yifan123.
-    # volumes:
-      # # - ./dfMysql/conf:/etc/mysql/conf.d
-      # - ./dfMysql/logs:/logs
-      # - ./dfMysql/data:/var/lib/mysql
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
   nginx-server1:
     image: nginx
     ports:
@@ -93,6 +86,8 @@ services:
           - nnnnnnnnnnnnnnnn
     volumes:
       - /etc/yum.repos.d/:/etc/yum.repos.d/
+    environment:       #环境变量配置
+      - TZ=Asia/Shanghai
 networks:
   eureka-net:
 #     driver: bridge

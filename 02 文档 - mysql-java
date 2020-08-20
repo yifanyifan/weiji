@@ -7,6 +7,15 @@ RUN apt-get update
 RUN apt-get install -y vim
 RUN echo '[mysqld]'>>/etc/mysql/conf.d/mysql.cnf
 RUN echo 'sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'>>/etc/mysql/conf.d/mysql.cnf
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai'>/etc/timezone
+
+FROM mysql:8.0
+RUN apt-get update
+RUN apt-get install -y vim
+RUN echo '[mysqld]'>>/etc/mysql/conf.d/mysql.cnf
+RUN echo 'sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'>>/etc/mysql/conf.d/mysql.cnf
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai'>/etc/timezone
+# 用户权限
 
 3. 构建镜像
 docker build -t mysql-java .
@@ -15,4 +24,5 @@ docker build -t mysql-java .
 启动方式一 Docker-compost
 
 启动方式二 单独启动-带挂载
-docker run -d --name mysql-java -p 3306:3306 -v /dockerFile/dfMysql/logs:/logs -v /dockerFile/dfMysql/data:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=Yifan123. mysql-java
+docker run -d  --net dockerfile_eureka-net  --name mysql-java -p 3306:3306 -v /dockerFile/dfMysql/logs:/logs -v /dockerFile/dfMysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Yifan123. mysql-java
+# # - ./dfMysql/conf:/etc/mysql/conf.d
