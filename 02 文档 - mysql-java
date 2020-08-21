@@ -26,3 +26,4 @@ docker build -t mysql-java .
 启动方式二 单独启动-带挂载
 docker run -d  --net dockerfile_eureka-net  --name mysql-java -p 3306:3306 -v /dockerFile/dfMysql/logs:/logs -v /dockerFile/dfMysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Yifan123. mysql-java
 # # - ./dfMysql/conf:/etc/mysql/conf.d
+注意：需要和weiji-service在同一个网络下
