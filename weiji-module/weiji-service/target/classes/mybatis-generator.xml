@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- mysql本地驱动 -->
+    <classPathEntry location="D:\mysql-connector-java-8.0.19.jar"/>
+    <context id="testTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 1. 插件 -->
+        <!--<plugin/>-->
+        <!-- 2. 是否阻止生成的注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 3. Mysql连接 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://47.103.28.119/weiji_env?useUnicode=true&amp;characterEncoding=utf-8" userId="root" password="Yifan123."/>
+        <!-- 4. 指定JDBC类型和Java类型如何转换-->
+        <javaTypeResolver>
+            <!-- 为 true时把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+        <!-- 5. 实体生成 -->
+        <javaModelGenerator targetPackage="com.fujiang.weiji.entity.runoob" targetProject="D:\idea\eship5\weiji\weiji-interface\src\main\java">
+            <property name="constructorBased" value="false"/>
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 6. XML 生成，若果maven工程是分模块的工程，targetProject="所属模块的名称"，例如：targetProject="ecps-manager-mapper"，下同-->
+        <sqlMapGenerator targetPackage="mapper.runoob" targetProject="D:\idea\eship5\weiji\weiji-service\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 7. mapper接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.fujiang.weiji.mapper.runoob" targetProject="D:\idea\eship5\weiji\weiji-service\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 指定数据库表 -->
+        <table tableName="runoob_tbl" domainObjectName="RunoobTbl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+    </context>
+</generatorConfiguration>

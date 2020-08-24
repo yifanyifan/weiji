@@ -7,9 +7,9 @@
         <module>weiji-interface</module>
         <module>weiji-utils</module>
         <module>weiji-eureka</module>
-        <module>weiji-service</module>
         <module>weiji-customer</module>
         <module>weiji-config</module>
+        <module>weiji-module</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
