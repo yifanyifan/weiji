@@ -1,6 +1,0 @@
-com\fujiang\weiji\WeijiServiceApplication.class
-com\fujiang\weiji\controller\runoob\RunoobTblController.class
-com\fujiang\weiji\controller\product\ProductController.class
-com\fujiang\weiji\mapper\runoob\RunoobTblMapper.class
-com\fujiang\weiji\service\impl\RunoobTblServiceImpl.class
-com\fujiang\weiji\service\RunoobTblService.class
