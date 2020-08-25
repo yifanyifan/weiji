@@ -33,4 +33,11 @@ public class ProductController {
     public String insertOrder() {
         return orderServiceFeign.insert();
     }
+
+    @RequestMapping(value = "insertAll")
+    public String insertAll() {
+        String s1 = runoobTblServiceFeign.insert();
+        String s2 = orderServiceFeign.insert();
+        return s1 + ":" + s2;
+    }
 }
