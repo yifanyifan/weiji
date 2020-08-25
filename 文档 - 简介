@@ -10,6 +10,9 @@ weiji-interface
 weiji-service ##8002
     # 生产者controller
     # 逻辑实现
+weiji-order ##8012
+    # 生产者controller
+    # 逻辑实现
 weiji-utils
 	# 工具
 weiji-common

@@ -9,6 +9,9 @@ mvn clean package docker:build -Dmaven.test.skip
 echo 'weiji-module/weiji-service'
 cd ../weiji-module/weiji-service
 mvn clean package docker:build -Dmaven.test.skip
+echo 'weiji-module/weiji-order'
+cd ../weiji-order
+mvn clean package docker:build -Dmaven.test.skip
 echo 'weiji-customer'
 cd ../../weiji-customer
 mvn clean package docker:build -Dmaven.test.skip

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fujiang.weiji.mapper.orde.OrdeOrderMapper">
+    <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.orde.OrdeOrder">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="orde_order" jdbcType="VARCHAR" property="ordeOrder"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, orde_order
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orde_order
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from orde_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.fujiang.weiji.entity.orde.OrdeOrder">
+    insert into orde_order (id, orde_order)
+    values (#{id,jdbcType=VARCHAR}, #{ordeOrder,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.fujiang.weiji.entity.orde.OrdeOrder">
+        insert into orde_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="ordeOrder != null">
+                orde_order,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="ordeOrder != null">
+                #{ordeOrder,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fujiang.weiji.entity.orde.OrdeOrder">
+        update orde_order
+        <set>
+            <if test="ordeOrder != null">
+                orde_order = #{ordeOrder,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fujiang.weiji.entity.orde.OrdeOrder">
+    update orde_order
+    set orde_order = #{ordeOrder,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

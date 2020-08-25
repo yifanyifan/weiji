@@ -13,6 +13,7 @@
     <build/>
     <modules>
         <module>weiji-service</module>
+        <module>weiji-order</module>
     </modules>
 
 </project>

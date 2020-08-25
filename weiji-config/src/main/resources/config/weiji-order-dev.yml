@@ -1,0 +1,23 @@
+server:
+  port: 8012
+  servlet:
+    context-path: /order
+spring:
+  application:
+    name: weiji-order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://47.103.28.119:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    url: jdbc:mysql://mysql-java:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    username: root
+    password: Yifan123.
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#Mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.fujiang.weiji
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*.xml
