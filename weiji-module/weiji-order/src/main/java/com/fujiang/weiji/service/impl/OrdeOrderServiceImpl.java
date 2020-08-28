@@ -5,6 +5,7 @@ import com.fujiang.weiji.mapper.orde.OrdeOrderMapper;
 import com.fujiang.weiji.service.OrdeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: Yifan
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Modified By:
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class OrdeOrderServiceImpl implements OrdeOrderService {
     @Autowired
     private OrdeOrderMapper ordeOrderMapper;

@@ -5,6 +5,10 @@ server:
 spring:
   application:
     name: weiji-consumer
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: weiji_group
 eureka:
   instance:
     prefer-ip-address: true
