@@ -2,6 +2,7 @@ package com.fujiang.weiji.test;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class function {
@@ -17,10 +18,22 @@ public class function {
         Stream.generate(supplier).peek((data) -> {
             System.out.println(data);
         });
+        System.out.println("1111111111111111111111111111111111111111111111");
+        Stream.generate(supplier).limit(1).forEach(System.out::println);
+        System.out.println("1111111111111111111111111111111111111111111111");
+        Stream.generate(new NatualSupplier()).limit(20).forEach(System.out::println);
     }
 
     private static Integer compute(Integer integer, String string) {
         return 5;// integer + integer1.length();
+    }
+
+    static class NatualSupplier implements Supplier<Integer> {
+        int n = 0;
+        public Integer get() {
+            n++;
+            return n;
+        }
     }
 
     public static void biFunction(String[] args) {
