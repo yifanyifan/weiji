@@ -15,10 +15,7 @@ spring:
     alibaba:
       seata:
         tx-service-group: weiji_group
-logging:
-  level:
-    io:
-      seata: info
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -29,3 +26,8 @@ mybatis:
   typeAliasesPackage: com.fujiang.weiji
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath*:mapper/**/*.xml
+
+logging:
+  level:
+    io:
+      seata: debug
