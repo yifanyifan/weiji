@@ -2,7 +2,6 @@ package com.fujiang.weiji.controller.runoob;
 
 import com.fujiang.weiji.entity.runoob.RunoobTbl;
 import com.fujiang.weiji.service.RunoobTblService;
-import io.seata.core.context.RootContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class RunoobTblController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert() {
-        String s1 = RootContext.getXID();
-        String unXid = RootContext.unbind();
-
         RunoobTbl runoobTbl = new RunoobTbl();
         runoobTbl.setRunoobId(1);
         runoobTblService.insert(runoobTbl);

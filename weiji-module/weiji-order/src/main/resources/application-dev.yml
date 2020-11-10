@@ -11,11 +11,6 @@ spring:
     # url: jdbc:mysql://mysql-java:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
     username: root
     password: Yifan123.
-  cloud:
-    alibaba:
-      seata:
-        # 这个weiji_group自定义命名很重要，server，client都要保持一致
-        tx-service-group: weiji_group
 
 eureka:
   instance:
@@ -30,8 +25,3 @@ mybatis:
   typeAliasesPackage: com.fujiang.weiji
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath*:mapper/**/*.xml
-
-logging:
-  level:
-    io:
-      seata: debug
