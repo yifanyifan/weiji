@@ -5,6 +5,7 @@ import com.fujiang.weiji.mapper.runoob.RunoobTblMapper;
 import com.fujiang.weiji.service.RunoobTblService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: Yifan
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  * Modified By:
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class RunoobTblServiceImpl implements RunoobTblService {
     @Autowired
     private RunoobTblMapper runoobTblMapper;
