@@ -1,20 +1,23 @@
 server:
-  port: 8002
+  port: 8012
   servlet:
-    context-path: /service
+    context-path: /order
 spring:
   application:
-    name: weiji-service
+    name: weiji-order
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # url: jdbc:mysql://47.103.28.119:3306/weiji_env?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
-    url: jdbc:mysql://mysql-java:3306/weiji_env?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    # url: jdbc:mysql://47.103.28.119:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    url: jdbc:mysql://mysql-java:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
     username: root
     password: Yifan123.
 eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://eureka6001.com:6001/eureka/eureka
 #Mybatis配置
 mybatis:
   # 搜索指定包别名

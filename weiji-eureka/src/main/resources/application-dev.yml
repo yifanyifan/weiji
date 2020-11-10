@@ -14,6 +14,9 @@ eureka:
     # registry-fetch-interval-seconds # eureka client间隔多久去拉取服务注册信息 30秒
     fetch-registry: false #是否在本地缓存注册表信息`
     register-with-eureka: false #是否注册到eureka Server
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/eureka
 #  server:
 #    enable-self-preservation: true # 开启自我保护
 #    eviction-interval-timer-in-ms: 10000 # eureka server清理无效节点的时间间隔
+

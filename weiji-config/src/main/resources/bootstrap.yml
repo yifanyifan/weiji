@@ -12,10 +12,10 @@ spring:
         native:
           search-locations: classpath:/config
 eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka6001.com:6001/eureka/eureka
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://eureka6001.com:6001/eureka/eureka
 

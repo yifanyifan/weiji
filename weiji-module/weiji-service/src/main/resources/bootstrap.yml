@@ -1,9 +1,0 @@
-#配置公共服务,必须在此文件
-spring:
-  cloud:
-    config:
-      enabled: true
-      uri: http://config6501.com:6501 #配置服务地址.[注意:此配置信息必须位于bootstrap.yml,如果放在application.yml将不会生效]
-      name: weiji-service, common # 对应 {application} 部分
-      profile: dev #选择了服务器侧的smsservice-test.yml作为配置设定文件
-      #label: master # 对应 {label} 部分，即 Git 的分支。如果配置中心使用的是本地存储，则该参数无用
