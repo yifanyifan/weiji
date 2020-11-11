@@ -1,5 +1,5 @@
 Docker部署步骤：
-一、构建centos-java镜像
+一、构建centos-jdk镜像
 
 二、构建mysql-java镜像
 
