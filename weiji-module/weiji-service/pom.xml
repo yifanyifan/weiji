@@ -67,9 +67,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.2.RELEASE</version>
             </plugin>
             <!-- docker 远程配置 -->
-            <plugin>
+           <!-- <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.3</version>
@@ -77,7 +78,7 @@
                     <imageName>${project.artifactId}-${project.version}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                     <dockerHost>http://47.103.28.119:2375</dockerHost>
-                    <!--<dockerHost>http://139.9.179.188:2375</dockerHost>-->
+                    &lt;!&ndash;<dockerHost>http://139.9.179.188:2375</dockerHost>&ndash;&gt;
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -86,7 +87,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <!-- 代码自动生成插件 -->
             <!--<plugin>
                 <groupId>org.mybatis.generator</groupId>
