@@ -25,9 +25,13 @@ public class OrdeOrderController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public String insert() throws Exception {
-        OrdeOrder ordeOrder = new OrdeOrder();
-        ordeOrder.setId("1");
-        ordeOrderService.insert(ordeOrder);
+        try {
+            OrdeOrder ordeOrder = new OrdeOrder();
+            ordeOrder.setId("1");
+            ordeOrderService.insert(ordeOrder);
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+        }
 
         return "successOrder";
     }
