@@ -3,111 +3,165 @@ Docker部署步骤：
 
 二、构建mysql-java镜像
 
-三、docker-compose（启动方式一）
-1. 编写docker-compose.yml
+三、创建dfWeiji文件夹
+将下列文件复制进去
+entrypoint.sh  weiji-config-0.0.1.jar  weiji-customer-0.0.1.jar  weiji-eureka-0.0.1.jar  weiji-order-0.0.1.jar  weiji-service-0.0.1.jar
+
+四、docker-compose（启动方式一）
+1. 编写若干个Dockerfile-XXX文件，并将各自内容复制进去
+# ----------------------------------Dockerfile-eureka--------------------------------------------
+# 基础镜像
+FROM centos-jdk
+# 挂载点
+VOLUME /tmp
+# 复制文件
+ADD ./dfWeiji/weiji-eureka-0.0.1.jar app.jar
+# 延迟插件启动
+ADD ./dfWeiji/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+# 执行后面命令
+RUN sh -c 'touch /app.jar'
+# 配置容器启动后执行的命令
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+# 声明端口（不会打开端口）
+EXPOSE 6001
+# ----------------------------------Dockerfile-config--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD ./dfWeiji/weiji-config-0.0.1.jar app.jar
+ADD ./dfWeiji/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 6501
+# ----------------------------------Dockerfile-service--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD ./dfWeiji/weiji-service-0.0.1.jar app.jar
+ADD ./dfWeiji/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 8002
+# ----------------------------------Dockerfile-order--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD ./dfWeiji/weiji-order-0.0.1.jar app.jar
+ADD ./dfWeiji/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 8012
+# ----------------------------------Dockerfile-customer--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD ./dfWeiji/weiji-customer-0.0.1.jar app.jar
+ADD ./dfWeiji/entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 7001
+
+2. 编写docker-compose.yml
 version: '3.0'
 services:
-  config:        #自定义服务名
-    image: weiji-config-0.0.1    #镜像名称
-    ports:
-      - "6501:6501"    #映射的端口
-    # links:
-    #   - eureka-server1:eureka6001.com
-    networks:
-      eureka-net:     #网络模式
-        aliases:
-          - config6501.com
-    #extra_hosts:
-    #   - eureka6001.com:47.103.28.119
-    environment:       #环境变量配置
-      - TZ=Asia/Shanghai
   eureka-server:      #自定义服务名
-    image: weiji-eureka-0.0.1   #镜像名称
+    build:
+      dockerfile: ./Dockerfile-eureka
+      context: .
+    image: weiji-eureka   #镜像名称
     ports:
       - "6001:6001"    #映射的端口
-    #depends_on:
-    #  - config
     networks:
       eureka-net:     #网络模式
         aliases:
           - eureka6001.com
-    # volumes: - "./entrypoint.sh:/entrypoint.sh"
-    # environment: SLEEP_SECOND: 4
     tty: true
-    # http://config6501.com:6501/config/weiji-eureka-dev.yml 试着判断config是否可以访问
-    entrypoint: /entrypoint.sh -d config6501.com:6501 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    # command: ["./wait-for-it.sh", "-t", "10", "config6501.com:6501/config/weiji-eureka-dev.yml", "--", "java", "-jar", "/app.jar"]
-    #restart: always
     environment:       #环境变量配置
       - TZ=Asia/Shanghai
-  weiji-customer:      #自定义服务名
-    image: weiji-customer-0.0.1   #镜像名称
+  config:
+    build:
+      dockerfile: ./Dockerfile-config
+      context: .
+    image: weiji-config
     ports:
-      - "7001:7001"    #映射的端口
+      - "6501:6501"
     networks:
-      eureka-net:     #网络模式
+      eureka-net:
+        aliases:
+          - weiji-config
+    tty: true
+    # http://config6501.com:6501/config/weiji-eureka-dev.yml 试着判断config是否可以访问
+    entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
+    environment:
+      - TZ=Asia/Shanghai
+  weiji-customer:
+    build:
+      dockerfile: ./Dockerfile-customer
+      context: .
+    image: weiji-customer
+    ports:
+      - "7001:7001"
+    networks:
+      eureka-net:
         aliases:
           - weiji-customer
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    environment:       #环境变量配置
+    environment:
       - TZ=Asia/Shanghai
-  weiji-service:      #自定义服务名
-    image: weiji-service-0.0.1   #镜像名称
+  weiji-service:
+    build:
+      dockerfile: ./Dockerfile-service
+      context: .
+    image: weiji-service
     ports:
-      - "8002:8002"    #映射的端口
+      - "8002:8002"
     networks:
-      eureka-net:     #网络模式
+      eureka-net:
         aliases:
           - weiji-service
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    environment:       #环境变量配置
+    environment:
       - TZ=Asia/Shanghai
-  weiji-service2:      #自定义服务名
-    image: weiji-service-0.0.1   #镜像名称
+  weiji-order:
+    build:
+      dockerfile: ./Dockerfile-order
+      context: .
+    image: weiji-order
     ports:
-      - "8003:8002"    #映射的端口
+      - "8012:8012"
     networks:
-      eureka-net:     #网络模式
-        aliases:
-          - weiji-service
-    tty: true
-    entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    environment:       #环境变量配置
-      - TZ=Asia/Shanghai
-  weiji-order:      #自定义服务名
-    image: weiji-order-0.0.1   #镜像名称
-    ports:
-      - "8012:8012"    #映射的端口
-    networks:
-      eureka-net:     #网络模式
+      eureka-net:
         aliases:
           - weiji-order
     tty: true
     entrypoint: /entrypoint.sh -d eureka6001.com:6001 -c 'java -Djava.security.egd=file:/dev/./urandom -jar /app.jar';
-    environment:       #环境变量配置
+    environment:
       - TZ=Asia/Shanghai
   nginx-server1:
     image: nginx
     ports:
       - "80:80"
     networks:
-      eureka-net:     #网络模式
+      eureka-net:
         aliases:
           - nnnnnnnnnnnnnnnn
     volumes:
       - /etc/yum.repos.d/:/etc/yum.repos.d/
-    environment:       #环境变量配置
+    environment:
       - TZ=Asia/Shanghai
 networks:
   eureka-net:
 #     driver: bridge
 
-2. 执行docker-compose.yml
+3. 注意docker-compose.yml 和 Dockerfile-config、Dockerfile-XXX 放在dfWeiji文件夹的上一级
+
+4. 执行docker-compose.yml
 docker-compose -f docker-compose.yml up -d
 
-四、 手动逐一启动（启动方式二）
+四、 手动逐一启动（启动方式二）【老版本，作废】
 1. 创建网桥
 docker network create default_network
 docker network  ls
