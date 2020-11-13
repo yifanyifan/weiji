@@ -1,5 +1,6 @@
 package com.fujiang.weiji.controller.product;
 
+import com.alibaba.fastjson.JSON;
 import com.fujiang.weiji.entity.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,6 @@ public class ProductController {
         //Thread.sleep(3000);
         logger.info("============================>dddddddwer1111111111111111111111111111111111");
 
-        return port + ":" + product.toString();
+        return port + ":" + JSON.toJSONString(product) + ":XXX";
     }
 }
