@@ -154,6 +154,8 @@ services:
       - TZ=Asia/Shanghai
 networks:
   eureka-net:
+    external:
+      name: app_net # 指定网络
 #     driver: bridge
 
 3. 注意docker-compose.yml 和 Dockerfile-config、Dockerfile-XXX 放在dfWeiji文件夹的上一级
@@ -181,7 +183,11 @@ docker logs --since 2020-07-26T21:51:00 0c4acd9c207a
 docker inspect --format '{{.LogPath}}' mysql-java
 cat ...
 
-
+目录结构参考
+[root@izuf6542zl60b49y5e3d1dz dockerFile]# pwd
+/dockerFile
+[root@izuf6542zl60b49y5e3d1dz dockerFile]# ls
+dfcentos  dfMysql  dfRedis  dfWeiji  docker-compose.yml  Dockerfile-config  Dockerfile-customer  Dockerfile-eureka  Dockerfile-order  Dockerfile-service
 
 
 项目重新打包

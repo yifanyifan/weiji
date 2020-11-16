@@ -1,0 +1,55 @@
+# 服务类 DockerCompose【未完成】
+version: '3'
+services:
+  mysql:
+    image: mysql-java
+    restart: always
+    privileged: true
+    container_name: mysql-java
+    volumes:
+      - /dockerFile/dfMysql/logs:/logs
+      - /dockerFile/dfMysql/data:/var/lib/mysql
+      # - ./mysql/config/my.cnf:/etc/my.cnf
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: Yifan123.
+    ports:
+      - '3306:3306'
+    networks:
+      eureka-net:
+        aliases:
+          - mysql-java
+  redis:
+    image: redis:4.0
+    restart: always
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/data:/data
+    command: redis-server
+  sjy-api:
+    image: sjy-api:latest
+    restart: always
+    container_name: sjy-api
+    environment:
+      - JVM_OPTS=-XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx1024m -Xmn256m -Xss256k -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC
+    volumes:
+      - ./sjy/logs:/logs
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 5050:5050
+    links:
+      - mysql
+      - redis
+    external_links:
+      - elasticsearch
+    depends_on:
+      - mysql
+      - redis
+networks:
+  eureka-net:
+    external:
+      name: app_net # 指定网络
+#     driver: bridge
+
