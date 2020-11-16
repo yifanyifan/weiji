@@ -28,7 +28,7 @@ weiji-logs
 192.168.8.24 eureka6001.com
 192.168.8.24 config6501.com
 2. 项目Run启动
-weiji-eureka -> weiji-config -> weiji-service -> weiji-order -> weiji-customer -> 浏览器访问http://192.168.8.13:7001/consumer/getConsumer
+weiji-eureka -> weiji-config -> weiji-service -> weiji-order -> weiji-customer -> 浏览器访问http://eureka6001.com:7001/consumer/product/getConsumer
 
 代码调用顺序
 消费者controller -> feign接口 -> 生产者controller -> 逻辑实现

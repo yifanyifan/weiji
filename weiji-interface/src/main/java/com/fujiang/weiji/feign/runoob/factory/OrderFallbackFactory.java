@@ -1,6 +1,6 @@
 package com.fujiang.weiji.feign.runoob.factory;
 
-import com.fujiang.weiji.feign.runoob.OrderServiceFeign;
+import com.fujiang.weiji.feign.runoob.OrderFeign;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  * Modified By:
  */
 @Component
-public class OrderFallbackFactory implements FallbackFactory<OrderServiceFeign> {
+public class OrderFallbackFactory implements FallbackFactory<OrderFeign> {
     @Override
-    public OrderServiceFeign create(Throwable throwable) {
-        return new OrderServiceFeign() {
+    public OrderFeign create(Throwable throwable) {
+        return new OrderFeign() {
             @Override
             public String insert() {
                 return "insert订单失败";

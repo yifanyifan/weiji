@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient(name = "weiji-service", path = "service", fallbackFactory = RunoobTblFallbackFactory.class)
 @Component
-public interface RunoobTblServiceFeign {
+public interface ServiceFeign {
     @RequestMapping(value = "/product/getProduct")
     String getProduct();
 

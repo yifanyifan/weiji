@@ -159,7 +159,7 @@ networks:
 3. 注意docker-compose.yml 和 Dockerfile-config、Dockerfile-XXX 放在dfWeiji文件夹的上一级
 
 4. 执行docker-compose.yml
-docker-compose down                 # 停止服务，删除容器
+docker-compose down                 # 停止服务，删除容器【注意:如何网络中有如mysql服务，down之后会报错，不用管它，是因为down会删除网络，但是mysql不在docker-compose中】
 docker-compose build                # 重新编译所有jar，重新生成镜像
 docker-compose build weiji-service  # 编译某个jar，重新生成镜像
 docker-compose -f docker-compose.yml up -d  # 启动【无镜像时，先jar打成镜像，再启动】【有镜像时，会直接启动】

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient(name = "weiji-order", path = "order", fallbackFactory = OrderFallbackFactory.class)
 @Component
-public interface OrderServiceFeign {
+public interface OrderFeign {
     @RequestMapping(value = "/order/insert", method = RequestMethod.POST)
     String insert();
 }

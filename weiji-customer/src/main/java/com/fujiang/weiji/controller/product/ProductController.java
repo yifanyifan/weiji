@@ -1,7 +1,7 @@
 package com.fujiang.weiji.controller.product;
 
-import com.fujiang.weiji.feign.runoob.OrderServiceFeign;
-import com.fujiang.weiji.feign.runoob.RunoobTblServiceFeign;
+import com.fujiang.weiji.feign.runoob.OrderFeign;
+import com.fujiang.weiji.feign.runoob.ServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
-    private RunoobTblServiceFeign runoobTblServiceFeign;
+    private ServiceFeign serviceFeign;
     @Autowired
-    private OrderServiceFeign orderServiceFeign;
+    private OrderFeign orderFeign;
 
     @RequestMapping(value = "getConsumer", method = RequestMethod.GET)
     public String getConsumer() {
-        return runoobTblServiceFeign.getProduct();
+        return serviceFeign.getProduct();
     }
 
     @RequestMapping(value = "insert", method = RequestMethod.GET)
     public String insert() {
-        return runoobTblServiceFeign.insert();
+        return serviceFeign.insert();
     }
 
     @RequestMapping(value = "insertOrder", method = RequestMethod.GET)
     public String insertOrder() {
-        return orderServiceFeign.insert();
+        return orderFeign.insert();
     }
 
 }
