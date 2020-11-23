@@ -34,6 +34,9 @@ requirepass Yifan123.
 version: '3'
 services:
   mysql:
+    build:
+      dockerfile: ./Dockerfile-mysql
+      context: .
     image: mysql-java
     restart: always
     privileged: true
@@ -41,7 +44,6 @@ services:
     volumes:
       - /dockerFile/dfMysql/logs:/logs
       - /dockerFile/dfMysql/data:/var/lib/mysql
-      # - ./mysql/config/my.cnf:/etc/my.cnf
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: Yifan123.
@@ -66,13 +68,12 @@ services:
     networks:
       eureka-net:
         aliases:
-          - mysql-java
+          - redis-java
 networks:
   eureka-net:
     external:
       name: app_net # 指定网络
 #     driver: bridge
-
 
 三. 构建镜像【目前只会编译出mysql镜像，因为redis是直接用下载的镜像】
 docker-compose -f docker-compose-server.yml build
