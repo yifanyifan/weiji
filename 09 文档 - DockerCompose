@@ -3,7 +3,8 @@
 
 二、构建mysql-java镜像
 
-三、创建dfWeiji文件夹
+三、创建总目录文件夹
+/dockerFile/dfWeiji
 将下列文件复制进去
 entrypoint.sh  weiji-config-0.0.1.jar  weiji-customer-0.0.1.jar  weiji-eureka-0.0.1.jar  weiji-order-0.0.1.jar  weiji-service-0.0.1.jar
 
