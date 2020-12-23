@@ -89,3 +89,7 @@ docker-compose -f docker-compose-server.yml build
 
 四、启动容器
 docker-compose -f docker-compose-server.yml up -d
+
+
+
+docker run -d -p 8099:8080 -p 50000:50000 -v /dockerFile/jenkins/jenkins_data:/var/jenkins_home jenkinsci/blueocean
