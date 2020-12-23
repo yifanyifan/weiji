@@ -91,5 +91,6 @@ docker-compose -f docker-compose-server.yml build
 docker-compose -f docker-compose-server.yml up -d
 
 
-
+执行前对挂载的目录进行处理：chown -R 1000:1000 /dockerFile/maven/apache-maven-3.6.3
 docker run -d -p 8099:8080 -p 50000:50000 -v /dockerFile/jenkins/jenkins_data:/var/jenkins_home jenkinsci/blueocean
+docker run --restart=always -v /dockerFile/jenkins/jenkins_data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /dockerFile/maven/apache-maven-3.6.3:/usr/local/maven -p 8099:8080 -p 50000:50000 --name jenkins -d jenkinsci/blueocean
