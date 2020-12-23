@@ -1,12 +1,12 @@
 node {
     def mvnHome
     stage('Preparation') { // for display purposes
-        echo 'pull cc'
+        echo 'pull By XM'
     }
     stage('Build') {
-        echo 'build cc'
+        echo 'build By XM'
     }
     stage('Results') {
-        echo 'deploy cc'
+        echo 'deploy By XM'
     }
 }
