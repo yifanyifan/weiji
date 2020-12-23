@@ -4,21 +4,21 @@
 二、构建mysql-java镜像
 
 三、创建总目录文件夹
-/dockerFile/dfWeiji
+/dockerFile/dfWeiji/package
 将下列文件复制进去
 entrypoint.sh  weiji-config-0.0.1.jar  weiji-customer-0.0.1.jar  weiji-eureka-0.0.1.jar  weiji-order-0.0.1.jar  weiji-service-0.0.1.jar
 
 四、docker-compose（启动方式一）
-1. 编写若干个Dockerfile-XXX文件，并将各自内容复制进去
+1. 编写若干个Dockerfile-XXX文件，并将各自内容复制进【/dockerFile/dfWeiji】
 # ----------------------------------Dockerfile-eureka--------------------------------------------
 # 基础镜像
 FROM centos-jdk
 # 挂载点
 VOLUME /tmp
 # 复制文件
-ADD ./dfWeiji/weiji-eureka-0.0.1.jar app.jar
+ADD ./dfWeiji/package/weiji-eureka-0.0.1.jar app.jar
 # 延迟插件启动
-ADD ./dfWeiji/entrypoint.sh ./
+ADD ./dfWeiji/package/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 # 执行后面命令
 RUN sh -c 'touch /app.jar'
@@ -29,8 +29,8 @@ EXPOSE 6001
 # ----------------------------------Dockerfile-config--------------------------------------------
 FROM centos-jdk
 VOLUME /tmp
-ADD ./dfWeiji/weiji-config-0.0.1.jar app.jar
-ADD ./dfWeiji/entrypoint.sh ./
+ADD ./dfWeiji/package/weiji-config-0.0.1.jar app.jar
+ADD ./dfWeiji/package/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 RUN sh -c 'touch /app.jar'
 ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
@@ -38,8 +38,8 @@ EXPOSE 6501
 # ----------------------------------Dockerfile-service--------------------------------------------
 FROM centos-jdk
 VOLUME /tmp
-ADD ./dfWeiji/weiji-service-0.0.1.jar app.jar
-ADD ./dfWeiji/entrypoint.sh ./
+ADD ./dfWeiji/package/weiji-service-0.0.1.jar app.jar
+ADD ./dfWeiji/package/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 RUN sh -c 'touch /app.jar'
 ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
@@ -47,8 +47,8 @@ EXPOSE 8002
 # ----------------------------------Dockerfile-order--------------------------------------------
 FROM centos-jdk
 VOLUME /tmp
-ADD ./dfWeiji/weiji-order-0.0.1.jar app.jar
-ADD ./dfWeiji/entrypoint.sh ./
+ADD ./dfWeiji/package/weiji-order-0.0.1.jar app.jar
+ADD ./dfWeiji/package/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 RUN sh -c 'touch /app.jar'
 ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
@@ -56,19 +56,19 @@ EXPOSE 8012
 # ----------------------------------Dockerfile-customer--------------------------------------------
 FROM centos-jdk
 VOLUME /tmp
-ADD ./dfWeiji/weiji-customer-0.0.1.jar app.jar
-ADD ./dfWeiji/entrypoint.sh ./
+ADD ./dfWeiji/package/weiji-customer-0.0.1.jar app.jar
+ADD ./dfWeiji/package/entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 RUN sh -c 'touch /app.jar'
 ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 EXPOSE 7001
 
-2. 编写docker-compose.yml
+2. 编写docker-compose.yml【/dockerFile】
 version: '3.0'
 services:
   eureka-server:      #自定义服务名
     build:
-      dockerfile: ./Dockerfile-eureka
+      dockerfile: ./dfWeiji/Dockerfile-eureka
       context: .
     image: weiji-eureka   #镜像名称
     ports:
@@ -82,7 +82,7 @@ services:
       - TZ=Asia/Shanghai
   config:
     build:
-      dockerfile: ./Dockerfile-config
+      dockerfile: ./dfWeiji/Dockerfile-config
       context: .
     image: weiji-config
     ports:
@@ -98,7 +98,7 @@ services:
       - TZ=Asia/Shanghai
   weiji-customer:
     build:
-      dockerfile: ./Dockerfile-customer
+      dockerfile: ./dfWeiji/Dockerfile-customer
       context: .
     image: weiji-customer
     ports:
@@ -113,7 +113,7 @@ services:
       - TZ=Asia/Shanghai
   weiji-service:
     build:
-      dockerfile: ./Dockerfile-service
+      dockerfile: ./dfWeiji/Dockerfile-service
       context: .
     image: weiji-service
     ports:
@@ -128,7 +128,7 @@ services:
       - TZ=Asia/Shanghai
   weiji-order:
     build:
-      dockerfile: ./Dockerfile-order
+      dockerfile: ./dfWeiji/Dockerfile-order
       context: .
     image: weiji-order
     ports:
@@ -159,13 +159,18 @@ networks:
       name: app_net # 指定网络
 #     driver: bridge
 
-3. 注意docker-compose.yml 和 Dockerfile-config、Dockerfile-XXX 放在dfWeiji文件夹的上一级
+3. 路径
+/dockerFile -> dfcentos  dfServer  dfWeiji  docker-compose-server.yml  docker-compose.yml
+/dockerFile/dfWeiji -> Dockerfile-config  Dockerfile-customer  Dockerfile-eureka  Dockerfile-order  Dockerfile-service  package
+/dockerFile/dfWeiji/package -> entrypoint.sh  weiji-config-0.0.1.jar  weiji-customer-0.0.1.jar  weiji-eureka-0.0.1.jar  weiji-order-0.0.1.jar  weiji-service-0.0.1.jar
 
 4. 执行docker-compose.yml
 docker-compose down                 # 停止服务，删除容器【注意:如何网络中有如mysql服务，down之后会报错，不用管它，是因为down会删除网络，但是mysql不在docker-compose中】
-docker-compose build                # 重新编译所有jar，重新生成镜像
-docker-compose build weiji-service  # 编译某个jar，重新生成镜像
+docker-compose -f docker-compose.yml build  # 重新编译所有jar，重新生成镜像
+docker-compose build weiji-service          # 编译某个jar，重新生成镜像
 docker-compose -f docker-compose.yml up -d  # 启动【无镜像时，先jar打成镜像，再启动】【有镜像时，会直接启动】
+
+--------------------------------------------------------------------------------------------------------------
 
 四、 手动逐一启动（启动方式二）【老版本，作废】
 1. 创建网桥
