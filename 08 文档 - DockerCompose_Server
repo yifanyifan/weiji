@@ -36,6 +36,8 @@ appendonly yes      # 使用aof 持久化
 # save 300 10
 # save 60 10000
 requirepass Yifan123.
+3. jenkins
+
 
 二、编写docker-compose-server.yml
 touch /dockerFile/docker-compose-server.yml
@@ -78,6 +80,22 @@ services:
       eureka-net:
         aliases:
           - redis-java
+  jenkins:
+    image: jenkinsci/blueocean
+    privileged: true
+    container_name: jenkins
+    ports:
+      - 8099:8080
+      - 50000:50000
+    volumes:
+      - /dockerFile/tool/jenkins:/var/jenkins_home
+      - /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven
+      - /dockerFile/tool/profile:/etc/profile
+      - /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk
+    networks:
+      eureka-net:
+        aliases:
+          - jenkins-java
 networks:
   eureka-net:
     external:
@@ -92,5 +110,9 @@ docker-compose -f docker-compose-server.yml up -d
 
 
 执行前对挂载的目录进行处理：chown -R 1000:1000 /dockerFile/maven/apache-maven-3.6.3
-docker run -d -p 8099:8080 -p 50000:50000 -v /dockerFile/tool/jenkins:/var/jenkins_home -v /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven -v /dockerFile/tool/profile:/etc/profile -v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk jenkinsci/blueocean
+docker run -d -p 8099:8080 -p 50000:50000
+-v /dockerFile/tool/jenkins:/var/jenkins_home
+-v /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven
+-v /dockerFile/tool/profile:/etc/profile
+-v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk jenkinsci/blueocean
 
