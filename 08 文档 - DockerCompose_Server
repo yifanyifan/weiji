@@ -7,7 +7,7 @@ mkdir /dockerFile/dfServer
 1）创建dfMysql文件夹
 mkdir /dockerFile/dfServer/dfMysql
 2）创建Dockerfile-mysql
-mkdir /dockerFile/dfServer/dfMysql/Dockerfile-mysql
+touch /dockerFile/dfServer/dfMysql/Dockerfile-mysql
 内容如下：
 FROM mysql:5.7
 RUN apt-get update
@@ -37,6 +37,22 @@ appendonly yes      # 使用aof 持久化
 # save 60 10000
 requirepass Yifan123.
 3. jenkins
+1）创建dfM文件夹
+mkdir /dockerFile/dfServer/dfJenkins
+2）在文件夹中加入apache-maven-3.6.3-bin.tar.gz
+3）创建Dockerfile-mysql
+touch /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
+内容如下：
+FROM jenkinsci/blueocean
+USER root
+# WORKDIR /var/maven3 # 在容器内部设置工作目录，在构建中为后续的指令指定工作目录
+ADD ./dfServer/dfJenkins/apache-maven-3.6.3-bin.tar.gz ./ # 将文件或目录复制到使用Dockerfile构建的镜像中，注意ADD指令自带解压缩功能
+# 用来设置环境变量，作用于构建构过程或运行过程中
+ENV MAVEN_HOME=./apache-maven-3.6.3
+#ENV MAVEN_OPTS=[-Xms256m -Xmx512m]
+ENV PATH=$PATH:$MAVEN_HOME/bin
+# 运行指令
+RUN echo "MAVEN_HOME=./apache-maven-3.6.3\nMAVEN_OPTS=-Xms256m -Xmx512m\nPATH=$PATH:$MAVEN_HOME/bin" >> /etc/profile
 
 
 二、编写docker-compose-server.yml
@@ -81,17 +97,17 @@ services:
         aliases:
           - redis-java
   jenkins:
-    image: jenkinsci/blueocean
+    build:
+      dockerfile: /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
+      context: .
+    image: jenkins-java-maven:1.0.0
     privileged: true
-    container_name: jenkins
+    container_name: jenkins-java-maven
     ports:
       - 8099:8080
       - 50000:50000
     volumes:
       - /dockerFile/tool/jenkins:/var/jenkins_home
-      - /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven
-      - /dockerFile/tool/profile:/etc/profile
-      - /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk
     networks:
       eureka-net:
         aliases:
@@ -110,9 +126,8 @@ docker-compose -f docker-compose-server.yml up -d
 
 
 执行前对挂载的目录进行处理：chown -R 1000:1000 /dockerFile/maven/apache-maven-3.6.3
-docker run -d -p 8099:8080 -p 50000:50000
--v /dockerFile/tool/jenkins:/var/jenkins_home
+docker run -d -p 8099:8080 --name jenkins_maven -p 50000:50000 -v /dockerFile/tool/jenkins:/var/jenkins_home jenkins-java-maven:1.0.0
 -v /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven
 -v /dockerFile/tool/profile:/etc/profile
--v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk jenkinsci/blueocean
+-v /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64:/usr/local/jdk
 
