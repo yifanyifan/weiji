@@ -43,14 +43,18 @@ mkdir /dockerFile/dfServer/dfJenkins
 3）创建Dockerfile-mysql
 touch /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
 内容如下：
-FROM jenkinsci/blueocean
+FROM jenkinsci/blueocea
+# 指定容器以什么用户的身份来运行
 USER root
-# WORKDIR /var/maven3 # 在容器内部设置工作目录，在构建中为后续的指令指定工作目录
-ADD ./dfServer/dfJenkins/apache-maven-3.6.3-bin.tar.gz ./ # 将文件或目录复制到使用Dockerfile构建的镜像中，注意ADD指令自带解压缩功能
+# 在容器内部设置工作目录，在构建中为后续的指令指定工作目录
+#WORKDIR /var/maven3
+# 将文件或目录复制到使用Dockerfile构建的镜像中，注意ADD指令自带解压缩功能
+ADD ./dfServer/dfJenkins/apache-maven-3.6.3-bin.tar.gz ./
 # 用来设置环境变量，作用于构建构过程或运行过程中
 ENV MAVEN_HOME=./apache-maven-3.6.3
 #ENV MAVEN_OPTS=[-Xms256m -Xmx512m]
 ENV PATH=$PATH:$MAVEN_HOME/bin
+
 # 运行指令
 RUN echo "MAVEN_HOME=./apache-maven-3.6.3\nMAVEN_OPTS=-Xms256m -Xmx512m\nPATH=$PATH:$MAVEN_HOME/bin" >> /etc/profile
 
@@ -120,11 +124,21 @@ networks:
 
 三. 构建镜像【目前只会编译出mysql镜像，因为redis是直接用下载的镜像】
 docker-compose -f docker-compose-server.yml build
+docker-compose -f docker-compose-server.yml build jenkins
 
 四、启动容器
 docker-compose -f docker-compose-server.yml up -d
 
+五、Jenkins设置
+1. 中文化插件【记得勾选 -> Restart Jenkins when installation is complete and no jobs are running】
+Locale
+Localization: Chinese
+2. 配置Java， Maven路径
+3.创建任务
+4. 指定git
 
+
+六. 手动启动Jenkins【废弃】
 执行前对挂载的目录进行处理：chown -R 1000:1000 /dockerFile/maven/apache-maven-3.6.3
 docker run -d -p 8099:8080 --name jenkins_maven -p 50000:50000 -v /dockerFile/tool/jenkins:/var/jenkins_home jenkins-java-maven:1.0.0
 -v /dockerFile/tool/maven/apache-maven-3.6.3:/usr/local/maven
