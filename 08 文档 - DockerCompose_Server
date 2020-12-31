@@ -133,6 +133,7 @@ docker-compose -f docker-compose-server.yml up -d jenkins
 1. 中文化插件【记得勾选 -> Restart Jenkins when installation is complete and no jobs are running】
 Locale
 Localization: Chinese
+Pipeline: Stage View
 2. 配置Java， Maven路径
 3. 创建任务
 4. 指定git
