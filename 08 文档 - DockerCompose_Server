@@ -37,27 +37,25 @@ appendonly yes      # 使用aof 持久化
 # save 60 10000
 requirepass Yifan123.
 3. jenkins
-1）创建dfM文件夹
+1) 安装本地maven
+安装文件 /dockerFile/tool/maven/apache-maven-3.6.3-bin.tar.gz
+解压并setting.xml指定repostroy在
+<localRepository>/dockerFile/tool/maven/repository</localRepository>
+2）创建dfJenkins文件夹
 mkdir /dockerFile/dfServer/dfJenkins
-2）在文件夹中加入apache-maven-3.6.3-bin.tar.gz
-3）创建Dockerfile-mysql
+3）在文件夹中加入apache-maven-3.6.3-bin.tar.gz
+4）创建Dockerfile-mysql
 touch /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
 内容如下：
-FROM jenkinsci/blueocea
+FROM jenkinsci/blueocean
 # 指定容器以什么用户的身份来运行
 USER root
-# 在容器内部设置工作目录，在构建中为后续的指令指定工作目录
-#WORKDIR /var/maven3
-# 将文件或目录复制到使用Dockerfile构建的镜像中，注意ADD指令自带解压缩功能
-ADD ./dfServer/dfJenkins/apache-maven-3.6.3-bin.tar.gz ./
 # 用来设置环境变量，作用于构建构过程或运行过程中
-ENV MAVEN_HOME=./apache-maven-3.6.3
+ENV MAVEN_HOME=/var/maven
 #ENV MAVEN_OPTS=[-Xms256m -Xmx512m]
 ENV PATH=$PATH:$MAVEN_HOME/bin
-
 # 运行指令
-RUN echo "MAVEN_HOME=./apache-maven-3.6.3\nMAVEN_OPTS=-Xms256m -Xmx512m\nPATH=$PATH:$MAVEN_HOME/bin" >> /etc/profile
-
+RUN echo "MAVEN_HOME=/var/maven\nMAVEN_OPTS=-Xms256m -Xmx512m\nPATH=$PATH:$MAVEN_HOME/bin" >> /etc/profile
 
 二、编写docker-compose-server.yml
 touch /dockerFile/docker-compose-server.yml
@@ -111,7 +109,9 @@ services:
       - 8099:8080
       - 50000:50000
     volumes:
-      - /dockerFile/tool/jenkins:/var/jenkins_home
+      - /dockerFile/tool/jenkins:/var/jenkins_home  # 对JenkinsHome进行挂载
+      - /dockerFile/tool/maven/apache-maven-3.6.3:/var/maven    # 对maven进行挂载
+      - /dockerFile/tool/maven/repository:/dockerFile/tool/maven/repository # 对maven仓库进行挂载
     networks:
       eureka-net:
         aliases:
@@ -127,15 +127,16 @@ docker-compose -f docker-compose-server.yml build
 docker-compose -f docker-compose-server.yml build jenkins
 
 四、启动容器
-docker-compose -f docker-compose-server.yml up -d
+docker-compose -f docker-compose-server.yml up -d jenkins
 
 五、Jenkins设置
 1. 中文化插件【记得勾选 -> Restart Jenkins when installation is complete and no jobs are running】
 Locale
 Localization: Chinese
 2. 配置Java， Maven路径
-3.创建任务
+3. 创建任务
 4. 指定git
+4.
 
 
 六. 手动启动Jenkins【废弃】
