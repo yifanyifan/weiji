@@ -43,8 +43,7 @@ requirepass Yifan123.
 <localRepository>/dockerFile/tool/maven/repository</localRepository>
 2）创建dfJenkins文件夹
 mkdir /dockerFile/dfServer/dfJenkins
-3）在文件夹中加入apache-maven-3.6.3-bin.tar.gz
-4）创建Dockerfile-mysql
+3）创建Dockerfile-jenkins
 touch /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
 内容如下：
 FROM jenkinsci/blueocean
