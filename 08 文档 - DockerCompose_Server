@@ -49,7 +49,7 @@ touch /dockerFile/dfServer/dfJenkins/Dockerfile-jenkins
 FROM jenkinsci/blueocean
 # 指定容器以什么用户的身份来运行
 USER root
-# 用来设置环境变量，作用于构建构过程或运行过程中
+# 用来设置环境变量，作用于构建构过程或运行过程中，/var/maven为挂载目录
 ENV MAVEN_HOME=/var/maven
 #ENV MAVEN_OPTS=[-Xms256m -Xmx512m]
 ENV PATH=$PATH:$MAVEN_HOME/bin
