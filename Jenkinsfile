@@ -11,7 +11,8 @@ node {
     stage('Build') {
         echo 'build By XM'
         sh "mvn -f weiji-interface clean install"
-        sh "mvn -f ${project_name} clean package"
+        // sh "mvn -f ${project_name} clean package"
+        sh "mvn -f ${project_name} clean package docker:build -DskipTests"
 
     }
     stage('Results') {

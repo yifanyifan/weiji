@@ -1,3 +1,8 @@
+Jar 转成 镜像：
+需要有Jar包、Dockerfile
+命令：docker build ，然后就可以docker run
+
+
 业务代码Docker部署步骤：
 一、构建centos-jdk镜像
 
