@@ -1,0 +1,63 @@
+业务代码Docker部署步骤：
+一、构建centos-jdk镜像
+
+二、构建mysql-java镜像
+
+三、各个项目pom.xml中加入docker-maven-plugin
+四、在各个项目根目录下加入Dockerfile 及 entrypoint.sh
+# ----------------------------------Dockerfile-eureka--------------------------------------------
+# 基础镜像
+FROM centos-jdk
+# 挂载点
+VOLUME /tmp
+# 复制文件
+ADD weiji-eureka-0.0.1.jar app.jar
+# 延迟插件启动
+ADD entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+# 执行后面命令
+RUN sh -c 'touch /app.jar'
+# 配置容器启动后执行的命令
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+# 声明端口（不会打开端口）
+EXPOSE 6001
+# ----------------------------------Dockerfile-config--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD weiji-config-0.0.1.jar app.jar
+ADD entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 6501
+# ----------------------------------Dockerfile-service--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD weiji-service-0.0.1.jar app.jar
+ADD entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 8002
+# ----------------------------------Dockerfile-order--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD weiji-order-0.0.1.jar app.jar
+ADD entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 8012
+# ----------------------------------Dockerfile-customer--------------------------------------------
+FROM centos-jdk
+VOLUME /tmp
+ADD weiji-customer-0.0.1.jar app.jar
+ADD entrypoint.sh ./
+RUN chmod +x ./entrypoint.sh
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT  ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+EXPOSE 7001
+
+五、执行
+mvn clean package docker:build -DskipTests
+
