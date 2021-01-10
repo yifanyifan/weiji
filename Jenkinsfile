@@ -13,16 +13,14 @@ def imageName = "${project_name}:${tag}"
 node {
     def mvnHome
     stage('Pull') {
-        echo 'pull By XM'
+        // 1. 拉取代码
         checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']],
         doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('Build') {
-        echo 'build By XM'
         sh "mvn -f weiji-interface clean install"
-        // sh "mvn -f ${project_name} clean package"
-        // 编译，构建本地镜像
+        // 2. 编译打包，构建本地镜像
         sh "mvn -f ${project_name} clean package docker:build -DskipTests"
         // 给镜像打标签
         sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
@@ -31,7 +29,7 @@ node {
         withCredentials([usernamePassword(credentialsId: '8072ac6a-7b14-4948-8758-9ec8bd4498c2', passwordVariable: 'password', usernameVariable: 'username')]) {
             // 登录
             sh "docker login -u ${username} -p ${password} ${harbor_url}"
-            //上传镜像
+            //3. 上传镜像
             sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
         }
     }
