@@ -12,6 +12,7 @@ node {
         echo 'build By XM'
         sh "mvn -f weiji-interface clean install"
         // sh "mvn -f ${project_name} clean package"
+        // 编译，构建本地镜像
         sh "mvn -f ${project_name} clean package docker:build -DskipTests"
 
     }

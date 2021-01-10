@@ -55,6 +55,12 @@ ENV MAVEN_HOME=/var/maven
 ENV PATH=$PATH:$MAVEN_HOME/bin
 # 运行指令
 RUN echo "MAVEN_HOME=/var/maven\nMAVEN_OPTS=-Xms256m -Xmx512m\nPATH=$PATH:$MAVEN_HOME/bin" >> /etc/profile
+4. harbor【镜像私服】
+手动安装，非docker-compose
+安装完后docker login 10.254.241.162
+命令：docker tag【docker打标签】，docker push【推送镜像】，docker pull【下拉镜像】
+详细参考：
+https://www.jianshu.com/p/ec26a80cbec6?from=timeline
 
 二、编写docker-compose-server.yml
 touch /dockerFile/docker-compose-server.yml
@@ -136,7 +142,7 @@ Pipeline: Stage View
 2. 配置Java， Maven路径
 3. 创建任务
 4. 指定git
-4.
+
 
 
 六. 手动启动Jenkins【废弃】
