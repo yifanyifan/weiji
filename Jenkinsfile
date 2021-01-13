@@ -19,6 +19,10 @@ node {
         doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
+    state('remove') {
+        //cd "${dockerWKS}"
+        //sh "docker-compose down"
+    }
     stage('Build') {
         sh "mvn -f weiji-interface clean install"
         // 2. 编译打包，构建本地镜像
@@ -38,6 +42,8 @@ node {
         }
     }*/
     stage('UP') {
-        //sh "docker run -p 6001:6001 -d 47.103.28.119/weiji/weiji-eureka-0.0.1:latest"
+        //cd "${dockerWKS}"
+        //sh "docker-compose -f docker-compose.yml build weiji-eureka"
+        //sh "docker-compose -f docker-compose.yml up -d"
     }
 }

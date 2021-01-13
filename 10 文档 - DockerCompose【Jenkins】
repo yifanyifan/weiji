@@ -66,3 +66,5 @@ EXPOSE 7001
 五、执行
 mvn clean package docker:build -DskipTests
 
+六、搭建Jenkins
+
