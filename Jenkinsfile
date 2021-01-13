@@ -23,18 +23,21 @@ node {
         sh "mvn -f weiji-interface clean install"
         // 2. 编译打包，构建本地镜像
         sh "mvn -f ${project_name} clean package docker:build -DskipTests"
-        // 给镜像打标签
-        sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
+        // 给镜像打标签 harbor uas
+        //sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
     }
-    stage('Push') {
+    /*stage('Push') {
+        echo 'Push To Harbor...'
         withCredentials([usernamePassword(credentialsId: '8072ac6a-7b14-4948-8758-9ec8bd4498c2', passwordVariable: 'password', usernameVariable: 'username')]) {
             // 登录
             sh "docker login -u ${username} -p ${password} ${harbor_url}"
             //3. 上传镜像
             sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
+            //docker pull 47.103.28.119/weiji/weiji-eureka-0.0.1:latest
+            //docker run -p 6001:6001 -d 47.103.28.119/weiji/weiji-eureka-0.0.1:latest
         }
-    }
-    stage('Results') {
-        echo 'deploy By XM'
+    }*/
+    stage('UP') {
+        //sh "docker run -p 6001:6001 -d 47.103.28.119/weiji/weiji-eureka-0.0.1:latest"
     }
 }
