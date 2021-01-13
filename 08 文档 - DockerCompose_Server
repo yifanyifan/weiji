@@ -120,6 +120,7 @@ services:
       - /dockerFile/tool/jenkins:/var/jenkins_home  # 对JenkinsHome进行挂载
       - /dockerFile/tool/maven/apache-maven-3.6.3:/var/maven    # 对maven进行挂载
       - /dockerFile/tool/maven/repository:/dockerFile/tool/maven/repository # 对maven仓库进行挂载
+      - /var/run/docker.sock:/var/run/docker.sock   # 作用:Jenkins在docker内使用docker命令
     networks:
       eureka-net:
         aliases:
