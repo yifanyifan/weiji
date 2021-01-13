@@ -3,13 +3,14 @@ def gitlab_auth = "7d820c97-7914-4257-beb5-aec604242c69"
 
 //构建版本的名称
 def tag = "latest"
+def image_tag = "0.0.1"
 //Harbor私服地址
 def harbor_url = "47.103.28.119"
 //Harbor的项目名称
 def harbor_project_name = "weiji"
 def harbor_auth = "8072ac6a-7b14-4948-8758-9ec8bd4498c2"
 //定义镜像名称
-def imageName = "${project_name}:${tag}"
+def imageName = "${project_name}-${image_tag}:${tag}"
 node {
     def mvnHome
     stage('Pull') {
