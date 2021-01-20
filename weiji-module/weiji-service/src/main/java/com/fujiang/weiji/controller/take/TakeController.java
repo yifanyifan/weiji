@@ -1,5 +1,7 @@
 package com.fujiang.weiji.controller.take;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -7,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,10 +24,32 @@ public class TakeController {
      * 1. 网站名称
      * 2. 网站抓取列表地址
      */
-    public static void main1(String[] args) {
-        //获取请求（需联网）
-        String url = "https://www.lianshu.com/index/main";
-        getWebListData(url);
+    public static void main(String[] args) {
+        String jscj = "https://api.jinse.com/noah/v2/lives?limit=20&reading=false&source=web&flag=up&id=220520&category=0";
+        getWebPageDataByPOST(jscj);
+    }
+
+    public static void getWebPageDataByPOST(String web) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            JSONObject map1 = restTemplate.getForObject(web, JSONObject.class);
+
+            String ruleStr = "list,lives";
+            List<String> ruleList = new ArrayList<String>(Arrays.asList(ruleStr.split(",")));
+
+            JSONArray jsonArray1 = map1.getJSONArray(ruleList.get(0));
+            for (int i = 0; i < jsonArray1.size(); i++) {
+                JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+                JSONArray jsonArray2 = jsonObject1.getJSONArray(ruleList.get(1));
+                for (int j = 0; j < jsonArray2.size(); j++) {
+                    JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
+                    System.out.println(jsonObject2);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,34 +78,6 @@ public class TakeController {
             while (m.find()) {
                 System.out.println(mainUrl + replaceChar(m.group()));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        //获取请求（需联网）
-        String url = "https://www.lianshu.com/assets/blog.html?id=21718&topicid=399";
-        getWebPageDataByPOST(url);
-    }
-
-    /**
-     * 抓取数据
-     * 1. 标题
-     * 2. 日期
-     * 3. 作者
-     * 4. 内容
-     */
-    public static void getWebPageDataByPOST(String web) {
-        try {
-            String postUrl = "https://www.lianshu.com/article/detail";
-            String param = "articleId=21727";
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("articleId", "21727");
-
-            RestTemplate restTemplate = new RestTemplate();
-            String map1 = restTemplate.postForObject(postUrl, map, String.class);
-            System.out.println(map1);
         } catch (Exception e) {
             e.printStackTrace();
         }
