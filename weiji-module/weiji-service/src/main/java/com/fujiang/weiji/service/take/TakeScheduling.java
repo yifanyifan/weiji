@@ -2,8 +2,10 @@ package com.fujiang.weiji.service.take;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fujiang.weiji.dto.text.ParamByLevel2;
 import com.fujiang.weiji.entity.text.TextInfo;
 import com.fujiang.weiji.mapper.text.TextInfoMapper;
+import com.fujiang.weiji.utils.DateUtils;
 import com.fujiang.weiji.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -28,34 +29,36 @@ public class TakeScheduling {
      */
     @Scheduled(cron = "0/5 * * * * ?")
     public void main1() {
-        String jscj = "https://api.jinse.com/noah/v2/lives?limit=20&reading=false&source=web&flag=up&id=220520&category=0";
-        getWebPageDataByPOST2(jscj);
+        ParamByLevel2 paramByLevel2 = new ParamByLevel2();
+        paramByLevel2.setWebUrl("https://api.jinse.com/noah/v2/lives?limit=20&reading=false&source=web&flag=up&id=220520&category=0");
+        paramByLevel2.setL1("list");
+        paramByLevel2.setL2("lives");
+        paramByLevel2.setTitleField("content_prefix");
+        paramByLevel2.setTimeField("created_at");
+        paramByLevel2.setContextField("content");
+
+        getDataByLevel2(paramByLevel2);
     }
 
     /**
      * 2层信息获取接口
      *
-     * @param web
+     * @param paramByLevel2
      */
-    public void getWebPageDataByPOST2(String web) {
+    public void getDataByLevel2(ParamByLevel2 paramByLevel2) {
         try {
-            JSONObject msgAll = restTemplate.getForObject(web, JSONObject.class);
+            JSONObject msgAll = restTemplate.getForObject(paramByLevel2.getWebUrl(), JSONObject.class);
 
-            List<TextInfo> textInfoList = new ArrayList<TextInfo>();
-
-            //2层规则+Md5标识
-            List<String> ruleList = new ArrayList<String>(Arrays.asList("list,lives,content_prefix".split(",")));
             //分层获取信息
-            JSONArray jsonArray1 = msgAll.getJSONArray(ruleList.get(0));
-
+            JSONArray jsonArray1 = msgAll.getJSONArray(paramByLevel2.getL1());
             for (int i = 0; i < jsonArray1.size(); i++) {
                 JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
-                JSONArray jsonArray2 = jsonObject1.getJSONArray(ruleList.get(1));
+                JSONArray jsonArray2 = jsonObject1.getJSONArray(paramByLevel2.getL2());
                 for (int j = 0; j < jsonArray2.size(); j++) {
                     //参数信息
                     JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
 
-                    String title = jsonObject2.getString(ruleList.get(2));
+                    String title = jsonObject2.getString(paramByLevel2.getTitleField());
                     String titleMd5 = MD5Utils.md5(title);
                     Integer textInfoCount = textInfoMapper.getCountByTitleMd5(titleMd5);
                     if (textInfoCount == 0) {
@@ -63,7 +66,8 @@ public class TakeScheduling {
 
                         textInfo.setTitle(title);
                         textInfo.setTitleMd5(titleMd5);
-                        textInfo.setContext(jsonObject2.getString("content"));
+                        textInfo.setTime(DateUtils.msToDate(jsonObject2.getLong(paramByLevel2.getTimeField())));
+                        textInfo.setContext(jsonObject2.getString(paramByLevel2.getContextField()));
 
                         textInfoMapper.insert(textInfo);
                     }
