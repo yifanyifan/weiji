@@ -1,7 +1,7 @@
 package com.fujiang.weiji.controller.runoob;
 
 import com.fujiang.weiji.entity.runoob.RunoobTbl;
-import com.fujiang.weiji.service.RunoobTblService;
+import com.fujiang.weiji.service.runoob.RunoobTblService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

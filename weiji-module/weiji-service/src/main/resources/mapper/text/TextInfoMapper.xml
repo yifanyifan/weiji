@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fujiang.weiji.mapper.text.TextInfoMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.text.TextInfo">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="title_md5" property="titleMd5"/>
+        <result column="time" property="time"/>
+        <result column="context" property="context"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="created_oper" property="createdOper"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, title_md5, time, context, created_date, created_oper
+    </sql>
+
+    <select id="getCountByTitleMd5" resultType="java.lang.Integer">
+        select count(1) from text_info where title_md5 = #{titleMd5}
+    </select>
+</mapper>

@@ -1,4 +1,4 @@
-package com.fujiang.weiji.service;
+package com.fujiang.weiji.service.runoob;
 
 import com.fujiang.weiji.entity.runoob.RunoobTbl;
 

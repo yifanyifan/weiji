@@ -1,5 +1,6 @@
 package com.fujiang.weiji.entity.product;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * Modified By:
  */
 @Data
-public class Product {
+public class Product extends Model<Product> {
     private String name;
     private int age;
     private String add;
