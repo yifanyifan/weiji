@@ -47,4 +47,10 @@ public class ScanRuleLevel extends Model<ScanRuleLevel> {
      */
     @TableField(value = "context_field")
     private String contextField;
+
+    /**
+     * 站点
+     */
+    @TableField(exist = false)
+    private String webUrl;
 }

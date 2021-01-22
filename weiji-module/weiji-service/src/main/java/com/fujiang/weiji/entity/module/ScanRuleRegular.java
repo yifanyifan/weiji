@@ -87,4 +87,10 @@ public class ScanRuleRegular extends Model<ScanRuleRegular> {
      */
     @TableField(value = "context_end")
     private String contextEnd;
+
+    /**
+     * 站点
+     */
+    @TableField(exist = false)
+    private String webUrl;
 }

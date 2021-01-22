@@ -7,27 +7,20 @@ import com.fujiang.weiji.entity.text.TextInfo;
 import com.fujiang.weiji.enumeration.ModuleEnum;
 import com.fujiang.weiji.mapper.text.TextInfoMapper;
 import com.fujiang.weiji.utils.MD5Utils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
-
-@Component
-@EnableScheduling
+//
 public class TakeScheduling {
-    @Autowired
+    //@Autowired
     private TextInfoMapper textInfoMapper;
-    @Autowired
+    //@Autowired
     private RestTemplate restTemplate;
 
     /**
      * 网站抓取列表地址
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    @PostConstruct
+//    @Scheduled(cron = "0 0 * * * ?")
+//    @PostConstruct
     public void main1() {
         ParamByLevel2 paramByLevel2 = new ParamByLevel2();
         paramByLevel2.setWebUrl("https://api.jinse.com/noah/v2/lives?limit=20&reading=false&source=web&flag=up&id=220520&category=0");

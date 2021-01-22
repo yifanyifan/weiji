@@ -17,17 +17,17 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
-@EnableScheduling
+//@Component
+//@EnableScheduling
 public class ZzbdsScheduling {
-    @Autowired
+    //@Autowired
     private TextInfoMapper textInfoMapper;
 
     /**
      * 网站抓取列表地址
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    @PostConstruct
+//    @Scheduled(cron = "0 0 * * * ?")
+//    @PostConstruct
     public void main2() {
         ParamByRegular paramByRegular = new ParamByRegular();
         paramByRegular.setWebUrl("http://finance.eastmoney.com/a/cgjjj.html");

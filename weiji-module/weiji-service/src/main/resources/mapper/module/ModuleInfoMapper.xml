@@ -5,12 +5,11 @@
     <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.module.ModuleInfo">
         <id column="id" property="id" />
         <result column="module_name" property="moduleName" />
-        <result column="web_url" property="webUrl" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, module_name, web_url
+        id, module_name
     </sql>
 
 </mapper>
