@@ -1,2 +1,52 @@
-CREATE TABLE text_info ( id varchar(32) PRIMARY KEY, title varchar(255), title_md5 varchar(32), time date, context text, created_date date, created_oper varchar(32) );
-ALTER TABLE `text_info` ADD INDEX title_md5_index (`title_md5`)
+CREATE TABLE `text_info` (
+  `id` varchar(32) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `title_md5` varchar(32) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `time` varchar(255) DEFAULT NULL,
+  `context` text,
+  `created_date` datetime DEFAULT NULL,
+  `created_oper` varchar(255) DEFAULT NULL,
+  `module` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `module_id` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+ALTER TABLE `text_info` ADD INDEX title_md5_index (`title_md5`);
+ALTER TABLE `text_info` ADD INDEX module_id_index (`module_id`);
+
+CREATE TABLE `module` (
+  `id` varchar(32) NOT NULL,
+  `module_name` varchar(255) DEFAULT NULL,
+  `scan_rule_id` varchar(32) DEFAULT NULL,
+  `web_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `scan_rule_level` (
+	`id` varchar(32) NOT NULL,
+	`l1` varchar(255) DEFAULT NULL,
+	`l2` varchar(255) DEFAULT NULL,
+	`title_field` varchar(255) DEFAULT NULL,
+	`time_field` varchar(255) DEFAULT NULL,
+	`context_field` varchar(255) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `scan_rule_regular` (
+  `id` varchar(32) NOT NULL,
+  `main_url` varchar(255) DEFAULT NULL,
+  `list_start` varchar(255) DEFAULT NULL,
+  `list_end` varchar(255) DEFAULT NULL,
+  `url_start` varchar(255) DEFAULT NULL,
+  `url_end` varchar(255) DEFAULT NULL,
+  `title_start` varchar(255) DEFAULT NULL,
+  `title_end` varchar(255) DEFAULT NULL,
+  `time_start` varchar(255) DEFAULT NULL,
+  `time_end` varchar(255) DEFAULT NULL,
+  `source_start` varchar(255) DEFAULT NULL,
+  `source_end` varchar(255) DEFAULT NULL,
+  `context_start` varchar(255) DEFAULT NULL,
+  `context_end` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);

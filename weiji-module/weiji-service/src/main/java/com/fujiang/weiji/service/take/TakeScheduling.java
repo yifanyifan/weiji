@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fujiang.weiji.dto.text.ParamByLevel2;
 import com.fujiang.weiji.entity.text.TextInfo;
+import com.fujiang.weiji.enumeration.ModuleEnum;
 import com.fujiang.weiji.mapper.text.TextInfoMapper;
-import com.fujiang.weiji.utils.DateUtils;
 import com.fujiang.weiji.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,8 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Component
 @EnableScheduling
@@ -27,7 +26,8 @@ public class TakeScheduling {
     /**
      * 网站抓取列表地址
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
+    @PostConstruct
     public void main1() {
         ParamByLevel2 paramByLevel2 = new ParamByLevel2();
         paramByLevel2.setWebUrl("https://api.jinse.com/noah/v2/lives?limit=20&reading=false&source=web&flag=up&id=220520&category=0");
@@ -63,12 +63,13 @@ public class TakeScheduling {
                     Integer textInfoCount = textInfoMapper.getCountByTitleMd5(titleMd5);
                     if (textInfoCount == 0) {
                         TextInfo textInfo = new TextInfo();
-
                         textInfo.setTitle(title);
                         textInfo.setTitleMd5(titleMd5);
-                        textInfo.setTime(DateUtils.msToDate(jsonObject2.getLong(paramByLevel2.getTimeField())));
+                        textInfo.setSource("-");
+                        textInfo.setTime(jsonObject2.getString(paramByLevel2.getTimeField()));
                         textInfo.setContext(jsonObject2.getString(paramByLevel2.getContextField()));
-
+                        textInfo.setUrl(paramByLevel2.getWebUrl());
+                        textInfo.setModule(ModuleEnum.FAST.getCode());
                         textInfoMapper.insert(textInfo);
                     }
                 }
