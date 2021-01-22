@@ -49,7 +49,7 @@ public class TextInfo extends Model<TextInfo> {
      * 模块表Id
      */
     @TableField(value = "module_id")
-    private String module_id;
+    private String moduleId;
     /**
      * 扫描URl
      */

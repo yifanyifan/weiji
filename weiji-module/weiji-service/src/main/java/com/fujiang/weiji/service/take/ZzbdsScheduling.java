@@ -100,7 +100,7 @@ public class ZzbdsScheduling {
             textInfo.setTime(time.trim());
             textInfo.setContext(context.trim());
             textInfo.setUrl(pageUrl);
-            textInfo.setModule(ModuleEnum.FINANEW.getCode());
+            textInfo.setModuleId(ModuleEnum.FINANEW.getCode());
             textInfoMapper.insert(textInfo);
         }
         Thread.sleep(50);

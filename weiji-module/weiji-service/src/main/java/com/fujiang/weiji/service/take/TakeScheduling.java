@@ -69,7 +69,7 @@ public class TakeScheduling {
                         textInfo.setTime(jsonObject2.getString(paramByLevel2.getTimeField()));
                         textInfo.setContext(jsonObject2.getString(paramByLevel2.getContextField()));
                         textInfo.setUrl(paramByLevel2.getWebUrl());
-                        textInfo.setModule(ModuleEnum.FAST.getCode());
+                        textInfo.setModuleId(ModuleEnum.FAST.getCode());
                         textInfoMapper.insert(textInfo);
                     }
                 }
