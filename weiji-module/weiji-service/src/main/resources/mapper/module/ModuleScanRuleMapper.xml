@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fujiang.weiji.mapper.module.ModuleScanRuleMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.module.ModuleScanRule">
+        <id column="id" property="id" />
+        <result column="module_id" property="moduleId" />
+        <result column="scan_rule_name" property="scanRuleName" />
+        <result column="scan_rule_id" property="scanRuleId" />
+        <result column="web_url" property="webUrl" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, module_id, scan_rule_name, scan_rule_id, web_url
+    </sql>
+
+</mapper>

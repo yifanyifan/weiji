@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fujiang.weiji.mapper.module.ScanRuleRegularMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.module.ScanRuleRegular">
+        <id column="id" property="id" />
+        <result column="main_url" property="mainUrl" />
+        <result column="list_start" property="listStart" />
+        <result column="list_end" property="listEnd" />
+        <result column="url_start" property="urlStart" />
+        <result column="url_end" property="urlEnd" />
+        <result column="title_start" property="titleStart" />
+        <result column="title_end" property="titleEnd" />
+        <result column="time_start" property="timeStart" />
+        <result column="time_end" property="timeEnd" />
+        <result column="source_start" property="sourceStart" />
+        <result column="source_end" property="sourceEnd" />
+        <result column="context_start" property="contextStart" />
+        <result column="context_end" property="contextEnd" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, main_url, list_start, list_end, url_start, url_end, title_start, title_end, time_start, time_end, source_start, source_end, context_start, context_end
+    </sql>
+
+</mapper>

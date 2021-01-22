@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fujiang.weiji.mapper.module.ScanRuleLevelMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.module.ScanRuleLevel">
+        <id column="id" property="id" />
+        <result column="l1" property="l1" />
+        <result column="l2" property="l2" />
+        <result column="title_field" property="titleField" />
+        <result column="time_field" property="timeField" />
+        <result column="context_field" property="contextField" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, l1, l2, title_field, time_field, context_field
+    </sql>
+
+</mapper>
