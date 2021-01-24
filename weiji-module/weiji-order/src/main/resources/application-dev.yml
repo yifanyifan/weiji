@@ -7,7 +7,7 @@ spring:
     name: weiji-order
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.103.28.119:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
+    url: jdbc:mysql://47.103.28.119:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false&allowPublicKeyRetrieval=true
     # url: jdbc:mysql://mysql-java:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
     username: root
     password: Yifan123.

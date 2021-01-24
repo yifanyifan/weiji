@@ -14,6 +14,7 @@ import com.fujiang.weiji.mapper.module.ScanRuleLevelMapper;
 import com.fujiang.weiji.mapper.module.ScanRuleRegularMapper;
 import com.fujiang.weiji.mapper.text.TextInfoMapper;
 import com.fujiang.weiji.utils.MD5Utils;
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +133,7 @@ public class mainScheduling {
      * @param scanRuleRegular
      */
     private void getDataByRegular(ScanRuleRegular scanRuleRegular) {
+        scanRuleRegular.setMainUrl(StringUtils.isBlank(scanRuleRegular.getMainUrl()) ? "" : scanRuleRegular.getMainUrl());
         try {
             //解析网页(Jsoup返回浏览器Document对象，可以使用Js的方法)
             Document document = Jsoup.parse(new URL(scanRuleRegular.getWebUrl()), 60000);//设置60s超时
