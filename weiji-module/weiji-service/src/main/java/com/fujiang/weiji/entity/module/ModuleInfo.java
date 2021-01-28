@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 /**
- * 系统模块表
+ * 系统栏目模块表
  *
  * @author Yifan
  * @since 2021-01-22
@@ -25,4 +25,10 @@ public class ModuleInfo extends Model<ModuleInfo> {
      */
     @TableField(value = "module_name")
     private String moduleName;
+    /**
+     * 父级【0为频道, 其它为栏目】
+     */
+    @TableField(value = "parent_id")
+    private String parentId;
+
 }

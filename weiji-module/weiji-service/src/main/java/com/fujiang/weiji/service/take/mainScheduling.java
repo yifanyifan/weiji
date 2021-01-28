@@ -7,7 +7,6 @@ import com.fujiang.weiji.entity.module.ModuleScanRule;
 import com.fujiang.weiji.entity.module.ScanRuleLevel;
 import com.fujiang.weiji.entity.module.ScanRuleRegular;
 import com.fujiang.weiji.entity.text.TextInfo;
-import com.fujiang.weiji.enumeration.ModuleEnum;
 import com.fujiang.weiji.mapper.module.ModuleInfoMapper;
 import com.fujiang.weiji.mapper.module.ModuleScanRuleMapper;
 import com.fujiang.weiji.mapper.module.ScanRuleLevelMapper;
@@ -54,7 +53,7 @@ public class mainScheduling {
     @PostConstruct
     public void mainScheduling() {
         //1. 获取模块
-        List<ModuleInfo> moduleInfoList = moduleInfoMapper.selectList(null);
+        List<ModuleInfo> moduleInfoList = moduleInfoMapper.getColumnList();
         List<String> moduleInfoIdList = moduleInfoList.stream().map(m -> m.getId()).collect(Collectors.toList());
         List<ModuleScanRule> moduleScanRuleList = moduleScanRuleMapper.selectBatchIds(moduleInfoIdList);
         Map<String, List<ModuleScanRule>> moduleScanRuleMap = moduleScanRuleList.stream().collect(Collectors.groupingBy(moduleScanRule -> moduleScanRule.getModuleId()));
@@ -71,12 +70,12 @@ public class mainScheduling {
                     ScanRuleLevel scanRuleLevel = scanRuleLevelMapper.selectById(scanRuleId);
                     //3.2 站点下的内容站点列表
                     scanRuleLevel.setWebUrl(webUrl);
-                    getDataByLevel2(scanRuleLevel);
+                    getDataByLevel2(scanRuleLevel, moduleInfo.getId());
                 } else if ("scan_rule_regular".equals(scanRuleName)) {
                     ScanRuleRegular scanRuleRegular = scanRuleRegularMapper.selectById(scanRuleId);
                     //3.2 站点下的内容站点列表
                     scanRuleRegular.setWebUrl(webUrl);
-                    getDataByRegular(scanRuleRegular);
+                    getDataByRegular(scanRuleRegular, moduleInfo.getId());
                 }
 
 
@@ -93,7 +92,7 @@ public class mainScheduling {
      *
      * @param scanRuleLevel
      */
-    public void getDataByLevel2(ScanRuleLevel scanRuleLevel) {
+    public void getDataByLevel2(ScanRuleLevel scanRuleLevel, String moduleId) {
         try {
             JSONObject msgAll = restTemplate.getForObject(scanRuleLevel.getWebUrl(), JSONObject.class);
 
@@ -117,7 +116,7 @@ public class mainScheduling {
                         textInfo.setTime(jsonObject2.getString(scanRuleLevel.getTimeField()));
                         textInfo.setContext(jsonObject2.getString(scanRuleLevel.getContextField()));
                         textInfo.setUrl(scanRuleLevel.getWebUrl());
-                        textInfo.setModuleId(ModuleEnum.FAST.getCode());
+                        textInfo.setModuleId(moduleId);
                         textInfoMapper.insert(textInfo);
                     }
                 }
@@ -132,7 +131,7 @@ public class mainScheduling {
      *
      * @param scanRuleRegular
      */
-    private void getDataByRegular(ScanRuleRegular scanRuleRegular) {
+    private void getDataByRegular(ScanRuleRegular scanRuleRegular, String moduleId) {
         scanRuleRegular.setMainUrl(StringUtils.isBlank(scanRuleRegular.getMainUrl()) ? "" : scanRuleRegular.getMainUrl());
         try {
             //解析网页(Jsoup返回浏览器Document对象，可以使用Js的方法)
@@ -150,7 +149,7 @@ public class mainScheduling {
                 Matcher urlMatcher = urlPattern.matcher(list);
                 while (urlMatcher.find()) {
                     String pageUrl = scanRuleRegular.getMainUrl() + urlMatcher.group();
-                    savePageMsg(pageUrl, scanRuleRegular);
+                    savePageMsg(pageUrl, scanRuleRegular, moduleId);
                 }
             }
         } catch (Exception e) {
@@ -158,7 +157,7 @@ public class mainScheduling {
         }
     }
 
-    public void savePageMsg(String pageUrl, ScanRuleRegular scanRuleRegular) throws Exception {
+    public void savePageMsg(String pageUrl, ScanRuleRegular scanRuleRegular, String moduleId) throws Exception {
         //解析网页(Jsoup返回浏览器Document对象，可以使用Js的方法)
         Document documentPage = Jsoup.parse(new URL(pageUrl), 60000);//设置60s超时
         String documentPageStr = documentPage.toString();
@@ -180,7 +179,7 @@ public class mainScheduling {
             textInfo.setTime(time.trim());
             textInfo.setContext(context.trim());
             textInfo.setUrl(pageUrl);
-            textInfo.setModuleId(ModuleEnum.FINANEW.getCode());
+            textInfo.setModuleId(moduleId);
             textInfoMapper.insert(textInfo);
         }
         Thread.sleep(50);

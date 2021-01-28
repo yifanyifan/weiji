@@ -5,11 +5,16 @@
     <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.module.ModuleInfo">
         <id column="id" property="id" />
         <result column="module_name" property="moduleName" />
+        <result column="parent_id" property="parentId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, module_name
+        id, module_name, parent_id
     </sql>
+
+    <select id="getColumnList" resultMap="BaseResultMap">
+        select * from module_info where parent_id != '0'
+    </select>
 
 </mapper>
