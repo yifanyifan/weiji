@@ -1,5 +1,8 @@
 package com.fujiang.weiji.utils;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,10 +12,12 @@ public class MD5Utils {
      * 使用md5的算法进行加密
      */
     public static String md5(String plainText) {
+        if (StringUtils.isBlank(plainText)) {
+            plainText = RandomStringUtils.random(32);
+        }
         byte[] secretBytes = null;
         try {
-            secretBytes = MessageDigest.getInstance("md5").digest(
-                    plainText.getBytes());
+            secretBytes = MessageDigest.getInstance("md5").digest(plainText.getBytes());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("没有md5这个算法！");
         }
