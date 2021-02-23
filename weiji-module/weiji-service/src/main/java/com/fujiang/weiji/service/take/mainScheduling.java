@@ -68,7 +68,7 @@ public class mainScheduling {
                 String webUrl = moduleScanRule.getWebUrl();
                 if ("scan_rule_level".equals(scanRuleName)) {
                     ScanRuleLevel scanRuleLevel = scanRuleLevelMapper.selectById(scanRuleId);
-                    //3.2 站点下的内容站点列表
+                    //3.2 站点下的内容站点列表1111
                     scanRuleLevel.setWebUrl(webUrl);
                     getDataByLevel2(scanRuleLevel, moduleInfo.getId());
                 } else if ("scan_rule_regular".equals(scanRuleName)) {
