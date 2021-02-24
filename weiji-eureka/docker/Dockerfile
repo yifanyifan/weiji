@@ -7,10 +7,6 @@ ADD weiji-eureka-0.0.1.jar app.jar
 # 延迟插件启动
 ADD entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
-RUN sed -i "s/archive.ubuntu./mirrors.aliyun./g" /etc/apt/sources.list
-RUN sed -i "s/deb.debian.org/mirrors.aliyun.com/g" /etc/apt/sources.list
-RUN sed -i "s/security.debian.org/mirrors.aliyun.com\/debian-security/g" /etc/apt/sources.list
-RUN sed -i "s/httpredir.debian.org/mirrors.aliyun.com\/debian-security/g" /etc/apt/sources.list
 # 执行后面命令
 RUN sh -c 'touch /app.jar'
 # 配置容器启动后执行的命令
