@@ -19,7 +19,7 @@ node {
         doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
-    state('remove') {
+    stage('remove') {
         //cd "${dockerWKS}"
         //sh "docker-compose down"
     }
