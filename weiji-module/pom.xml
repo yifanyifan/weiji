@@ -14,6 +14,7 @@
     <modules>
         <module>weiji-service</module>
         <module>weiji-order</module>
+        <module>weiji-auth</module>
     </modules>
 
 </project>
