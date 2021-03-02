@@ -30,8 +30,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-@Component
-@EnableScheduling
+/*@Component
+@EnableScheduling*/
 public class mainScheduling {
     @Autowired
     private ModuleInfoMapper moduleInfoMapper;
@@ -49,8 +49,8 @@ public class mainScheduling {
     /**
      * 网站抓取列表地址
      */
-    @Scheduled(cron = "0 0 * * * ?")
-    @PostConstruct
+   /* @Scheduled(cron = "0 0 * * * ?")
+    @PostConstruct*/
     public void mainScheduling() {
         //1. 获取模块
         List<ModuleInfo> moduleInfoList = moduleInfoMapper.getColumnList();

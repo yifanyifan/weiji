@@ -1,10 +1,18 @@
 server:
   port: 8012
-  servlet:
-    context-path: /order
+#  servlet:
+#    context-path: /order
 spring:
   application:
     name: weiji-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      config:
+        file-extension: yaml  # 必须修改成yaml
+        group: DEFAULT_GROUP  # 缺省即可
+        prefix: ${spring.application.name} # 缺省即可
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.103.28.119:3306/weiji_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false&allowPublicKeyRetrieval=true
@@ -12,13 +20,13 @@ spring:
     username: root
     password: Yifan123.
 
-eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-  client:
-    service-url:
-      defaultZone: http://eureka6001.com:6001/eureka/eureka
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#  client:
+#    service-url:
+#      defaultZone: http://eureka6001.com:6001/eureka/eureka
 #Mybatis配置
 mybatis:
   # 搜索指定包别名

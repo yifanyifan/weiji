@@ -1,0 +1,38 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: weiji-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      config:
+        file-extension: yaml  # 必须修改成yaml
+        group: DEFAULT_GROUP  # 缺省即可
+        prefix: ${spring.application.name} # 缺省即可
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 启用自动根据服务ID生成路由
+          lower-case-service-id: true # 设置路由的路径为小写的服务ID
+      routes:
+        - id: weiji-order
+          uri: lb://weiji-order
+          predicates:
+            - Path=/weiji-order/**
+          filters:
+            - StripPrefix=1 # 移除前缀 youlai-auth
+        - id: weiji-service
+          uri: lb://weiji-service
+          predicates:
+            - Path=/weiji-service/**
+          filters:
+            - StripPrefix=1
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka6001.com:6001/eureka/eureka
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
