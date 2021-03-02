@@ -24,6 +24,12 @@
             <version>0.0.1</version>
         </dependency>
 
+        <dependency>
+            <artifactId>weiji-utils</artifactId>
+            <groupId>com.fujiang</groupId>
+            <version>0.0.1</version>
+        </dependency>
+
         <!-- 添加web依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

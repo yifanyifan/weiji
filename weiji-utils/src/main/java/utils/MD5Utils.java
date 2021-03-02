@@ -1,4 +1,4 @@
-package com.fujiang.weiji.utils;
+package utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;

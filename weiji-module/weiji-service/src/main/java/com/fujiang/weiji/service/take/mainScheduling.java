@@ -12,17 +12,13 @@ import com.fujiang.weiji.mapper.module.ModuleScanRuleMapper;
 import com.fujiang.weiji.mapper.module.ScanRuleLevelMapper;
 import com.fujiang.weiji.mapper.module.ScanRuleRegularMapper;
 import com.fujiang.weiji.mapper.text.TextInfoMapper;
-import com.fujiang.weiji.utils.MD5Utils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import utils.MD5Utils;
 
-import javax.annotation.PostConstruct;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;

@@ -1,30 +1,32 @@
-package com.fujiang.weiji.utils;
+package utils;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * @author Xu Haidong
  * @date 2018/4/24
  */
-public final class DateUtils {
-
+public class DateUtils {
     private static Logger logger = LoggerFactory.getLogger(DateUtils.class);
 
     public static final String DATE_TIME = "yyyy/MM/dd HH:mm:ss";
-
     public static final String DATE_DAY = "yyyy/MM/dd";
 
+    /**
+     * 字符串转日期
+     *
+     * @param str
+     * @param format
+     * @return
+     */
     public static final Date stringToDate(String str, String format) {
-        if (StringUtils.isEmpty(format)) {
-            format = DATE_TIME;
-        }
         try {
             return new SimpleDateFormat(format).parse(str);
         } catch (ParseException e) {
@@ -33,10 +35,14 @@ public final class DateUtils {
         }
     }
 
+    /**
+     * 日期转字符串
+     *
+     * @param date
+     * @param format
+     * @return
+     */
     public static final String dateToString(Date date, String format) {
-        if (StringUtils.isEmpty(format)) {
-            format = DATE_TIME;
-        }
         try {
             return new SimpleDateFormat(format).format(date);
         } catch (Exception e) {
@@ -56,6 +62,21 @@ public final class DateUtils {
         date.setTime(ms);
         return date;
     }
+
+    /**
+     * 指定日期，以某个形式【天、时、分】，增加指定时间
+     *
+     * @param field  Calendar.MINUTE：分
+     * @param amount
+     * @return
+     */
+    public static Date addTime(Integer field, Integer amount) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, amount); //得到前一天
+        Date date = calendar.getTime();
+        return date;
+    }
+
 
     public static Double getHoursCountFromBgtmToEndtm(String bgTm, String endTm) {
         Double res = null;
