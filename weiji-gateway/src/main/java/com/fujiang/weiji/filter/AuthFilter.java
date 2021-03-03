@@ -2,7 +2,7 @@ package com.fujiang.weiji.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fujiang.weiji.dto.base.DataResponse;
-import com.fujiang.weiji.utils.JwtUtil;
+import utils.JwtUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
@@ -27,7 +27,7 @@ import java.util.Map;
 @Component
 public class AuthFilter implements GlobalFilter {
     //不需要校验的路径
-    private String[] skipAuthUrls = {"/token/userId/pwd", "/token/userId", "refresh"};
+    private String[] skipAuthUrls = {"/token/login", "/token/userId", "refresh"};
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -49,9 +49,7 @@ public class AuthFilter implements GlobalFilter {
         //携带token请求其他业务接口
         Map<String, String> validateResultMap = JwtUtil.validateTokenAndUser(token, userId);
         if (validateResultMap == null || validateResultMap.isEmpty()) {
-            //throw new Exception("token 已经失效");
-            System.out.println("please login");
-            return null;
+            return authErro(resp, "please login");
         }
         // TODO 将用户信息存放在请求header中传递给下游业务
         Route gatewayUrl = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
@@ -75,12 +73,7 @@ public class AuthFilter implements GlobalFilter {
         resp.setStatusCode(HttpStatus.UNAUTHORIZED);
         resp.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         DataResponse returnData = new DataResponse(org.apache.http.HttpStatus.SC_UNAUTHORIZED, mess, mess);
-        String returnStr = "";
-        try {
-            returnStr = JSONObject.toJSONString(returnData);
-        } catch (Exception e) {
-            //log.error(e.getMessage(),e);
-        }
+        String returnStr = JSONObject.toJSONString(returnData);
         DataBuffer buffer = resp.bufferFactory().wrap(returnStr.getBytes(StandardCharsets.UTF_8));
         return resp.writeWith(Flux.just(buffer));
     }

@@ -29,6 +29,12 @@ spring:
             - Path=/weiji-service/**
           filters:
             - StripPrefix=1
+        - id: weiji-auth
+          uri: lb://weiji-auth
+          predicates:
+            - Path=/weiji-auth/**
+          filters:
+            - StripPrefix=1
 #eureka:
 #  client:
 #    service-url:

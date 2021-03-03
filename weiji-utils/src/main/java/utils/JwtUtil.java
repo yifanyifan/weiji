@@ -1,10 +1,9 @@
-package com.fujiang.weiji.utils;
+package utils;
 
-import com.alibaba.nacos.client.identify.Base64;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang.StringUtils;
-import utils.DateUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,11 +15,10 @@ import java.util.Map;
 public class JwtUtil {
     //密钥 -- 根据实际项目，这里可以做成配置
     public static final String KEY = "022bdc63c3c5a45879ee6581508b9d03adfec4a4658c0ab3d722e50c91a351c42c231cf43bb8f86998202bd301ec52239a74fc0c9a9aeccce604743367c9646b";
-    //public static final String SECRET = "qazwsx123444$#%#()*&& asdaswwi1235 ?;!@#kmmmpom in***xx**&";
 
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String HEADER_AUTH = "authorization";
-    public static final String HEADER_USERID = "userid";
+    public static final String HEADER_USERID = "userName";
 
     /**
      * 由字符串生成加密key
@@ -37,16 +35,16 @@ public class JwtUtil {
     /**
      * 创建jwt
      *
-     * @param userId
+     * @param userName
      * @return
      */
-    public static String generateToken(String userId) {
+    public static String generateToken(String userName) {
         //Token 超时时间，30分钟后
         Date date = DateUtils.addTime(Calendar.MINUTE, 30);
 
         //todo 优化token的生层规则
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put(HEADER_USERID, userId);
+        claims.put(HEADER_USERID, userName);
 
         String jwt = Jwts.builder()     // 这里其实就是new一个JwtBuilder，设置jwt的body
                 .setClaims(claims)      // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
@@ -65,15 +63,15 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public static Map<String, String> validateTokenAndUser(String token, String userIdIn) {
+    public static Map<String, String> validateTokenAndUser(String token, String userName) {
         Map<String, String> tokenResultMap = new HashMap<>();
-        if (StringUtils.isEmpty(token) || StringUtils.isEmpty(userIdIn)) {
+        if (StringUtils.isEmpty(token) || StringUtils.isEmpty(userName)) {
             return tokenResultMap;
         }
         tokenResultMap = validateToken(token);
         //判断传入的userid和token是否匹配
         String userIdOri = tokenResultMap.get(HEADER_USERID);
-        if (!userIdIn.equals(userIdOri)) {
+        if (!userName.equals(userIdOri)) {
             return new HashMap<String, String>();
         }
         return tokenResultMap;
@@ -90,8 +88,8 @@ public class JwtUtil {
                     .setSigningKey(generalKey())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody();
-            String userId = String.valueOf(tokenBody.get(HEADER_USERID));
-            tokenMap.put(HEADER_USERID, userId);
+            String userName = String.valueOf(tokenBody.get(HEADER_USERID));
+            tokenMap.put(HEADER_USERID, userName);
         } catch (Exception e) {
             e.printStackTrace();
         }
