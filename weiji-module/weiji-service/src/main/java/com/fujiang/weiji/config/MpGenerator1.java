@@ -39,7 +39,7 @@ public class MpGenerator1 {
             // 自定义数据库表字段类型转换【可选】
             @Override
             public DbColumnType processTypeConvert(String fieldType) {
-                System.out.println("转换类型：" + fieldType);
+                System.out.println("转换类型：" + fieldType);TableField
                 return super.processTypeConvert(fieldType);
             }
         });*/

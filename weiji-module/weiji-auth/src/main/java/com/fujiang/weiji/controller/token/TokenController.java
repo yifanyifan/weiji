@@ -1,4 +1,4 @@
-package com.fujiang.weiji.controller;
+package com.fujiang.weiji.controller.token;
 
 import utils.JwtUtil;
 import org.springframework.web.bind.annotation.PostMapping;

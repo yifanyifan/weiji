@@ -1,7 +1,8 @@
-package com.fujiang.weiji.mapper.user;
+package com.fujiang.weiji.mapper.uas;
 
-import com.fujiang.weiji.entity.user.User;
+import com.fujiang.weiji.entity.uas.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -9,8 +10,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Yifan
- * @since 2021-03-03
+ * @since 2021-03-04
  */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 }

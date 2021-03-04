@@ -1,8 +1,8 @@
-package com.fujiang.weiji.service.user.impl;
+package com.fujiang.weiji.service.uas.impl;
 
-import com.fujiang.weiji.entity.user.User;
-import com.fujiang.weiji.mapper.user.UserMapper;
-import com.fujiang.weiji.service.user.UserService;
+import com.fujiang.weiji.entity.uas.User;
+import com.fujiang.weiji.mapper.uas.UserMapper;
+import com.fujiang.weiji.service.uas.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Yifan
- * @since 2021-03-03
+ * @since 2021-03-04
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {

@@ -1,6 +1,6 @@
-package com.fujiang.weiji.service.user;
+package com.fujiang.weiji.service.uas;
 
-import com.fujiang.weiji.entity.user.User;
+import com.fujiang.weiji.entity.uas.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Yifan
- * @since 2021-03-03
+ * @since 2021-03-04
  */
 public interface UserService extends IService<User> {
 
