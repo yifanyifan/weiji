@@ -1,6 +1,11 @@
 1. 启动nacos
 
 2. 启动项目
+gateway
+auth
+order
+service
+controller
 
 3. 访问model项目
 http://localhost:9999/weiji-auth/token/login

@@ -1,12 +1,13 @@
 package com.fujiang.weiji.mapper.uas;
 
-import com.fujiang.weiji.entity.uas.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.fujiang.weiji.entity.uas.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author Yifan
@@ -14,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-
+    User getUserByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
 }

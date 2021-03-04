@@ -3,14 +3,18 @@
 <mapper namespace="com.fujiang.weiji.mapper.uas.UserMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.uas.User">
-        <id column="ID" property="id" />
-        <result column="USER_NAME" property="userName" />
-        <result column="PASS_WORD" property="passWord" />
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="pass_word" property="passWord" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         ID, USER_NAME, PASS_WORD
     </sql>
+
+    <select id="getUserByUserNameAndPassWord" resultMap="BaseResultMap">
+        select * from user where user_name = #{userName} and pass_word = #{passWord}
+    </select>
 
 </mapper>
