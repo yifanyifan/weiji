@@ -1,5 +1,7 @@
 package com.fujiang.weiji.controller.token;
 
+import com.fujiang.weiji.service.uas.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import utils.JwtUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/token")
 public class TokenController {
+    @Autowired
+    private UserService userService;
+
     /**
      * 登录接口
      *
@@ -35,6 +40,8 @@ public class TokenController {
     }
 
     private Boolean doLogin(String userName, String passWord) {
+        //userService.
+
         //后续对接user表验证
         if ("admin".equals(userName) && "123".equals(passWord)) {
             return true;
