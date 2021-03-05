@@ -2,7 +2,6 @@ package com.fujiang.weiji.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fujiang.weiji.dto.base.DataResponse;
-import utils.JwtUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
@@ -11,15 +10,14 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.PathContainer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import utils.JwtUtil;
 
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
@@ -31,35 +29,37 @@ public class AuthFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse resp = exchange.getResponse();
         HttpHeaders header = request.getHeaders();
         HttpMethod method = request.getMethod();
         String token = header.getFirst(JwtUtil.HEADER_AUTH);
-        String userId = header.getFirst(JwtUtil.HEADER_USERID);
-        PathContainer pathContainer = request.getPath().pathWithinApplication();
-        String path = pathContainer.value();
+        String usreName = header.getFirst(JwtUtil.HEADER_USERID);
+        String path = request.getPath().pathWithinApplication().value();
+        String path1 = request.getURI().getPath();
 
         //跳过不需要验证的路径
         if (null != skipAuthUrls && Arrays.asList(skipAuthUrls).contains(path)) {
             return chain.filter(exchange);
         }
 
+        if (token == null || token.isEmpty() || isBlackToken(token)) {
+            return authErro(resp, "非法登录");
+        }
+
         //携带token请求其他业务接口
-        Map<String, String> validateResultMap = JwtUtil.validateTokenAndUser(token, userId);
+        //Map<String, String> validateResultMap = JwtUtil.validateTokenAndUser(token, usreName);
+        Map<String, String> validateResultMap = JwtUtil.validateToken(token);
         if (validateResultMap == null || validateResultMap.isEmpty()) {
-            return authErro(resp, "please login");
+            return authErro(resp, "请登录");
         }
         // TODO 将用户信息存放在请求header中传递给下游业务
         Route gatewayUrl = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-        URI uri = gatewayUrl.getUri();
         //表示下游请求对应的服务名如 SPRING-CLOUD-SERVICE  SPRING-CLOUD-GATEWAY
-        String serviceName = uri.getHost();
+        String serviceName = gatewayUrl.getUri().getHost();
 
         ServerHttpRequest.Builder mutate = request.mutate();
-        mutate.header("x-user-id", validateResultMap.get("userid"));
-        mutate.header("x-user-name", validateResultMap.get("user"));
+        mutate.header("x-user-name", validateResultMap.get("userName"));
         mutate.header("x-user-serviceName", serviceName);
         ServerHttpRequest buildReuqest = mutate.build();
 
@@ -67,6 +67,16 @@ public class AuthFilter implements GlobalFilter {
         //ServerHttpResponse response = exchange.getResponse();
         //response.getHeaders().add("new_token","token_value");
         return chain.filter(exchange.mutate().request(buildReuqest).build());
+    }
+
+    /**
+     * 黑名单
+     *
+     * @param token
+     * @return
+     */
+    private Boolean isBlackToken(String token) {
+        return false;
     }
 
     private Mono<Void> authErro(ServerHttpResponse resp, String mess) {
