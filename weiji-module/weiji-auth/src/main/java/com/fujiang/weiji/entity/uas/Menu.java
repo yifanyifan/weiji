@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @TableName("menu")
-public class Menu extends Model<Menu> {
+public class Menu {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)

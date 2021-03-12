@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @TableName("user")
-public class User extends Model<User> {
+public class User {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)

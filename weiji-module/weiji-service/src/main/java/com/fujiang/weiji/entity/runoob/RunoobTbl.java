@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class RunoobTbl extends Model<RunoobTbl> {
+public class RunoobTbl {
     private Integer runoobId;
 
     private String runoobTitle;

@@ -27,6 +27,11 @@ public class TokenController {
      */
     @PostMapping("/login")
     public DataResponse getToken(@RequestBody Map<String, String> user) {
+        User u = new User();
+        u.setPassWord("ddd");
+        u.setUserName("ddd");
+        userService.save(u);
+
         if (user == null || user.isEmpty()) {
             return new DataResponse(HttpStatus.ERROR.getCode(), "请输入用户名密码", "请输入用户名密码");
         }

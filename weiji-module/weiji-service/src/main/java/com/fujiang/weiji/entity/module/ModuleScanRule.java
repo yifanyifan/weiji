@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("module_scan_rule")
-public class ModuleScanRule extends Model<ModuleScanRule> {
+public class ModuleScanRule {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)

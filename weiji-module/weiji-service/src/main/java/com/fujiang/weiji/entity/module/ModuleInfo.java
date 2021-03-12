@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("module_info")
-public class ModuleInfo extends Model<ModuleInfo> {
+public class ModuleInfo {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)

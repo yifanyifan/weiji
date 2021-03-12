@@ -17,7 +17,7 @@ import lombok.Data;
  */
 @Data
 @TableName("role_menu")
-public class RoleMenu extends Model<RoleMenu> {
+public class RoleMenu {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)

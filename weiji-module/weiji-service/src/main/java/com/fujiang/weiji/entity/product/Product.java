@@ -10,7 +10,7 @@ import lombok.Data;
  * Modified By:
  */
 @Data
-public class Product extends Model<Product> {
+public class Product {
     private String name;
     private int age;
     private String add;
