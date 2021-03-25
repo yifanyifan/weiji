@@ -50,6 +50,10 @@ public class AuthFilter implements GlobalFilter {
         if (validateResultMap == null || validateResultMap.isEmpty()) {
             return authErro(resp, "请登录");
         }
+
+        //获取用户信息，redis或者查库
+
+
         // TODO 将用户信息存放在请求header中传递给下游业务
         Route gatewayUrl = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         //表示下游请求对应的服务名如 SPRING-CLOUD-SERVICE  SPRING-CLOUD-GATEWAY

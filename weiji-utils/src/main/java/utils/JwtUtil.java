@@ -18,7 +18,7 @@ public class JwtUtil {
 
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String HEADER_AUTH = "authorization";
-    public static final String HEADER_USERID = "userName";
+    public static final String HEADER_USERID = "id";
 
     /**
      * 由字符串生成加密key
@@ -35,22 +35,22 @@ public class JwtUtil {
     /**
      * 创建jwt
      *
-     * @param userName
+     * @param id
      * @return
      */
-    public static String generateToken(String userName) {
+    public static String generateToken(String id) {
         //Token 超时时间，30分钟后
         Date date = DateUtils.addTime(Calendar.MINUTE, 30);
 
         //todo 优化token的生层规则
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put(HEADER_USERID, userName);
+        claims.put(HEADER_USERID, id);
 
         String jwt = Jwts.builder()     // 这里其实就是new一个JwtBuilder，设置jwt的body
                 .setClaims(claims)      // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
                 //.setIssuedAt(now)     // iat: jwt的签发时间
                 //.setIssuer(issuer)    // issuer：jwt签发人
-                .setSubject("aaaa")  // sub(Subject)：代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
+                //.setSubject("aaaa")  // sub(Subject)：代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
                 .signWith(SignatureAlgorithm.HS512, generalKey())     // 设置签名使用的签名算法和签名使用的秘钥
                 .setExpiration(date)    // 设置签名使用的签名算法和签名使用的秘钥
                 .compact();
@@ -77,7 +77,12 @@ public class JwtUtil {
         return tokenResultMap;
     }
 
-
+    /**
+     * 验证jwt
+     *
+     * @param token
+     * @return
+     */
     public static Map<String, String> validateToken(String token) {
         HashMap<String, String> tokenMap = new HashMap<String, String>();
         if (StringUtils.isEmpty(token)) {
@@ -88,8 +93,8 @@ public class JwtUtil {
                     .setSigningKey(generalKey())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody();
-            String userName = String.valueOf(tokenBody.get(HEADER_USERID));
-            tokenMap.put(HEADER_USERID, userName);
+            String id = String.valueOf(tokenBody.get(HEADER_USERID));
+            tokenMap.put(HEADER_USERID, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
