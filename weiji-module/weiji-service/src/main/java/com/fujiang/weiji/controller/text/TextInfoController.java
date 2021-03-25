@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
  * @author Yifan
  * @since 2021-01-21
  */
-@Controller
+@RestController
 @RequestMapping("/textInfo")
 public class TextInfoController {
 

@@ -33,8 +33,5 @@ public class User extends BaseEntity {
     private String passWord;
 
     @TableField(exist = false)
-    private Integer number;
-
-    @TableField(exist = false)
     private List<Role> roleList;
 }

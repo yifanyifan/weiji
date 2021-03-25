@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
  * @author Yifan
  * @since 2021-01-22
  */
-@Controller
+@RestController
 @RequestMapping("/scanRuleRegular")
 public class ScanRuleRegularController {
 

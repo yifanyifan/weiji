@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @author Yifan
  * @since 2021-03-04
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired

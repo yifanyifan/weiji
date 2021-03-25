@@ -32,11 +32,8 @@ public class AuthFilter implements GlobalFilter {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse resp = exchange.getResponse();
         HttpHeaders header = request.getHeaders();
-        HttpMethod method = request.getMethod();
         String token = header.getFirst(JwtUtil.HEADER_AUTH);
-        String usreName = header.getFirst(JwtUtil.HEADER_USERID);
         String path = request.getPath().pathWithinApplication().value();
-        String path1 = request.getURI().getPath();
 
         //跳过不需要验证的路径
         if (null != skipAuthUrls && Arrays.asList(skipAuthUrls).contains(path)) {
