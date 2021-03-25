@@ -5,6 +5,8 @@ import com.fujiang.weiji.entity.uas.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口
@@ -16,4 +18,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     User getUserByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
+
+    List<User> selectUserTree();
 }

@@ -3,6 +3,8 @@ package com.fujiang.weiji.service.uas;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.fujiang.weiji.entity.uas.User;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务类
@@ -13,4 +15,6 @@ import com.fujiang.weiji.entity.uas.User;
  */
 public interface UserService extends IService<User> {
     User getUserByUserNameAndPassWord(String userName, String passWord);
+
+    List<User> selectUserTree();
 }

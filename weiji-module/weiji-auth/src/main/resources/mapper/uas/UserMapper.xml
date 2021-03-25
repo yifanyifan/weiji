@@ -3,9 +3,9 @@
 <mapper namespace="com.fujiang.weiji.mapper.uas.UserMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.fujiang.weiji.entity.uas.User">
-        <id column="id" property="id" />
-        <result column="user_name" property="userName" />
-        <result column="pass_word" property="passWord" />
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="pass_word" property="passWord"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -15,6 +15,17 @@
 
     <select id="getUserByUserNameAndPassWord" resultMap="BaseResultMap">
         select * from user where user_name = #{userName} and pass_word = #{passWord}
+    </select>
+
+    <resultMap id="BaseResultMapTree" type="com.fujiang.weiji.entity.uas.User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="pass_word" property="passWord"/>
+        <association column="id" property="roleList" select="com.fujiang.weiji.mapper.uas.UserRoleMapper.selectRoleList"/>
+    </resultMap>
+
+    <select id="selectUserTree" resultMap="BaseResultMapTree">
+        select id, user_name, pass_word from user
     </select>
 
 </mapper>

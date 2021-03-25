@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fujiang.weiji.enumeration.BaseEntity;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,7 +20,7 @@ import lombok.Data;
  */
 @Data
 @TableName("user")
-public class User {
+public class User extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
@@ -28,4 +31,10 @@ public class User {
 
     @TableField("pass_word")
     private String passWord;
+
+    @TableField(exist = false)
+    private Integer number;
+
+    @TableField(exist = false)
+    private List<Role> roleList;
 }

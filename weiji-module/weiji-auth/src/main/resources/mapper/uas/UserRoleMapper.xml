@@ -13,4 +13,15 @@
         ID, user_id, role_id
     </sql>
 
+    <resultMap id="RoleMap" type="com.fujiang.weiji.entity.uas.Role">
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+    </resultMap>
+
+    <select id="selectRoleList" resultMap="RoleMap" parameterType="java.lang.String">
+        select r.id, r.name from user_role ur
+        left join role r on ur.role_id = r.id
+        where ur.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
 </mapper>
