@@ -14,9 +14,8 @@ def harbor_auth = "8072ac6a-7b14-4948-8758-9ec8bd4498c2"
 node {
     def mvnHome
     stage('Pull') {
-        echo '000000000000000000'
         // 1. 拉取代码
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']],//[[name: '*/${branch}']],
+        checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']],
         doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
@@ -26,10 +25,10 @@ node {
         //sh "docker-compose down"
     }
     stage('Build') {
-        echo '22222222222222'
-        //sh "mvn -f weiji-interface clean install"
+        sh "mvn -f weiji-interface clean install"
+        sh "mvn -f weiji-utils clean install"
         // 2. 编译打包，构建本地镜像
-        //sh "mvn -f ${project_name} clean package docker:build -DskipTests"
+        sh "mvn -f ${project_name} clean package docker:build -DskipTests"
         // 给镜像打标签 harbor uas
         //sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
     }
