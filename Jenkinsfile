@@ -10,7 +10,7 @@ def harbor_url = "47.103.28.119"
 def harbor_project_name = "weiji"
 def harbor_auth = "8072ac6a-7b14-4948-8758-9ec8bd4498c2"
 //定义镜像名称
-def imageName = "${project_name}-${image_tag}:${tag}"
+//def imageName = "${project_name}-${image_tag}:${tag}"
 node {
     def mvnHome
     stage('Pull') {
