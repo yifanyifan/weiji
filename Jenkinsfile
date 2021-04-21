@@ -25,6 +25,7 @@ node {
         //sh "docker-compose down"
     }
     stage('Build') {
+        sh "mvn -f weiji clean install"
         sh "mvn -f weiji-interface clean install"
         sh "mvn -f weiji-utils clean install"
         // 2. 编译打包，构建本地镜像1111
