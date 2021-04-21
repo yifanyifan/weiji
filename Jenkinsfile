@@ -25,11 +25,13 @@ node {
         //sh "docker-compose down"
     }
     stage('Build') {
-        sh "mvn -f weiji-interface clean install"
-        sh "mvn -f weiji-utils clean install"
-        // 2. 编译打包，构建本地镜像
+        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+        sh "mvn clean install -N -DskipTests"
+        //2. 编译打包，构建本地镜像
+        sh "mvn -f weiji-interface clean install -DskipTests"
+        sh "mvn -f weiji-utils clean install -DskipTests"
         //sh "mvn -f ${project_name} clean package docker:build -DskipTests"
-        sh "mvn -f ${project_name} clean package"
+        sh "mvn -f ${project_name} clean package -DskipTests"
         // 给镜像打标签 harbor uas
         //sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
     }
