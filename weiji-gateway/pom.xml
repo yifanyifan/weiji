@@ -55,6 +55,7 @@
                 <version>1.4.0</version>
                 <configuration>
                     <repository>${project.artifactId}</repository>
+                    <dockerInfoDirectory>${project.basedir}/docker</dockerInfoDirectory>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
