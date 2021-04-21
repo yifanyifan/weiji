@@ -25,7 +25,7 @@ node {
         //sh "docker-compose down"
     }
     stage('Build') {
-        //1. 编译父工程【在有父子工程的情况下，一定要先编译下父工程，否则子工程会编译失败（如：weiji-gateway报找不到父工程pom等）】
+        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
         sh "mvn clean install -N -DskipTests"
         //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
