@@ -29,7 +29,7 @@ node {
         sh "mvn -f weiji-utils clean install"
         // 2. 编译打包，构建本地镜像
         //sh "mvn -f ${project_name} clean package docker:build -DskipTests"
-        sh "mvn -f ${project_name} clean package"
+        sh "mvn -f ${project_name} clean package -DskipTests"
         // 给镜像打标签 harbor uas
         //sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
     }
