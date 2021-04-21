@@ -25,11 +25,11 @@ node {
         //sh "docker-compose down"
     }
     stage('Build') {
-        //sh "mvn clean install -DskipTests"
+        //1. 编译父工程【在有父子工程的情况下，一定要先编译下父工程，否则子工程会编译失败（如：weiji-gateway报找不到父工程pom等）】
         sh "mvn clean install -N -DskipTests"
+        //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
         sh "mvn -f weiji-utils clean install -DskipTests"
-        // 2. 编译打包，构建本地镜像1111
         //sh "mvn -f ${project_name} clean package docker:build -DskipTests"
         sh "mvn -f ${project_name} clean package -DskipTests"
         // 给镜像打标签 harbor uas
