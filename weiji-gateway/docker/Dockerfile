@@ -1,4 +1,4 @@
-FROM centos-jdk:latest
+FROM centos-jdk
 VOLUME /tmp
 ADD weiji-gateway-0.0.1.jar app.jar
 ADD entrypoint.sh ./
