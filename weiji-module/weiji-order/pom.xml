@@ -77,6 +77,21 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.2.2.RELEASE</version>
             </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <contextDirectory>docker</contextDirectory>
+                    <!--<dockerInfoDirectory>docker</dockerInfoDirectory>
+                    <dockerConfigFile>docker</dockerConfigFile>-->
+                    <repository>${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
             <!-- docker 远程配置 -->
             <!--<plugin>
                 <groupId>com.spotify</groupId>
