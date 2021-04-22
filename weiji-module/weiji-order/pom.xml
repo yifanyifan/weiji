@@ -86,7 +86,7 @@
                     <contextDirectory>docker</contextDirectory>
                     <!--<dockerInfoDirectory>docker</dockerInfoDirectory>
                     <dockerConfigFile>docker</dockerConfigFile>-->
-                    <repository>${project.artifactId}</repository>
+                    <repository>weiji-module/${project.artifactId}</repository>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
