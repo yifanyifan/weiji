@@ -49,15 +49,14 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.3</version>
                 <configuration>
                     <imageName>${project.artifactId}-${project.version}</imageName>
                     <dockerDirectory>${project.basedir}/docker</dockerDirectory>
-                    &lt;!&ndash;<dockerHost>http://47.103.28.119:2375</dockerHost>&ndash;&gt;
-                    &lt;!&ndash;<dockerHost>http://139.9.179.188:2375</dockerHost>&ndash;&gt;
+                    <!--<dockerHost>http://47.103.28.119:2375</dockerHost>-->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -66,40 +65,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>-->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.0</version>
-                <configuration>
-                    <buildDirectory>${project.basedir}/docker</buildDirectory>
-                    <dockerInfoDirectory>${project.basedir}/docker</dockerInfoDirectory>
-                    <contextDirectory>${project.basedir}/docker</contextDirectory>
-                    <!--<dockerInfoDirectory>${project.basedir}/docker</dockerInfoDirectory>-->
-                    <!--<dockerInfoDirectory>docker</dockerInfoDirectory>
-                    <dockerConfigFile>docker</dockerConfigFile>-->
-                    <!--<repository>${project.artifactId}</repository>-->
-                    <buildArgs>
-                        <targetPath>/</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
             </plugin>
-            <!--<plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.0</version>
-                <configuration>
-                    <contextDirectory>docker</contextDirectory>
-                    &lt;!&ndash;<dockerInfoDirectory>docker</dockerInfoDirectory>
-                    <dockerConfigFile>docker</dockerConfigFile>&ndash;&gt;
-                    <repository>${project.artifactId}</repository>
-                    <buildArgs>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
-            </plugin>-->
         </plugins>
     </build>
 
