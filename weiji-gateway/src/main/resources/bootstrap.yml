@@ -4,7 +4,7 @@ spring:
   application:
     name: weiji-gateway
   profiles:
-    active: dev
+    active: prod
   cloud:
     nacos:
       discovery:
