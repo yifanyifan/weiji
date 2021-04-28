@@ -1,4 +1,4 @@
-def gitlab_auth = "8e96943d-d0d7-46e9-8c68-92ee82fa98d2"
+def gitlab_auth = "e167b9b4-f48b-43b4-acf8-384d06970c09"
 def project_url = "git@github.com:yifanyifan/weiji.git"
 
 //构建版本的名称
