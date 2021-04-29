@@ -15,10 +15,6 @@ node {
     def mvnHome
     stage('Pull') {
         // 1. 拉取代码
-        /* checkout([$class: 'GitSCM', branches: [[name: '*//* ${branch}']],
-        doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
-        userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]]) */
-
         checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
