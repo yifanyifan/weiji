@@ -68,21 +68,13 @@
             </plugin>
         </plugins>
 
-        <!--<finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
-                <targetPath>${project.build.directory}</targetPath>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>dev/*</exclude>
-                    <exclude>prod/*</exclude>
-                    <exclude>test/*</exclude>
-                </excludes>
+                <!--用于替换resources里的变量-->
+                <filtering>true</filtering>
             </resource>
-            <resource>
-                <directory>src/main/resources/${package.env}</directory>
-            </resource>
-        </resources>-->
+        </resources>
     </build>
 
     <profiles>
