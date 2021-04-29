@@ -20,7 +20,7 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]]) */
 
         checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [],
-        userRemoteConfigs: [[credentialsId: '${gitlab_auth}', url: '${project_url}']]])
+        userRemoteConfigs: [[credentialsId: '${gitlab_auth}', url: 'git@github.com:yifanyifan/weiji.git']]])
     }
     stage('remove') {
         echo '111111111111111'
