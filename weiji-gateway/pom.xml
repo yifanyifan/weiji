@@ -67,6 +67,48 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <targetPath>${project.build.directory}/classes</targetPath>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>dev/*</exclude>
+                    <exclude>prod/*</exclude>
+                    <exclude>test/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${package.env}</directory>
+            </resource>
+        </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <package.env>dev</package.env>
+                <plugin.phase>package</plugin.phase>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.env>test</package.env>
+                <plugin.phase>package</plugin.phase>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.env>prod</package.env>
+                <plugin.phase>package</plugin.phase>
+            </properties>
+        </profile>
+    </profiles>
 </project>

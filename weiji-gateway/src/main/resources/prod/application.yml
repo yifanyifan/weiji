@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: prod
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos
+      config:
+        server-addr: nacos
