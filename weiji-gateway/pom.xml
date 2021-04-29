@@ -68,7 +68,7 @@
             </plugin>
         </plugins>
 
-        <!--<finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <targetPath>${project.build.directory}</targetPath>
@@ -82,7 +82,7 @@
             <resource>
                 <directory>src/main/resources/${package.env}</directory>
             </resource>
-        </resources>-->
+        </resources>
     </build>
 
     <profiles>
