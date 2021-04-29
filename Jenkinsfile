@@ -19,7 +19,8 @@ node {
         doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]]) */
 
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'e167b9b4-f48b-43b4-acf8-384d06970c09', url: 'git@github.com:yifanyifan/weiji.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [],
+        userRemoteConfigs: [[credentialsId: '${gitlab_auth}', url: '${project_url}']]])
     }
     stage('remove') {
         echo '111111111111111'
