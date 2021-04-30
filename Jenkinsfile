@@ -23,18 +23,6 @@ node {
         echo "000000000000000"
         AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
         echo AAA
-        if((sh "docker ps -f 'name=${containerName}' | wc -l") == 1){
-            echo "!!!!!!1111111111"
-        }
-        if((sh "docker ps -f 'name=${containerName}' | wc -l") == '1'){
-            echo "@@@@@@@@2222222222"
-        }
-        if((sh "docker ps -f 'name=${containerName}' | wc -l") == 2){
-            echo "################3333333"
-        }
-        if((sh "docker ps -f 'name=${containerName}' | wc -l") == '2'){
-            echo "&&&&&&&&&&&&&&&444444444"
-        }
         if(AAA == 1){
             echo "!!!!!!"
         }
