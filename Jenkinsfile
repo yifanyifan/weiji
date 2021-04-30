@@ -21,7 +21,7 @@ node {
     }
     stage('remove') {
         echo "000000000000000"
-        AAA = sh docker ps -f "name=${containerName}"
+        AAA = sh 'docker ps -f "name=${containerName}"'
         echo AAA
         echo "11111111111111111111"
         // 删除旧镜像
