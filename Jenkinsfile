@@ -33,7 +33,7 @@ node {
             echo "################"
         }
         if(AAA == '2'){
-            echo "$$$$$$$$$$$$$$"
+            echo "&&&&&&&&&&&&&&&"
         }
         if(AAA != null){
             echo "eeeeeeeeeeeeeeeee"
