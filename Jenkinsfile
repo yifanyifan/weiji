@@ -23,7 +23,12 @@ node {
         echo docker ps -f "name=${containerName}"
         echo "11111111111111111111"
         // 删除旧镜像
-        if(docker ps -f "name=${containerName}" != null){
+        HAHA = false;
+        echo HAHA
+        HAHA = docker ps -f "name=${containerName}"
+        echo HAHA
+        if(HAHA != true){
+            echo "222222222"
             sh "docker stop ${containerName}"
         }
         /* if(){
