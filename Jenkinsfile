@@ -10,29 +10,28 @@ def harbor_url = "47.103.28.119"
 def harbor_project_name = "weiji"
 def harbor_auth = "e167b9b4-f48b-43b4-acf8-384d06970c09"
 //定义镜像名称
-//def imageName = "${project_name}-${image_tag}:${tag}"
+def imageName = "${project_name}-${image_tag}:${tag}"
+def containerName = "${project_name}-${image_tag}"
 node {
     def mvnHome
     stage('Pull') {
-        // 1. 拉取代码
+        //拉取代码
         checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
-        echo '111111111111111'
-        //cd "${dockerWKS}"
-        //sh "docker-compose down"
+        // 删除旧镜像
+        sh "docker stop ${containerName}"
+        sh "docker rm ${containerName}"
+        sh "docker rmi ${imageName}"
     }
     stage('Build') {
-        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
-        sh "mvn clean install -N -DskipTests"
-        //2. 编译打包，构建本地镜像
-        sh "mvn -f weiji-interface clean install -DskipTests"
-        sh "mvn -f weiji-utils clean install -DskipTests"
-        sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
-        //sh "mvn -f ${project_name} clean package -DskipTests"
-        // 给镜像打标签 harbor uas
-        //sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
+//         //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+//         sh "mvn clean install -N -DskipTests"
+//         //2. 编译打包，构建本地镜像
+//         sh "mvn -f weiji-interface clean install -DskipTests"
+//         sh "mvn -f weiji-utils clean install -DskipTests"
+//         sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
     }
     /*stage('Push') {
         echo 'Push To Harbor...'
