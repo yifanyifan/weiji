@@ -23,7 +23,10 @@ node {
         echo "000000000000000"
         AAA = sh "docker ps -f 'name=${containerName}'"
         echo AAA
-        echo "11111111111111111111"
+        if(AAA){
+            echo "11111111111111111111"
+        }
+        echo "xxxxxxxxxx"
         // 删除旧镜像
         HAHA = false;
         echo HAHA
