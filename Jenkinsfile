@@ -20,10 +20,18 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
+        echo docker ps -f "name=${containerName}"
+        echo "11111111111111111111"
         // 删除旧镜像
-        sh "docker stop ${containerName}"
-        sh "docker rm ${containerName}"
-        sh "docker rmi ${imageName}"
+        if(docker ps -f "name=${containerName}" != null){
+            sh "docker stop ${containerName}"
+        }
+        /* if(){
+            sh "docker rm ${containerName}"
+        }
+        if(){
+            sh "docker rmi ${imageName}"
+        } */
     }
     stage('Build') {
 //         //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
