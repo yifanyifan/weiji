@@ -5,14 +5,12 @@ server:
 spring:
   application:
     name: weiji-consumer
+  profiles:
+    active: @package.env@ # 在dev prod中配置
   cloud:
     nacos:
-      discovery:
-        server-addr: http://localhost2:8848
       config:
-        file-extension: yaml  # 必须修改成yaml
-        group: DEFAULT_GROUP  # 缺省即可
-        prefix: ${spring.application.name} # 缺省即可
+        enabled: false
 #eureka:
 #  instance:
 #    prefer-ip-address: true
