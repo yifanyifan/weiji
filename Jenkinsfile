@@ -25,8 +25,15 @@ node {
         echo AAA
         if(AAA != null){
             echo "eeeeeeeeeeeeeeeee"
-        }else{
+        }
+        if(AAA == null){
             echo "rrrrrrrrrrrrrrr"
+        }
+        if(AAA){
+            echo "yyyyyyyyyyyyyy"
+        }
+        if(!AAA){
+            echo "uuuuuuuuuuuuuu"
         }
         if(AAA != null){
             echo "remove docker ps"
