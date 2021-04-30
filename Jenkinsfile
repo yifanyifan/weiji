@@ -20,7 +20,7 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
-        /* echo "000000000000000"
+        echo "000000000000000"
         AAA = sh "docker ps -f 'name=${containerName}'"
         if(AAA != null){
             echo "remove docker ps"
@@ -35,15 +35,15 @@ node {
         if(CCC != null){
             echo "remove docker images"
             sh "docker rmi ${imageName}"
-        } */
+        }
     }
     stage('Build') {
-        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
-        sh "mvn clean install -N -DskipTests"
-        //2. 编译打包，构建本地镜像
-        sh "mvn -f weiji-interface clean install -DskipTests"
-        sh "mvn -f weiji-utils clean install -DskipTests"
-        sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
+//         //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+//         sh "mvn clean install -N -DskipTests"
+//         //2. 编译打包，构建本地镜像
+//         sh "mvn -f weiji-interface clean install -DskipTests"
+//         sh "mvn -f weiji-utils clean install -DskipTests"
+//         sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
     }
     /*stage('Push') {
         echo 'Push To Harbor...'
