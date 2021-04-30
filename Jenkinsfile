@@ -21,7 +21,9 @@ node {
     }
     stage('remove') {
         echo "000000000000000"
-        echo 'sh docker ps -f "name=${containerName}" == false'
+        if(sh docker ps -f "name=${containerName}"){
+            echo "ddddddddddddddddddd"
+        }
         echo "11111111111111111111"
         // 删除旧镜像
         HAHA = false;
