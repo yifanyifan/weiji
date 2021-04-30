@@ -22,6 +22,12 @@ node {
     stage('remove') {
         echo "000000000000000"
         AAA = sh "docker ps -f 'name=${containerName}'"
+        echo AAA
+        if(AAA != null){
+            echo "eeeeeeeeeeeeeeeee"
+        }else{
+            echo "rrrrrrrrrrrrrrr"
+        }
         if(AAA != null){
             echo "remove docker ps"
             sh "docker stop ${containerName}"
