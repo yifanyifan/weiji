@@ -23,7 +23,7 @@ node {
         echo "000000000000000"
         AAA = sh "docker ps -f 'name=${containerName}'"
         echo AAA
-        if(AAA){
+        if(AAA != null){
             echo "11111111111111111111"
         }
         echo "xxxxxxxxxx"
