@@ -25,6 +25,11 @@ node {
         echo AAA
         if(AAA != null){
             echo "11111111111111111111"
+        }else{
+            echo "aaaaaaaaaaaaaa"
+        }
+        if(AAA == null){
+            echo "bbbbbbbbbbbbb"
         }
         echo "xxxxxxxxxx"
         // 删除旧镜像
