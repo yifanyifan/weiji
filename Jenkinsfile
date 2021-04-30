@@ -29,12 +29,19 @@ node {
         if(AAA == null){
             echo "rrrrrrrrrrrrrrr"
         }
+        if(AAA == 'null'){
+            echo "bbbbbbbbbbbbbbb"
+        }
+        if(AAA != 'null'){
+            echo "nnnnnnnnnnnnnn"
+        }
         if(AAA){
             echo "yyyyyyyyyyyyyy"
         }
         if(!AAA){
             echo "uuuuuuuuuuuuuu"
         }
+
         if(AAA != null){
             echo "remove docker ps"
             sh "docker stop ${containerName}"
