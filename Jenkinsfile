@@ -24,7 +24,7 @@ node {
         AAA = {sh "docker ps -f 'name=${containerName}' | wc -l"}
         echo "__________________"
         echo AAA
-        if(AAA == 1){
+        /* if(AAA == 1){
             echo "!!!!!!"
         }
         if(AAA == '1'){
@@ -53,7 +53,7 @@ node {
         }
         if(!AAA){
             echo "uuuuuuuuuuuuuu"
-        }
+        } */
 
         if(AAA != null){
             echo "remove docker ps"
