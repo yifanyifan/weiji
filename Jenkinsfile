@@ -23,7 +23,9 @@ node {
         ZZZZ = ''
         script{
           ZZZZ = sh 'docker --version'
+          echo 'sdfsdfdsf'
           echo sh 'docker --version'
+          echo 'wer234234'
           echo ZZZZ
         }
         echo ZZZZ
