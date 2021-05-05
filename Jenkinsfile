@@ -21,7 +21,7 @@ node {
     }
     stage('remove') {
         echo "000000000000000"
-        AAA = 1 //{sh "docker ps -f 'name=${containerName}' | wc -l"}
+        AAA = docker ps -f 'name=${containerName}' //{sh "docker ps -f 'name=${containerName}' | wc -l"}
         echo "__________________"
         echo AAA
         if(AAA == 1){
