@@ -22,7 +22,8 @@ node {
     stage('remove') {
         ZZZZ = ''
         script{
-          ZZZZ = "sh 'docker --version'"
+          ZZZZ = sh 'docker --version'
+          echo ZZZZ
         }
         echo ZZZZ
         echo "000000000000000"
