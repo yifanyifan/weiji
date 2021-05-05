@@ -23,6 +23,7 @@ node {
         ZZZZ = ''
         script{
           ZZZZ = sh 'docker --version'
+          echo sh 'docker --version'
           echo ZZZZ
         }
         echo ZZZZ
