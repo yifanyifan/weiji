@@ -21,7 +21,7 @@ node {
     }
     stage('remove') {
         echo "000000000000000"
-        AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
+        String AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
         echo "__________________"
         echo AAA
         if(AAA != null){
@@ -29,6 +29,19 @@ node {
         }
         if(AAA == null){
             echo "rrrrrrrrrrrrrrr"
+        }
+        echo "666666666666666"
+        script {
+            echo "9999999999"
+            String BBB = sh "docker ps -f 'name=${containerName}' | wc -l"
+            echo "__________________"
+            echo BBB
+            if(BBB != null){
+                echo "888888888"
+            }
+            if(BBB == null){
+                echo "7777777777"
+            }
         }
 
 
