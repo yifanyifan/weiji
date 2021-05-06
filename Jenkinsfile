@@ -24,36 +24,13 @@ node {
         AAA = {sh "docker ps -f 'name=${containerName}' | wc -l"}
         echo "__________________"
         echo AAA
-        if(AAA == 1){
-            echo "!!!!!!"
-        }
-        if(AAA == '1'){
-            echo "@@@@@@@@"
-        }
-        if(AAA == 2){
-            echo "################"
-        }
-        if(AAA == '2'){
-            echo "&&&&&&&&&&&&&&&"
-        }
         if(AAA != null){
             echo "eeeeeeeeeeeeeeeee"
         }
         if(AAA == null){
             echo "rrrrrrrrrrrrrrr"
         }
-        if(AAA == 'null'){
-            echo "bbbbbbbbbbbbbbb"
-        }
-        if(AAA != 'null'){
-            echo "nnnnnnnnnnnnnn"
-        }
-        if(AAA){
-            echo "yyyyyyyyyyyyyy"
-        }
-        if(!AAA){
-            echo "uuuuuuuuuuuuuu"
-        }
+
 
         if(AAA != null){
             echo "remove docker ps"
