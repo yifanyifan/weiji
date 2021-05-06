@@ -20,15 +20,6 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
-        ZZZZ = ''
-        script{
-          ZZZZ = sh 'docker --version'
-          echo 'sdfsdfdsf'
-          echo sh 'docker --version'
-          echo 'wer234234'
-          echo ZZZZ
-        }
-        echo ZZZZ
         echo "000000000000000"
         AAA = docker ps -f 'name=${containerName}' //{sh "docker ps -f 'name=${containerName}' | wc -l"}
         echo "__________________"
