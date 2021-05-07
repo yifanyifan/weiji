@@ -45,7 +45,8 @@ node {
         //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
         sh "mvn -f weiji-utils clean install -DskipTests"
-        sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
+        //sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
+        sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests"
     }
     stage('启动镜像') {
         //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
