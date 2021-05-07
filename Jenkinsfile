@@ -22,6 +22,7 @@ node {
     stage('删除镜像') {
         AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         AAA = AAA.trim()
+        echo AAA
         if (AAA == '2') {
             echo "=======================> docker stop ${containerName}"
             sh "docker stop ${containerName}"
