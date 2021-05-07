@@ -20,27 +20,19 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
-        echo "000000000000000"
-        result = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
-        echo "3---->" + result
-        excuteCode = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStatus: true)
-        echo "4---->" + excuteCode
-        excuteCode = sh(script: "docker ps -f 'name=sdfsdf' | wc -l", returnStatus: true)
-        echo "5---->" + excuteCode
-        echo "123123123123123"
-        String AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
-        if(AAA != null){
-            echo "remove docker ps"
+        AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
+        if(AAA > 1){
+            echo "docker stop ${containerName}"
             sh "docker stop ${containerName}"
         }
-        BBB = sh "docker ps -a -f 'name=${containerName}'"
-        if(BBB != null){
-            echo "remove docker ps -a"
+        BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
+        if(BBB > 1){
+            echo "docker rm ${containerName}"
             sh "docker rm ${containerName}"
         }
-        CCC = sh "docker images ${imageName}"
-        if(CCC != null){
-            echo "remove docker images"
+        CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
+        if(CCC > 1){
+            echo "docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
         }
     }
