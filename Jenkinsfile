@@ -50,8 +50,9 @@ node {
 
         //cd "${dockerWKS}"
 
-        DDD = sh(script: "mvn -f asdasd clean", returnStatus: true)
-        echo DDD
+        XXX = sh(script: "mvn -f asdasd clean", returnStatus: true)
+        XXX = XXX.trim();
+        echo XXX
     }
     stage('启动镜像') {
         //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
