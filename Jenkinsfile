@@ -40,15 +40,15 @@ node {
         } */
     }
     stage('编译打包') {
-        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
-        /* sh "mvn clean install -N -DskipTests"
+        /* //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+        sh "mvn clean install -N -DskipTests"
         //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
         sh "mvn -f weiji-utils clean install -DskipTests"
         //sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
         sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests" */
 
-        DDD = sh(script: "mvn -f asdasd clean package -P prod docker:build -DskipTests", returnStdout: true)
+        DDD = sh(script: "mvn -f asdasd clean", returnStdout: true)
         echo DDD
     }
     stage('启动镜像') {
