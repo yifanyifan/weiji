@@ -20,21 +20,33 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
+        environment {
+            BRANCH_NAME = 'master'
+        }
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
+        }
+
+        echo "======================================="
+
+
         def AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         echo "1--x-->"+AAA
-        if(env.AAA == '2'){
+        if (env.AAA == '2') {
             echo "docker stop ${containerName}"
             sh "docker stop ${containerName}"
         }
         def BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
         echo "2--x-->"+BBB
-        if(env.BBB == "2"){
+        if (env.BBB == "2") {
             echo "docker rm ${containerName}"
             sh "docker rm ${containerName}"
         }
         def CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
         echo "3--x-->"+CCC
-        if(env.CCC == "2"){
+        if (env.CCC == "2") {
             echo "docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
         }
