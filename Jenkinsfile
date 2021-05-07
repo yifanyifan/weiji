@@ -48,6 +48,8 @@ node {
         //sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
         sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests" */
 
+        //cd "${dockerWKS}"
+
         DDD = sh(script: "mvn -f asdasd clean", returnStatus: true)
         echo DDD
     }
