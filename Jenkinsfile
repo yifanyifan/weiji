@@ -47,21 +47,9 @@ node {
         sh "mvn -f weiji-utils clean install -DskipTests"
         sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
     }
-    /*stage('Push') {
-        echo 'Push To Harbor...'
-        withCredentials([usernamePassword(credentialsId: '8072ac6a-7b14-4948-8758-9ec8bd4498c2', passwordVariable: 'password', usernameVariable: 'username')]) {
-            // 登录
-            sh "docker login -u ${username} -p ${password} ${harbor_url}"
-            //3. 上传镜像
-            sh "docker push ${harbor_url}/${harbor_project_name}/${imageName}"
-            //docker pull 47.103.28.119/weiji/weiji-eureka-0.0.1:latest
-            //docker run -p 6001:6001 -d 47.103.28.119/weiji/weiji-eureka-0.0.1:latest
-        }
-    }*/
-    stage('UP') {
-        echo '33333333333333333'
-        //cd "${dockerWKS}"
-        //sh "docker-compose -f docker-compose.yml build weiji-eureka"
-        //sh "docker-compose -f docker-compose.yml up -d"
+    stage('启动镜像') {
+        //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
+//         sh "docker-compose -f docker-compose.yml build weiji-eureka"
+//         sh "docker-compose -f docker-compose.yml up -d"
     }
 }
