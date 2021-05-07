@@ -21,6 +21,11 @@ node {
     }
     stage('remove') {
         echo "000000000000000"
+        result = sh returnStdout: true ,script: "docker ps -f 'name=${containerName}' | wc -l"
+        result = result.trim()
+        echo result
+
+        echo "123123123123123"
         String AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
         if(AAA != null){
             echo "remove docker ps"
