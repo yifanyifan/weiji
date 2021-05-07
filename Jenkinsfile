@@ -22,13 +22,13 @@ node {
     stage('remove') {
         echo "000000000000000"
         result = sh returnStdout: true ,script: "docker ps -f 'name=${containerName}' | wc -l"
-        echo result
+        echo "1---->" + result
         result = sh returnStdout: true ,script: "docker ps -f 'name=${containerName}'"
-        echo result
+        echo "2---->" + result
         result = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
-        echo result
+        echo "3---->" + result
         excuteCode = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStatus: true)
-        echo excuteCode
+        echo "4---->" + excuteCode
         echo "123123123123123"
         String AAA = sh "docker ps -f 'name=${containerName}' | wc -l"
         if(AAA != null){
