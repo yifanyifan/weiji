@@ -20,7 +20,7 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('删除镜像') {
-        AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
+        /* AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         AAA = AAA.trim()
         if (AAA == '2') {
             echo "=======================> docker stop ${containerName}"
@@ -37,16 +37,19 @@ node {
         if (CCC == "2") {
             echo "=======================> docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
-        }
+        } */
     }
     stage('编译打包') {
         //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
-        sh "mvn clean install -N -DskipTests"
+        /* sh "mvn clean install -N -DskipTests"
         //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
         sh "mvn -f weiji-utils clean install -DskipTests"
         //sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
-        sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests"
+        sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests" */
+
+        DDD = sh(script: "mvn -f asdasd clean package -P prod docker:build -DskipTests", returnStdout: true)
+        echo DDD
     }
     stage('启动镜像') {
         //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
