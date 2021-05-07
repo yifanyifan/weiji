@@ -50,13 +50,14 @@ node {
 
         //cd "${dockerWKS}"
 
-        ZZZ = sh(script: "ls", returnStdout: true)
+        ZZZ = sh(script: "find . -maxdepth 1 -name ${project_name} | wc -l", returnStdout: true)
         ZZZ = ZZZ.trim();
-        echo ZZZ
-
-        XXX = sh(script: "mvn -f asdasd clean", returnStatus: true)
-        XXX = XXX.trim();
-        echo XXX
+        if(ZZZ == '0'){
+            echo 'aaaaaa00000000000'
+        }
+        if(ZZZ == '1'){
+            echo 'aaaaaa00000000000'
+        }
     }
     stage('启动镜像') {
         //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
