@@ -50,6 +50,10 @@ node {
 
         //cd "${dockerWKS}"
 
+        ZZZ = sh(script: "ls", returnStdout: true)
+        ZZZ = ZZZ.trim();
+        echo ZZZ
+
         XXX = sh(script: "mvn -f asdasd clean", returnStatus: true)
         XXX = XXX.trim();
         echo XXX
