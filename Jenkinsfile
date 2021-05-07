@@ -22,6 +22,8 @@ node {
     stage('remove') {
         echo "000000000000000"
         result = sh returnStdout: true ,script: "docker ps -f 'name=${containerName}' | wc -l"
+        echo "999999999999999999999"
+        echo result
         result = result.trim()
         echo result
 
