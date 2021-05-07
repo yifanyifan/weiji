@@ -56,7 +56,7 @@ node {
             echo 'aaaaaa00000000000'
         }
         if(ZZZ == '1'){
-            echo 'aaaaaa00000000000'
+            echo 'aaaaaa1111111111'
         }
     }
     stage('启动镜像') {
