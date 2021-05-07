@@ -20,21 +20,21 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('remove') {
-        AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
+        def AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         echo "1---->"+AAA
-        if(AAA == 2){
+        if(AAA == "2"){
             echo "docker stop ${containerName}"
             sh "docker stop ${containerName}"
         }
-        BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
+        def BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
         echo "2---->"+BBB
-        if(BBB == 2){
+        if(BBB == "2"){
             echo "docker rm ${containerName}"
             sh "docker rm ${containerName}"
         }
-        CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
+        def CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
         echo "3---->"+CCC
-        if(CCC == 2){
+        if(CCC == "2"){
             echo "docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
         }
