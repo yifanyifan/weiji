@@ -57,7 +57,6 @@ node {
     }
     stage('启动镜像') {
         //docker run -d  --net app_net --name weiji-gateway-0.0.1 -p 9999:9999 weiji-gateway-0.0.1:latest
-//         sh "docker-compose -f docker-compose.yml build weiji-eureka"
-//         sh "docker-compose -f docker-compose.yml up -d"
+        sh "docker-compose -f docker-compose.yml up -d ${project_name}"
     }
 }
