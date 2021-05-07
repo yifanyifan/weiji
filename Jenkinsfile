@@ -21,19 +21,19 @@ node {
     }
     stage('remove') {
         def AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
-        echo "1---->"+AAA
-        if(AAA == "2"){
+        echo "1--x-->"+AAA
+        if(AAA == '2'){
             echo "docker stop ${containerName}"
             sh "docker stop ${containerName}"
         }
         def BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
-        echo "2---->"+BBB
+        echo "2--x-->"+BBB
         if(BBB == "2"){
             echo "docker rm ${containerName}"
             sh "docker rm ${containerName}"
         }
         def CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
-        echo "3---->"+CCC
+        echo "3--x-->"+CCC
         if(CCC == "2"){
             echo "docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
