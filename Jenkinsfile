@@ -14,41 +14,38 @@ def imageName = "${project_name}-${image_tag}:${tag}"
 def containerName = "${project_name}-${image_tag}"
 node {
     def mvnHome
-    stage('Pull') {
+    stage('拉取代码') {
         //拉取代码
         checkout([$class: 'GitSCM', branches: [[name: '*/${branch}']], extensions: [],
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
-    stage('remove') {
+    stage('删除镜像') {
         AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         AAA = AAA.trim()
-        echo "1--x-->"+AAA
         if (AAA == '2') {
-            echo "docker stop ${containerName}"
+            echo "=======================> docker stop ${containerName}"
             sh "docker stop ${containerName}"
         }
         BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
-        echo "2--x-->"+BBB
         BBB = BBB.trim()
         if (BBB == "2") {
-            echo "docker rm ${containerName}"
+            echo "=======================> docker rm ${containerName}"
             sh "docker rm ${containerName}"
         }
         CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
-        echo "3--x-->"+CCC
         CCC = CCC.trim()
         if (CCC == "2") {
-            echo "docker rmi ${imageName}"
+            echo "=======================> docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
         }
     }
-    stage('Build') {
-//         //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
-//         sh "mvn clean install -N -DskipTests"
-//         //2. 编译打包，构建本地镜像
-//         sh "mvn -f weiji-interface clean install -DskipTests"
-//         sh "mvn -f weiji-utils clean install -DskipTests"
-//         sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
+    stage('编译打包') {
+        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+        sh "mvn clean install -N -DskipTests"
+        //2. 编译打包，构建本地镜像
+        sh "mvn -f weiji-interface clean install -DskipTests"
+        sh "mvn -f weiji-utils clean install -DskipTests"
+        sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
     }
     /*stage('Push') {
         echo 'Push To Harbor...'
