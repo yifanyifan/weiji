@@ -20,7 +20,7 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('删除镜像') {
-        /* AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
+        AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
         AAA = AAA.trim()
         if (AAA == '2') {
             echo "=======================> docker stop ${containerName}"
@@ -37,26 +37,22 @@ node {
         if (CCC == "2") {
             echo "=======================> docker rmi ${imageName}"
             sh "docker rmi ${imageName}"
-        } */
+        }
     }
     stage('编译打包') {
-        /* //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
+        //1. 编译父工程【-N:取消递归，父子结构下需先编译父工程，否则子工程编译时失败（如：weiji-gateway报找不到父工程pom等）】
         sh "mvn clean install -N -DskipTests"
         //2. 编译打包，构建本地镜像
         sh "mvn -f weiji-interface clean install -DskipTests"
         sh "mvn -f weiji-utils clean install -DskipTests"
-        //sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
-        sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests" */
-
-        //cd "${dockerWKS}"
-
+        //判断当前目录是否有该工程，工程也可能在weiji-module里面（如weiji-auth）。
         ZZZ = sh(script: "find . -maxdepth 1 -name ${project_name} | wc -l", returnStdout: true)
         ZZZ = ZZZ.trim();
         if(ZZZ == '0'){
-            echo 'aaaaaa00000000000'
+            sh "mvn -f weiji-module/${project_name} clean package -P prod docker:build -DskipTests"
         }
         if(ZZZ == '1'){
-            echo 'aaaaaa1111111111'
+            sh "mvn -f ${project_name} clean package -P prod docker:build -DskipTests"
         }
     }
     stage('启动镜像') {
