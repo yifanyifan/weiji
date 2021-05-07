@@ -11,7 +11,6 @@ def harbor_project_name = "weiji"
 def harbor_auth = "e167b9b4-f48b-43b4-acf8-384d06970c09"
 //定义镜像名称
 def imageName = "${project_name}-${image_tag}:${tag}"
-def containerName = "${project_name}-${image_tag}"
 node {
     def mvnHome
     stage('拉取代码') {
@@ -20,18 +19,18 @@ node {
         userRemoteConfigs: [[credentialsId: "${gitlab_auth}", url: "${project_url}"]]])
     }
     stage('删除镜像') {
-        AAA = sh(script: "docker ps -f 'name=${containerName}' | wc -l", returnStdout: true)
+        AAA = sh(script: "docker ps -f 'name=${project_name}' | wc -l", returnStdout: true)
         AAA = AAA.trim()
         echo AAA
         if (AAA == '2') {
-            echo "=======================> docker stop ${containerName}"
-            sh "docker stop ${containerName}"
+            echo "=======================> docker stop ${project_name}"
+            sh "docker stop ${project_name}"
         }
-        BBB = sh(script: "docker ps -a -f 'name=${containerName}' | wc -l", returnStdout: true)
+        BBB = sh(script: "docker ps -a -f 'name=${project_name}' | wc -l", returnStdout: true)
         BBB = BBB.trim()
         if (BBB == "2") {
-            echo "=======================> docker rm ${containerName}"
-            sh "docker rm ${containerName}"
+            echo "=======================> docker rm ${project_name}"
+            sh "docker rm ${project_name}"
         }
         CCC = sh(script: "docker images ${imageName} | wc -l", returnStdout: true)
         CCC = CCC.trim()
