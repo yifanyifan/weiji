@@ -16,7 +16,7 @@ spring:
           lower-case-service-id: true # 设置路由的路径为小写的服务ID
       routes:
         - id: weiji-order
-          uri: lb://weiji-order
+          uri: lb://weiji-order #如果使用lb:开头，表示使用注册的服务进行负载均衡
           predicates:
             - Path=/weiji-order/**
           filters:
