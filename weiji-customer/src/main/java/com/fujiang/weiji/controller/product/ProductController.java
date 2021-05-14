@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    //@Autowired
+    @Autowired
     private ServiceFeign serviceFeign;
-    //@Autowired
+    @Autowired
     private OrderFeign orderFeign;
 
     @RequestMapping(value = "getConsumer", method = RequestMethod.GET)
