@@ -1,10 +1,10 @@
 server:
   port: 7001
-  servlet:
-    context-path: /consumer
+  #servlet:
+  #  context-path: /customer
 spring:
   application:
-    name: weiji-consumer
+    name: weiji-customer
   profiles:
     active: @package.env@ # 在dev prod中配置
   cloud:
@@ -47,15 +47,15 @@ hystrix:
         #当在配置时间（timeoutInMilliseconds）窗口内达到此数量的失败后，进行短路（直接降级掉）。默认20个。建议：QPS*窗口描述*60%
         requestVolumeThreshold: 5
         #短路多久以后开始尝试是否恢复（正常请求，正常等待），默认5s
-        sleepWindowInMilliseconds: 5000
+        sleepWindowInMilliseconds: 20000
         #出错百分比阈值，当达到此阈值后，开始短路。默认50%
         errorThresholdPercentage: 50
 weiji-service:
   ribbon:
     #BestAvailableRule #最空闲连接策略 RandomRule #随机 / RoundRobinRule #轮询 / RetryRule #重试 / WeightedResponseTimeRule #响应时间权重
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-    ConnectTimeout: 1000 #请求连接超时时间 默认1000毫秒
-    ReadTimeout: 4000 #请求处理的超时时间 默认1000毫秒
+    ConnectTimeout: 3000 #请求连接超时时间 默认1000毫秒
+    ReadTimeout: 2000 #请求处理的超时时间 默认1000毫秒
     OkToRetryOnAllOperations: true #对所有请求都进行重试
     MaxAutoRetries: 1 #对当前实例的重试次数
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数

@@ -27,7 +27,7 @@ public class ProductController {
     public String getProduct() throws InterruptedException {
         //实现
         Product product = new Product();
-        //Thread.sleep(3000);
+        Thread.sleep(20000);
         logger.info("============================>dddddddwer1111111111111111111111111111111111");
 
         return port + ":" + JSON.toJSONString(product) + ":XXX";
