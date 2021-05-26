@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fujiang.weiji.enumeration.BaseEntity;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +31,21 @@ public class User extends BaseEntity {
 
     @TableField("pass_word")
     private String passWord;
+
+    @TableField("nick_name")
+    private String nickName;
+
+    @TableField("salt")
+    private String salt;
+
+    @TableField("token")
+    private String token;
+
+    @TableField("gmt_create")
+    private Date gmtCreate;
+
+    @TableField("gmt_modified")
+    private Date gmtModified;
 
     @TableField(exist = false)
     private List<Role> roleList;

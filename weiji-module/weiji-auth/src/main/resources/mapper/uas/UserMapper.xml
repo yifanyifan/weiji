@@ -17,6 +17,10 @@
         select * from user where user_name = #{userName} and pass_word = #{passWord}
     </select>
 
+    <select id="getUserByUserName" resultType="com.fujiang.weiji.entity.uas.User">
+        select * from user where user_name = #{userName}
+    </select>
+
     <resultMap id="BaseResultMapTree" type="com.fujiang.weiji.entity.uas.User">
         <id column="id" property="id"/>
         <result column="user_name" property="userName"/>

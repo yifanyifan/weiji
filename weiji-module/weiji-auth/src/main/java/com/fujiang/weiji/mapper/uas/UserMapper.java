@@ -19,5 +19,7 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
     User getUserByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
 
+    List<User> getUserByUserName(@Param("userName") String userName);
+
     List<User> selectUserTree();
 }

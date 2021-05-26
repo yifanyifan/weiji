@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
 
-@Component
+//@Component
 public class AuthFilter implements GlobalFilter {
     //不需要校验的路径
     private String[] skipAuthUrls = {"/token/login", "/token/userId", "refresh"};

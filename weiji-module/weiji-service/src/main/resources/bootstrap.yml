@@ -11,6 +11,18 @@ spring:
     nacos:
       config:
         enabled: false
+  rabbitmq:
+    host: 47.103.28.119
+    port: 5672
+    username: root
+    password: root
+    #虚拟host 可以不设置,使用server默认host
+    virtual-host: /yifan
+    #开启 confirm 确认机制
+    publisher-confirm-type: correlated
+    #开启 return 确认机制
+    publisher-returns: true
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.103.28.119:3306/weiji_env?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&useSSL=false&allowPublicKeyRetrieval=true

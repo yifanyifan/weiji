@@ -7,6 +7,10 @@ spring:
     name: weiji-auth
   profiles:
     active: @package.env@ # 在dev prod中配置
+#  security:
+#    user:
+#      name: admin  # 用户名
+#      password: 123456  # 密码
   redis:
     database: 4
     host: 47.103.28.119

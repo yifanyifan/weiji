@@ -25,6 +25,11 @@ public class DataResponse implements Serializable {
     public DataResponse() {
     }
 
+    public DataResponse(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     public DataResponse(Integer code, String msg, Object object) {
         this.code = code;
         this.msg = msg;
